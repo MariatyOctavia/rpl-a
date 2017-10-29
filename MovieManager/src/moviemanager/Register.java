@@ -50,8 +50,8 @@ public class Register extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
-        menuMasuk = new javax.swing.JCheckBoxMenuItem();
-        menuDaftar = new javax.swing.JCheckBoxMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -108,24 +108,27 @@ public class Register extends javax.swing.JFrame {
         jMenuBar1.add(jMenu5);
 
         jMenu1.setText("User");
-
-        menuMasuk.setSelected(true);
-        menuMasuk.setText("Masuk");
-        menuMasuk.addActionListener(new java.awt.event.ActionListener() {
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuMasukActionPerformed(evt);
+                jMenu1ActionPerformed(evt);
             }
         });
-        jMenu1.add(menuMasuk);
 
-        menuDaftar.setSelected(true);
-        menuDaftar.setText("Daftar");
-        menuDaftar.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1.setText("Masuk");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuDaftarActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(menuDaftar);
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Daftar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
@@ -143,8 +146,8 @@ public class Register extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(pfPass, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,20 +223,6 @@ public class Register extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNamaActionPerformed
 
-    private void menuDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDaftarActionPerformed
-        // TODO add your handling code here:
-        Register formRegister = new Register();
-        formRegister.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        formRegister.setVisible(true);
-    }//GEN-LAST:event_menuDaftarActionPerformed
-
-    private void menuMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMasukActionPerformed
-        // TODO add your handling code here:
-        Login formLogin = new Login();
-        formLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        formLogin.setVisible(true);
-    }//GEN-LAST:event_menuMasukActionPerformed
-
     private void daftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daftarActionPerformed
         // TODO add your handling code here:
         register();
@@ -243,6 +232,24 @@ public class Register extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setLocationRelativeTo(null);
     }//GEN-LAST:event_formWindowOpened
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Login formLogin = new Login();
+        formLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        formLogin.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void register(){
         String nama=tfNama.getText();
@@ -320,8 +327,8 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JCheckBoxMenuItem menuDaftar;
-    private javax.swing.JCheckBoxMenuItem menuMasuk;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPasswordField pfPass;
     private javax.swing.JPasswordField pfRetype;
     private javax.swing.JTextField tfEmail;

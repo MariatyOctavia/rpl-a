@@ -24,7 +24,7 @@ public class ModulDB {
     
     public static Connection connectDB(){
         
-        String path="jdbc:sqlite:E://MovieManager/moviemanager.db";
+        String path="jdbc:sqlite:E://Projek rpl/moviemanager.db";
         Connection con=null;
         try{
             con=DriverManager.getConnection(path);

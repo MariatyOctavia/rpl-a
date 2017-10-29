@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/MovieManager/src/moviemanager/Login.java</file>
-            <file>file:/E:/MovieManager/src/moviemanager/Film.java</file>
-            <file>file:/E:/MovieManager/src/moviemanager/Register.java</file>
-            <file>file:/E:/MovieManager/src/moviemanager/TambahFilm.java</file>
-            <file>file:/E:/MovieManager/src/moviemanager/Genre.java</file>
-            <file>file:/E:/MovieManager/src/moviemanager/Beranda.java</file>
+            <file>file:/E:/Projek%20rpl/moviemanager/src/moviemanager/Beranda.java</file>
+            <file>file:/E:/Projek%20rpl/moviemanager/src/moviemanager/Film.java</file>
+            <file>file:/E:/Projek%20rpl/moviemanager/src/moviemanager/Genre.java</file>
+            <file>file:/E:/Projek%20rpl/moviemanager/src/moviemanager/MovieManager.java</file>
+            <file>file:/E:/Projek%20rpl/moviemanager/src/moviemanager/Login.java</file>
+            <file>file:/E:/Projek%20rpl/moviemanager/src/moviemanager/Tampilan.java</file>
+            <file>file:/E:/Projek%20rpl/moviemanager/src/moviemanager/Register.java</file>
+            <file>file:/E:/Projek%20rpl/moviemanager/src/moviemanager/TambahFilm.java</file>
         </group>
     </open-files>
 </project-private>

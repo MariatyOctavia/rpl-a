@@ -5,6 +5,8 @@
  */
 package moviemanager;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author hp
@@ -39,17 +41,18 @@ public class TambahFilm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         tfAktor = new javax.swing.JTextField();
-        tfSinopsis = new javax.swing.JTextField();
         tfJudul = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         tambah = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jMenuBar2 = new javax.swing.JMenuBar();
         menuBeranda1 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
-        menuDaftar1 = new javax.swing.JCheckBoxMenuItem();
-        menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
 
         menuBeranda.setText("Beranda");
@@ -99,12 +102,6 @@ public class TambahFilm extends javax.swing.JFrame {
             }
         });
 
-        tfSinopsis.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfSinopsisActionPerformed(evt);
-            }
-        });
-
         tfJudul.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfJudulActionPerformed(evt);
@@ -125,28 +122,38 @@ public class TambahFilm extends javax.swing.JFrame {
 
         jLabel11.setText("Logo");
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
         menuBeranda1.setText("Beranda");
+        menuBeranda1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuBeranda1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                menuBeranda1MouseEntered(evt);
+            }
+        });
         jMenuBar2.add(menuBeranda1);
 
         jMenu3.setText("User");
 
-        menuDaftar1.setSelected(true);
-        menuDaftar1.setText("Daftar");
-        menuDaftar1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1.setText("Masuk");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuDaftar1ActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu3.add(menuDaftar1);
+        jMenu3.add(jMenuItem1);
 
-        menuMasuk1.setSelected(true);
-        menuMasuk1.setText("Masuk");
-        menuMasuk1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem2.setText("Daftar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuMasuk1ActionPerformed(evt);
+                jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu3.add(menuMasuk1);
+        jMenu3.add(jMenuItem2);
 
         jMenuBar2.add(jMenu3);
 
@@ -160,37 +167,39 @@ public class TambahFilm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(99, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel11)
+                                    .addContainerGap())
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(tambah)
+                                    .addGap(81, 81, 81))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel4))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(tfJudul, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+                                .addComponent(tfAktor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(70, 70, 70))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(tambah)
-                            .addGap(100, 100, 100))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(tfAktor, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(103, 103, 103))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(tfJudul, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tfSinopsis, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addComponent(jLabel5)
+                            .addGap(0, 0, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(149, 149, 149))))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel6)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel11)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,14 +218,18 @@ public class TambahFilm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(tfJudul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(tfSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(tambah)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(jLabel6))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addComponent(tambah)
+                        .addContainerGap())))
         );
 
         pack();
@@ -236,27 +249,9 @@ public class TambahFilm extends javax.swing.JFrame {
         //formLogin.setVisible(true);
     }//GEN-LAST:event_menuMasukActionPerformed
 
-    private void menuDaftar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDaftar1ActionPerformed
-        // TODO add your handling code here:
-        //Register formRegister = new Register();
-        //formRegister.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        //formRegister.setVisible(true);
-    }//GEN-LAST:event_menuDaftar1ActionPerformed
-
-    private void menuMasuk1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMasuk1ActionPerformed
-        // TODO add your handling code here:
-        //Login formLogin = new Login();
-        //formLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        //formLogin.setVisible(true);
-    }//GEN-LAST:event_menuMasuk1ActionPerformed
-
     private void tfAktorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfAktorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfAktorActionPerformed
-
-    private void tfSinopsisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSinopsisActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfSinopsisActionPerformed
 
     private void tfJudulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfJudulActionPerformed
         // TODO add your handling code here:
@@ -265,6 +260,34 @@ public class TambahFilm extends javax.swing.JFrame {
     private void tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tambahActionPerformed
+
+    private void menuBeranda1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuBeranda1MouseClicked
+        // TODO add your handling code here:
+        Beranda beranda = new Beranda();
+        beranda.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        beranda.setVisible(true);
+    }//GEN-LAST:event_menuBeranda1MouseClicked
+
+    private void menuBeranda1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuBeranda1MouseEntered
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_menuBeranda1MouseEntered
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Login formLogin = new Login();
+        formLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        formLogin.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:'
+        this.dispose();
+        Register formRegister = new Register();
+        formRegister.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        formRegister.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,15 +339,16 @@ public class TambahFilm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JMenu menuBeranda;
     private javax.swing.JMenu menuBeranda1;
     private javax.swing.JCheckBoxMenuItem menuDaftar;
-    private javax.swing.JCheckBoxMenuItem menuDaftar1;
     private javax.swing.JCheckBoxMenuItem menuMasuk;
-    private javax.swing.JCheckBoxMenuItem menuMasuk1;
     private javax.swing.JButton tambah;
     private javax.swing.JTextField tfAktor;
     private javax.swing.JTextField tfJudul;
-    private javax.swing.JTextField tfSinopsis;
     // End of variables declaration//GEN-END:variables
 }

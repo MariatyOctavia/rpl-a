@@ -371,6 +371,11 @@ public class Genre extends javax.swing.JFrame {
         jLabel11.setText("Logo");
 
         jMenu6.setText("Beranda");
+        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu6MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu6);
 
         jMenu3.setText("User");
@@ -500,6 +505,13 @@ public class Genre extends javax.swing.JFrame {
     private void menuDaftar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDaftar1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuDaftar1ActionPerformed
+
+    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
+        // TODO add your handling code here:
+        TambahFilm tambah = new TambahFilm();
+        tambah.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        tambah.setVisible(true);
+    }//GEN-LAST:event_jMenu6MouseClicked
 
     /**
      * @param args the command line arguments

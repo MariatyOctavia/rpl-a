@@ -93,8 +93,8 @@ public class Login extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menuBeranda = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
-        menuDaftar = new javax.swing.JCheckBoxMenuItem();
-        menuMasuk = new javax.swing.JCheckBoxMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         jLabel7.setText("____________________________");
@@ -147,27 +147,30 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setText("Copyright© Movie Manager 2017");
 
         menuBeranda.setText("Beranda");
+        menuBeranda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuBerandaMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(menuBeranda);
 
         jMenu1.setText("User");
 
-        menuDaftar.setSelected(true);
-        menuDaftar.setText("Daftar");
-        menuDaftar.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem3.setText("Masuk");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuDaftarActionPerformed(evt);
+                jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu1.add(menuDaftar);
+        jMenu1.add(jMenuItem3);
 
-        menuMasuk.setSelected(true);
-        menuMasuk.setText("Masuk");
-        menuMasuk.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem4.setText("Daftar");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuMasukActionPerformed(evt);
+                jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu1.add(menuMasuk);
+        jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
 
@@ -182,17 +185,24 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11)
+                        .addGap(70, 70, 70))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
+                        .addComponent(jLabel5)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(67, 67, 67)
                                         .addComponent(jLabel2))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(masuk, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                 .addGroup(layout.createSequentialGroup()
@@ -203,15 +213,10 @@ public class Login extends javax.swing.JFrame {
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(pfPass, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel11))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                                .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(masuk, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(42, 42, 42))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +227,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,7 +238,7 @@ public class Login extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(masuk))
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(jLabel5))
         );
 
@@ -253,19 +258,27 @@ public class Login extends javax.swing.JFrame {
         login();
     }//GEN-LAST:event_masukActionPerformed
 
-    private void menuDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDaftarActionPerformed
+    private void menuBerandaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuBerandaMouseClicked
         // TODO add your handling code here:
-        Register formRegister = new Register();
+        this.dispose();
+        Beranda beranda = new Beranda();
+        beranda.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        beranda.setVisible(true);
+    }//GEN-LAST:event_menuBerandaMouseClicked
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+         Register formRegister = new Register();
         formRegister.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         formRegister.setVisible(true);
-    }//GEN-LAST:event_menuDaftarActionPerformed
-
-    private void menuMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMasukActionPerformed
-        // TODO add your handling code here:
-        Login formLogin = new Login();
-        formLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        formLogin.setVisible(true);
-    }//GEN-LAST:event_menuMasukActionPerformed
+        
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -319,10 +332,10 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JButton masuk;
     private javax.swing.JMenu menuBeranda;
-    private javax.swing.JCheckBoxMenuItem menuDaftar;
-    private javax.swing.JCheckBoxMenuItem menuMasuk;
     private javax.swing.JPasswordField pfPass;
     private javax.swing.JTextField tfEmail;
     // End of variables declaration//GEN-END:variables
