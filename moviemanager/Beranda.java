@@ -5,6 +5,9 @@
  */
 package moviemanager;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.sql.Connection;
 import javax.swing.JFrame;
 
 /**
@@ -12,12 +15,17 @@ import javax.swing.JFrame;
  * @author hp
  */
 public class Beranda extends javax.swing.JFrame {
-
+    public static Login masuk = new Login ();
+    public static Register daftar = new Register ();
+    public static TambahFilm tambahkanFilm = new TambahFilm();
+    public static Genre kategoriFilm = new Genre();
     /**
      * Creates new form Home
      */
     public Beranda() {
         initComponents();
+        aturFrame(1.0,true);
+        //Connection conn = ModulDB.connectDB();
     }
 
     /**
@@ -39,7 +47,7 @@ public class Beranda extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         tfSearch = new javax.swing.JTextField();
-        tambahFilm = new javax.swing.JButton();
+        tambahFilmButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -51,6 +59,7 @@ public class Beranda extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menuDaftar1 = new javax.swing.JCheckBoxMenuItem();
         jMenu4 = new javax.swing.JMenu();
 
@@ -101,10 +110,10 @@ public class Beranda extends javax.swing.JFrame {
 
         tfSearch.setText("Search");
 
-        tambahFilm.setText("Tambah Film");
-        tambahFilm.addActionListener(new java.awt.event.ActionListener() {
+        tambahFilmButton.setText("Tambah Film");
+        tambahFilmButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tambahFilmActionPerformed(evt);
+                tambahFilmButtonActionPerformed(evt);
             }
         });
 
@@ -172,7 +181,6 @@ public class Beranda extends javax.swing.JFrame {
 
         jMenu3.setText("User");
 
-        menuMasuk1.setSelected(true);
         menuMasuk1.setText("Masuk");
         menuMasuk1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,8 +188,8 @@ public class Beranda extends javax.swing.JFrame {
             }
         });
         jMenu3.add(menuMasuk1);
+        jMenu3.add(jSeparator1);
 
-        menuDaftar1.setSelected(true);
         menuDaftar1.setText("Daftar");
         menuDaftar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,6 +201,11 @@ public class Beranda extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Genre");
+        jMenu4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu4ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
@@ -206,7 +219,7 @@ public class Beranda extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tambahFilm)
+                            .addComponent(tambahFilmButton)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -241,7 +254,7 @@ public class Beranda extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(tambahFilm)
+                .addComponent(tambahFilmButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jLabel2))
         );
@@ -249,37 +262,59 @@ public class Beranda extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+      private void aturFrame(double skala, boolean tengah){
+          Dimension dimensi= Toolkit.getDefaultToolkit().getScreenSize();
+          setSize((int)(skala*dimensi.getWidth()),(int)(skala*dimensi.getHeight()));
+          if(tengah){
+              setLocation((int)((dimensi.getWidth()-getWidth())/2),(int)((dimensi.getHeight()-getHeight())/2)); 
+          }
+      }
+    
     private void menuMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMasukActionPerformed
         // TODO add your handling code here:
-        Login formLogin = new Login();
+        /*Login formLogin = new Login();
         formLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        formLogin.setVisible(true);
+        formLogin.setVisible(true);*/
     }//GEN-LAST:event_menuMasukActionPerformed
 
     private void menuDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDaftarActionPerformed
         // TODO add your handling code here:
-        Register formRegister = new Register();
+      /*  Register formRegister = new Register();
         formRegister.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        formRegister.setVisible(true);
+        formRegister.setVisible(true);*/
     }//GEN-LAST:event_menuDaftarActionPerformed
 
     private void menuMasuk1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMasuk1ActionPerformed
-        // TODO add your handling code here:
-        Login formLogin = new Login();
-        formLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        formLogin.setVisible(true);
+  // TODO add your handling code here:
+
+      masuk.setVisible(true);
     }//GEN-LAST:event_menuMasuk1ActionPerformed
 
     private void menuDaftar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDaftar1ActionPerformed
         // TODO add your handling code here:
-        Register formRegister = new Register();
-        formRegister.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        formRegister.setVisible(true);
+        
+      daftar.setVisible(true);
     }//GEN-LAST:event_menuDaftar1ActionPerformed
 
-    private void tambahFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahFilmActionPerformed
+    private void tambahFilmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahFilmButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tambahFilmActionPerformed
+        new TambahFilm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_tambahFilmButtonActionPerformed
+
+    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+        // TODO add your handling code here:
+        //kategoriFilm.setVisible(true);
+        if(kategoriFilm.isVisible()){
+            try{
+                kategoriFilm.setSelected(true);
+            }catch(Exception ex){
+                kategoriFilm = new Genre();
+                add(kategoriFilm);
+                kategoriFilm.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_jMenu4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -336,11 +371,12 @@ public class Beranda extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JCheckBoxMenuItem menuDaftar;
     private javax.swing.JCheckBoxMenuItem menuDaftar1;
     private javax.swing.JCheckBoxMenuItem menuMasuk;
     private javax.swing.JCheckBoxMenuItem menuMasuk1;
-    private javax.swing.JButton tambahFilm;
+    private javax.swing.JButton tambahFilmButton;
     private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables
 }

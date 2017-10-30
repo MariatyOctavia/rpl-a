@@ -24,10 +24,11 @@ public class ModulDB {
     
     public static Connection connectDB(){
         
-        String path="jdbc:sqlite:E://MovieManager/moviemanager.db";
+        String path="jdbc:sqlite:C:\\Users\\HP\\Documents\\File Materi dan Tugas Semester 5\\RPL\\Program\\1\\moviemanager.db";
         Connection con=null;
         try{
             con=DriverManager.getConnection(path);
+            System.out.println("sukses");
         }
         catch(SQLException e){
             showMessageDialog(null,"Koneksi ke database gagal!","Error",JOptionPane.ERROR_MESSAGE);
