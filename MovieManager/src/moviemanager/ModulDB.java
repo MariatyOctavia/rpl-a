@@ -8,6 +8,9 @@ package moviemanager;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -24,15 +27,104 @@ public class ModulDB {
     
     public static Connection connectDB(){
         
-        String path="jdbc:sqlite:E://Projek rpl/moviemanager.db";
+        String path="jdbc:sqlite:E://Projek rpl//moviemanager.db";
         Connection con=null;
         try{
             con=DriverManager.getConnection(path);
+            System.out.println("sukses");
         }
         catch(SQLException e){
             showMessageDialog(null,"Koneksi ke database gagal!","Error",JOptionPane.ERROR_MESSAGE);
         }
         return con;
+    }
+    
+    public static ArrayList<String> selectSemuaFilm(){
+        ArrayList<String> pathGambars = new ArrayList<>();
+        try{ 
+             Connection conn = ModulDB.connectDB();
+             String sql = "select * from film;";
+             
+             java.sql.Statement st = conn.createStatement();
+             
+             java.sql.ResultSet rs = st.executeQuery(sql);
+             while(rs.next()){
+                 pathGambars.add(rs.getString("gambar"));
+             }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return pathGambars;
+        
+        
+    } 
+    
+    public static boolean createFilm(String judul, String sinopsis, String pathGambar
+                , String aktor,String genre, String  tahun){
+        try{ 
+             Connection conn = ModulDB.connectDB();
+             String sql = "insert into film(judul, sinopsis, gambar, aktor,genre,tahun)"+" values(?,?,?,?,?,?)";
+             java.sql.PreparedStatement st = conn.prepareStatement(sql);
+
+             try{
+                 
+                 st.setString(1,judul);
+                 st.setString(2,sinopsis);
+                 st.setString(3,pathGambar);
+                 st.setString(4,aktor);
+                 st.setString(5,genre);
+                 st.setString(6,tahun);
+                 
+                 int count  = st.executeUpdate();
+                 
+                 if(count > 0){
+                     return true;
+                 }
+             }catch(SQLException se){
+                System.out.println(se.getMessage());
+             }
+             st.close();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return false;
+    }
+
+    /**
+     *
+     * @param judul
+     * @param Sinopsis
+     * @param path
+     * @return
+     */
+    public static boolean editFilm(String judul,String sinopsis,String pathGambar,String aktor,String genre,String tahun){
+         try{ 
+             Connection conn = ModulDB.connectDB();
+             String sql = "update into film(judul, sinopsis, gambar, aktor,genre,tahun)"+" values(?,?, ?,?)";
+             java.sql.PreparedStatement st = conn.prepareStatement(sql);
+
+             try{
+                 
+                 st.setString(1,judul);
+                 st.setString(2,sinopsis);
+                 st.setString(3,pathGambar);
+                 st.setString(4,aktor);
+                 st.setString(5,genre);
+                 st.setString(6,tahun);
+                 int count  = st.executeUpdate();
+                 
+                 if(count > 0){
+                     return true;
+                 }
+             }catch(SQLException se){
+                System.out.println(se.getMessage());
+             }
+             st.close();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+         return false;
     }
     
 }

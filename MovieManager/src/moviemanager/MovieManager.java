@@ -16,8 +16,8 @@ public class MovieManager {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Beranda b = new Beranda();
-        b.setVisible(true);
+        Beranda beranda = new Beranda();
+        beranda.setVisible(true);
     }
     
 }

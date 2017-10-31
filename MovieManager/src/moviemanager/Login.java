@@ -5,7 +5,10 @@
  */
 package moviemanager;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JFrame;
@@ -24,6 +27,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+
     }
 
     /**
@@ -41,22 +45,25 @@ public class Login extends javax.swing.JFrame {
         if (!email.isEmpty()&& !password.isEmpty()){
             try{
                 Connection con=ModulDB.connectDB();
-                String sql="SELECT * FROM Userr WHERE email='"+email+"' AND password='"+password+"';";
-                Statement stmt=con.createStatement();
-                ResultSet result=stmt.executeQuery(sql);
+                String sql="SELECT * FROM Userr WHERE email= ? AND password= ?;";
+                PreparedStatement pstmt=con.prepareStatement(sql);
+                pstmt.setString(1,email);
+                pstmt.setString(2,password);
+                
+                ResultSet result= pstmt.executeQuery();
                 ModulDB.level=result.getString("level");
-                if(!result.next()){
+                if(result.getFetchSize() != 1){
                     showMessageDialog(null, "Email atau Password salah");
                 }
                 else{
                     //buat menyimpan
-                    ModulDB.id_user=result.getInt("id_user");
                     ModulDB.nama=result.getString("nama");
                     ModulDB.email=result.getString("email");
                     ModulDB.password=result.getString("password");
                     ModulDB.level=result.getString("level");
+                    JOptionPane.showMessageDialog(null, "Anda berhasil login");
                     
-                    new Beranda().setVisible(true);
+                    
                     this.dispose();//menyembunyikan halaman login
                 }
                 con.close();
@@ -64,7 +71,7 @@ public class Login extends javax.swing.JFrame {
                 
             }
             catch(Exception e){
-                showMessageDialog(null,e.getMessage(),"Error!", JOptionPane.ERROR_MESSAGE);
+               showMessageDialog(null,e.getMessage(),"Error!", JOptionPane.ERROR_MESSAGE);
             }
         }
         else
@@ -93,8 +100,8 @@ public class Login extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menuBeranda = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        menuDaftar = new javax.swing.JCheckBoxMenuItem();
+        menuMasuk = new javax.swing.JCheckBoxMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         jLabel7.setText("____________________________");
@@ -147,30 +154,27 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setText("Copyright© Movie Manager 2017");
 
         menuBeranda.setText("Beranda");
-        menuBeranda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuBerandaMouseClicked(evt);
-            }
-        });
         jMenuBar1.add(menuBeranda);
 
         jMenu1.setText("User");
 
-        jMenuItem3.setText("Masuk");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        menuDaftar.setSelected(true);
+        menuDaftar.setText("Daftar");
+        menuDaftar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                menuDaftarActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(menuDaftar);
 
-        jMenuItem4.setText("Daftar");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        menuMasuk.setSelected(true);
+        menuMasuk.setText("Masuk");
+        menuMasuk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                menuMasukActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
+        jMenu1.add(menuMasuk);
 
         jMenuBar1.add(jMenu1);
 
@@ -185,24 +189,17 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel11)
-                        .addGap(70, 70, 70))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(119, 119, 119)
+                        .addGap(137, 137, 137)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(67, 67, 67)
                                         .addComponent(jLabel2))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(masuk, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                 .addGroup(layout.createSequentialGroup()
@@ -213,10 +210,15 @@ public class Login extends javax.swing.JFrame {
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(pfPass, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addComponent(masuk, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(42, 42, 42))
+                                                .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +229,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,7 +240,7 @@ public class Login extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(masuk))
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(jLabel5))
         );
 
@@ -258,27 +260,19 @@ public class Login extends javax.swing.JFrame {
         login();
     }//GEN-LAST:event_masukActionPerformed
 
-    private void menuBerandaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuBerandaMouseClicked
+    private void menuDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDaftarActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        Beranda beranda = new Beranda();
-        beranda.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        beranda.setVisible(true);
-    }//GEN-LAST:event_menuBerandaMouseClicked
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-         Register formRegister = new Register();
+        Register formRegister = new Register();
         formRegister.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         formRegister.setVisible(true);
-        
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_menuDaftarActionPerformed
+
+    private void menuMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMasukActionPerformed
+        // TODO add your handling code here:
+        Login formLogin = new Login();
+        formLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        formLogin.setVisible(true);
+    }//GEN-LAST:event_menuMasukActionPerformed
 
     /**
      * @param args the command line arguments
@@ -332,10 +326,10 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JButton masuk;
     private javax.swing.JMenu menuBeranda;
+    private javax.swing.JCheckBoxMenuItem menuDaftar;
+    private javax.swing.JCheckBoxMenuItem menuMasuk;
     private javax.swing.JPasswordField pfPass;
     private javax.swing.JTextField tfEmail;
     // End of variables declaration//GEN-END:variables
