@@ -24,6 +24,9 @@ import javax.swing.JOptionPane;
  * @author hp
  */
 public class Film extends javax.swing.JFrame {
+    private File fileGambar = null;
+                 private String judul;
+             private String aktor;
 //    private String judulFilm;
 //    private String aktorFilm;
 //    private String sinopsisFilm;
@@ -31,7 +34,7 @@ public class Film extends javax.swing.JFrame {
     /**
      * Creates new form Film
      */
-    public Film( String judulFilm, String aktorFilm, String sinopsisFilm) {
+    public Film( String judulFilm, String sinopsisFilm,String gambar, String aktorFilm,String genre,String tahun) {
         initComponents();
 //        this.judulFilm= judulFilm;
 //        this.aktorFilm = aktorFilm;
@@ -40,6 +43,11 @@ public class Film extends javax.swing.JFrame {
         tfJudul.setText(judulFilm);
         tfSinopsis.setText(sinopsisFilm);
         tfAktor.setText(aktorFilm);
+        tfGambar.setText(gambar);
+        tfGenre.setText(genre);
+        tftahun.setText(tahun);
+        this.judul =judulFilm;
+        this.aktor =aktorFilm;
     }
 
     /**
@@ -66,10 +74,13 @@ public class Film extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        jLabel14 = new javax.swing.JLabel();
+        tfGambar = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        tfGenre = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        tftahun = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu6 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
         menuDaftar1 = new javax.swing.JCheckBoxMenuItem();
@@ -137,13 +148,14 @@ public class Film extends javax.swing.JFrame {
             }
         });
 
-        jLabel14.setText("jLabel9");
+        tfGambar.setText("jLabel9");
         jLabel9.setVisible(false);
 
         jLabel12.setText("Gambar");
 
-        jMenu6.setText("Beranda");
-        jMenuBar1.add(jMenu6);
+        jLabel13.setText("Genre");
+
+        jLabel15.setText("tahun");
 
         jMenu3.setText("User");
 
@@ -191,7 +203,9 @@ public class Film extends javax.swing.JFrame {
                                             .addComponent(jLabel4)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel12)))
+                                                .addComponent(jLabel12))
+                                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
@@ -201,11 +215,13 @@ public class Film extends javax.swing.JFrame {
                                                 .addGroup(layout.createSequentialGroup()
                                                     .addComponent(jButton4)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(jLabel14))
+                                                    .addComponent(tfGambar))
                                                 .addComponent(tfSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                 .addComponent(jButton2)
-                                                .addComponent(tfAktor, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addComponent(tfAktor, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(tfGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(tftahun, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addComponent(jLabel3)
                                     .addComponent(jButton1))))
                         .addGap(0, 38, Short.MAX_VALUE)))
@@ -239,18 +255,26 @@ public class Film extends javax.swing.JFrame {
                         .addComponent(tfSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
+                            .addComponent(tfGambar)
                             .addComponent(jButton4)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfAktor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tftahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addComponent(jLabel10))
         );
 
@@ -281,51 +305,49 @@ public class Film extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-//            String pathGambar = "";
-//        if(fileGambar != null){
-//            String fileName = tfJudul.getText() + "." +
-//                    ExtensionUtils.getExtension(fileGambar);
-//            String target = "images/" + fileName;
-//            
-//            try {
-//                Files.copy(fileGambar.toPath(), Paths.get(target) ,
-//                        REPLACE_EXISTING);
-//            } catch (IOException ex) {
-//                System.out.println(ex.getMessage());
-//            }
-//            
-//            pathGambar = fileName;
-//        }
-//             boolean isSuccess = ModulDB.editFilm(tfJudul.getText(), tfSinopsis.getText(), 
-//                /*pathGambar*/, tfAktor.getText());
-//        
-//        if(isSuccess){
-//           JOptionPane.showMessageDialog(this,"Film berhasil diedit n dan tersimpan di database",
-//                               "Film Berhasil Diedit",JOptionPane.INFORMATION_MESSAGE);
-//           this.dispose();
-//       }
-//        else{
-//            JOptionPane.showMessageDialog(this,"Film gagal ditambahkan",
-//                               "Error: Terjadi Kesalahan",JOptionPane.ERROR_MESSAGE);
-//       }
+            String pathGambar = "";
+        if(fileGambar != null){
+            String fileName = tfJudul.getText() + "." +
+                    ExtensionUtils.getExtension(fileGambar);
+            String target = "images/" + fileName;
+            
+            try {
+                Files.copy(fileGambar.toPath(), Paths.get(target) ,
+                        REPLACE_EXISTING);
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+            
+            pathGambar = fileName;
+        }
+             boolean isSuccess = ModulDB.editFilm(tfJudul.getText(), tfSinopsis.getText(), 
+                pathGambar, tfAktor.getText(),tfGenre.getText(),tftahun.getText(),judul,aktor);
+        
+        if(isSuccess){
+           JOptionPane.showMessageDialog(this,"Film berhasil diedit n dan tersimpan di database",
+                               "Film Berhasil Diedit",JOptionPane.INFORMATION_MESSAGE);
+           this.dispose();
+       }
+        else{
+            JOptionPane.showMessageDialog(this,"Film gagal ditambahkan",
+                               "Error: Terjadi Kesalahan",JOptionPane.ERROR_MESSAGE);
+       }
     }//GEN-LAST:event_jButton1ActionPerformed
-  /*  public void hapus(){
-        int ok=JOptionPane.showConfirmDialog(null, "Apakah anda yakin?","Konfirmasi",JOptionPane.YES_NO_OPTION);
-    if(ok==0){
-        try{
-            java.sql.Connection conn = new ModulDB().connectDB();
-            String sql = "delete from film where id_film = '"+tfID.getText()+"'";
-    java.sql.PreparedStatement st = conn.prepareStatement(sql);
-    st.executeUpdate();
-    JOptionPane.showMessageDialog(null,"Film berhasil dihapus dari database");
-                 this.dispose();
-        }catch(Exception e){
-        JOptionPane.showMessageDialog(null,"Film gagal dihapus dari database"+"\nDengan Pesan eror : "+e.getMessage());
-    }
-    }
-    }*/
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        boolean isSuccess = ModulDB.hapusFilm(judul,aktor);
+        
+        if(isSuccess){
+           JOptionPane.showMessageDialog(this,"Film berhasil di hapus database",
+                               "Film Berhasil di hapus",JOptionPane.INFORMATION_MESSAGE);
+           this.dispose();
+       }
+        else{
+            JOptionPane.showMessageDialog(this,"Film gagal dihapus",
+                               "Error: Terjadi Kesalahan",JOptionPane.ERROR_MESSAGE);
+       }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -393,7 +415,8 @@ public class Film extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -403,12 +426,14 @@ public class Film extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JCheckBoxMenuItem menuDaftar1;
     private javax.swing.JCheckBoxMenuItem menuMasuk1;
     private javax.swing.JTextField tfAktor;
+    private javax.swing.JLabel tfGambar;
+    private javax.swing.JTextField tfGenre;
     private javax.swing.JTextField tfJudul;
     private javax.swing.JTextField tfSinopsis;
+    private javax.swing.JTextField tftahun;
     // End of variables declaration//GEN-END:variables
 }

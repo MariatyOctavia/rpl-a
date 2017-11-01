@@ -7,10 +7,7 @@ package moviemanager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +27,7 @@ public class ModulDB {
     
     public static Connection connectDB(){
         
-        String path="jdbc:sqlite:C:\\Users\\HP\\Documents\\File Materi dan Tugas Semester 5\\RPL\\Program\\Projek rpl\\moviemanager.db";
+        String path="jdbc:sqlite:E://Projek rpl//moviemanager.db";
         Connection con=null;
         try{
             con=DriverManager.getConnection(path);
@@ -101,10 +98,13 @@ public class ModulDB {
      * @param path
      * @return
      */
-    public static boolean editFilm(String judul,String sinopsis,String pathGambar,String aktor,String genre,String tahun){
+    public static boolean editFilm(String judul,String sinopsis,String pathGambar,
+            String aktor,String genre,String tahun,String judulLama, String aktorLama){
          try{ 
+
              Connection conn = ModulDB.connectDB();
-             String sql = "update into film(judul, sinopsis, gambar, aktor,genre,tahun)"+" values(?,?, ?,?)";
+             String sql = "update film set judul=?,sinopsis=?,gambar=?,aktor=?,genre=?,tahun=?"
+                     + "where judul=? and aktor=?";
              java.sql.PreparedStatement st = conn.prepareStatement(sql);
 
              try{
@@ -115,6 +115,8 @@ public class ModulDB {
                  st.setString(4,aktor);
                  st.setString(5,genre);
                  st.setString(6,tahun);
+                 st.setString(7, judulLama);
+                 st.setString(8, aktorLama);
                  int count  = st.executeUpdate();
                  
                  if(count > 0){
@@ -129,7 +131,20 @@ public class ModulDB {
         }
          return false;
     }
-    
-
-    
+    public static boolean hapusFilm(String judulLama, String aktorLama){
+       try{ 
+             Connection conn = ModulDB.connectDB();
+              String sql = "delete from film where judul=? and aktor=?";
+             java.sql.PreparedStatement st = conn.prepareStatement(sql);
+                 st.setString(1, judulLama);
+                 st.setString(2, aktorLama);
+                 int count  = st.executeUpdate();
+         if(count > 0){
+                     return true;
+                 }
+    }catch (SQLException se){
+                System.out.println(se.getMessage());
+             }
+       return false;
+    }
 }

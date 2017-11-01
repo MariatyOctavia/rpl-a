@@ -64,7 +64,6 @@ public class Genre extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu6 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
         menuDaftar1 = new javax.swing.JCheckBoxMenuItem();
@@ -370,9 +369,6 @@ public class Genre extends javax.swing.JFrame {
 
         jLabel11.setText("Logo");
 
-        jMenu6.setText("Beranda");
-        jMenuBar1.add(jMenu6);
-
         jMenu3.setText("User");
 
         menuMasuk1.setSelected(true);
@@ -562,7 +558,6 @@ public class Genre extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;

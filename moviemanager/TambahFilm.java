@@ -71,7 +71,6 @@ public class TambahFilm extends javax.swing.JFrame {
         tfAktor1 = new javax.swing.JTextField();
         tfGenre = new javax.swing.JTextField();
         jMenuBar2 = new javax.swing.JMenuBar();
-        menuBeranda1 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         menuDaftar1 = new javax.swing.JCheckBoxMenuItem();
         menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
@@ -116,7 +115,7 @@ public class TambahFilm extends javax.swing.JFrame {
 
         jLabel3.setText("Sinopsis   :");
 
-        jLabel4.setText("Gambar");
+        jLabel4.setText("Gambar    :");
 
         jLabel5.setText("________________________________");
 
@@ -132,7 +131,7 @@ public class TambahFilm extends javax.swing.JFrame {
 
         jLabel11.setText("Logo");
 
-        jLabel7.setText("         Aktor       :");
+        jLabel7.setText("Aktor        :");
 
         jButton1.setText("browse");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -144,12 +143,9 @@ public class TambahFilm extends javax.swing.JFrame {
         jLabel9.setText("jLabel9");
         jLabel9.setVisible(false);
 
-        jLabel10.setText("Genre");
+        jLabel10.setText("Genre       :");
 
-        jLabel12.setText("tahun");
-
-        menuBeranda1.setText("Beranda");
-        jMenuBar2.add(menuBeranda1);
+        jLabel12.setText("Tahun       :");
 
         jMenu3.setText("User");
 
@@ -190,14 +186,8 @@ public class TambahFilm extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(149, 149, 149))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
@@ -210,20 +200,21 @@ public class TambahFilm extends javax.swing.JFrame {
                                 .addComponent(jButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel9)
-                                .addGap(0, 0, Short.MAX_VALUE))))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(95, 95, 95)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel3)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -440,7 +431,6 @@ public class TambahFilm extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenu menuBeranda;
-    private javax.swing.JMenu menuBeranda1;
     private javax.swing.JCheckBoxMenuItem menuDaftar;
     private javax.swing.JCheckBoxMenuItem menuDaftar1;
     private javax.swing.JCheckBoxMenuItem menuMasuk;

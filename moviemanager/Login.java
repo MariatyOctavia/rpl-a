@@ -5,31 +5,42 @@
  */
 package moviemanager;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.HeadlessException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
+//import java.io.UnsupportedEncodingException;
+//import java.security.MessageDigest;
+//import java.security.NoSuchAlgorithmException;
+//import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import moviemanager.Beranda;
+import moviemanager.BerandaUser;
+import moviemanager.GenreAction;
+import moviemanager.GenreHoror;
+import moviemanager.GenreRomance;
+import moviemanager.ModulDB;
+import moviemanager.Register;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 
 /**
  *
  * @author hp
  */
 public class Login extends javax.swing.JFrame {
-
+    //Connection con = null;
+    //PreparedStatement pst = null;
+    //ResultSet rt = null;
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
-
-    }
-
+    } 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,42 +52,83 @@ public class Login extends javax.swing.JFrame {
     private void login(){
         String email = tfEmail.getText();
         String password = pfPass.getText();
+        String level= cbPilihan.getSelectedItem().toString();
+        String status=cbPilihan.getSelectedItem().toString();
+        
+        //enkripsi 
+        char[] kr ={'0','1','2','3','4','5','6','7','8','9',' ','.','□',+
+                 'a','b','c','d','e','f','g','h','i','j','k','l','m',+
+                'n','o','p','q','r','s','t','u','v','w','x','y','z'};
+        String emailEnkrip = "";
+        String passEnkrip = "";
+     
+        char[] cArray1 =(email).toCharArray();
+        char[] cArray2 =(password).toCharArray();
+
+        for (char c1 : cArray1){
+            for(int i=0; i<=38; i++){
+                if(c1 == kr[i]){
+                   i = i+(Integer.parseInt("10"));
+                   if(i>=39){
+                       i = i-39;
+                    }
+                    c1 = kr[i];
+                    emailEnkrip = emailEnkrip + c1;
+                 }
+            }
+        }
+        
+        for (char c2 : cArray2){
+            for(int i=0; i<=38; i++){
+                if(c2 == kr[i]){
+                   i = i+(Integer.parseInt("10"));
+                   if(i>=39){
+                       i = i-39;
+                    }
+                    c2 = kr[i];
+                    passEnkrip = passEnkrip + c2;
+                 }
+            }
+        }
         
         if (!email.isEmpty()&& !password.isEmpty()){
             try{
-                Connection con=ModulDB.connectDB();
-                String sql="SELECT * FROM Userr WHERE email= ? AND password= ?;";
-                PreparedStatement pstmt=con.prepareStatement(sql);
-                pstmt.setString(1,email);
-                pstmt.setString(2,password);
-                
-                ResultSet result= pstmt.executeQuery();
-                ModulDB.level=result.getString("level");
-                if(result.getFetchSize() != 1){
-                    showMessageDialog(null, "Email atau Password salah");
-                }
-                else{
-                    //buat menyimpan
-                    ModulDB.nama=result.getString("nama");
-                    ModulDB.email=result.getString("email");
-                    ModulDB.password=result.getString("password");
-                    ModulDB.level=result.getString("level");
-                    JOptionPane.showMessageDialog(null, "Anda berhasil login");
+                String sql="SELECT * FROM Userr WHERE email='"+emailEnkrip+"' AND password='"+passEnkrip+"' AND level='"+level+"' ;";
+               
+                try (Connection con = ModulDB.connectDB()) {
+                    Statement stmt=con.createStatement();
+                    ResultSet result=stmt.executeQuery(sql);
+                    //String a=result.getString("level");
                     
-                    
-                    this.dispose();//menyembunyikan halaman login
-                }
-                con.close();
-                
-                
+                    if(!result.next()){
+                        showMessageDialog(null, "Email atau Password salah");
+                    }
+                    else if (level=="admin"){
+//                        ModulDB.id_user=result.getInt("id_user");
+                        ModulDB.level=result.getString("level");
+                        
+                        new Beranda().setVisible(true);
+                        this.dispose();//menyembunyikan halaman login
+                    }
+                    else{
+                        //buat menyimpan
+                        //ModulDB.id_user=result.getInt("id_user");
+                        ModulDB.nama=result.getString("nama");
+                        ModulDB.email=result.getString("email");
+                        ModulDB.password=result.getString("password");
+                        ModulDB.level=result.getString("level");
+                        
+                        new BerandaUser().setVisible(true);
+                        this.dispose();//menyembunyikan halaman login
+                    }
+                }           
             }
-            catch(Exception e){
-               showMessageDialog(null,e.getMessage(),"Error!", JOptionPane.ERROR_MESSAGE);
+            catch(SQLException | HeadlessException e){
+                showMessageDialog(null,e.getMessage(),"Error!", JOptionPane.ERROR_MESSAGE);
             }
         }
         else
-            showMessageDialog(null,"Email dan password harus terisi !");
-        
+           showMessageDialog(null,"Email dan password harus terisi !");
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -93,16 +145,19 @@ public class Login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         tfEmail = new javax.swing.JTextField();
-        masuk = new javax.swing.JButton();
+        buttonMasuk = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        cbPilihan = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        menuBeranda = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
-        menuDaftar = new javax.swing.JCheckBoxMenuItem();
-        menuMasuk = new javax.swing.JCheckBoxMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        menuUser = new javax.swing.JMenu();
+        menuDaftar1 = new javax.swing.JMenuItem();
+        menuGenre = new javax.swing.JMenu();
+        menuRomance = new javax.swing.JMenuItem();
+        menuHoror = new javax.swing.JMenuItem();
+        menuAction = new javax.swing.JMenuItem();
 
         jLabel7.setText("____________________________");
 
@@ -119,6 +174,11 @@ public class Login extends javax.swing.JFrame {
         jLabel9.setText("________________________________________________");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowStateListener(new java.awt.event.WindowStateListener() {
+            public void windowStateChanged(java.awt.event.WindowEvent evt) {
+                formWindowStateChanged(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Masuk");
@@ -139,10 +199,10 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        masuk.setText("Masuk");
-        masuk.addActionListener(new java.awt.event.ActionListener() {
+        buttonMasuk.setText("Masuk");
+        buttonMasuk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                masukActionPerformed(evt);
+                buttonMasukActionPerformed(evt);
             }
         });
 
@@ -153,33 +213,49 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel5.setText("Copyright© Movie Manager 2017");
 
-        menuBeranda.setText("Beranda");
-        jMenuBar1.add(menuBeranda);
+        cbPilihan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "guest", "admin" }));
 
-        jMenu1.setText("User");
+        jLabel1.setText("Level        :");
 
-        menuDaftar.setSelected(true);
-        menuDaftar.setText("Daftar");
-        menuDaftar.addActionListener(new java.awt.event.ActionListener() {
+        menuUser.setText("User");
+
+        menuDaftar1.setText("Daftar");
+        menuDaftar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuDaftarActionPerformed(evt);
+                menuDaftar1ActionPerformed(evt);
             }
         });
-        jMenu1.add(menuDaftar);
+        menuUser.add(menuDaftar1);
 
-        menuMasuk.setSelected(true);
-        menuMasuk.setText("Masuk");
-        menuMasuk.addActionListener(new java.awt.event.ActionListener() {
+        jMenuBar1.add(menuUser);
+
+        menuGenre.setText("Genre");
+
+        menuRomance.setText("Romance");
+        menuRomance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuMasukActionPerformed(evt);
+                menuRomanceActionPerformed(evt);
             }
         });
-        jMenu1.add(menuMasuk);
+        menuGenre.add(menuRomance);
 
-        jMenuBar1.add(jMenu1);
+        menuHoror.setText("Horor");
+        menuHoror.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuHororActionPerformed(evt);
+            }
+        });
+        menuGenre.add(menuHoror);
 
-        jMenu2.setText("Genre");
-        jMenuBar1.add(jMenu2);
+        menuAction.setText("Action");
+        menuAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuActionActionPerformed(evt);
+            }
+        });
+        menuGenre.add(menuAction);
+
+        jMenuBar1.add(menuGenre);
 
         setJMenuBar(jMenuBar1);
 
@@ -189,29 +265,6 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(67, 67, 67)
-                                        .addComponent(jLabel2))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(masuk, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(jLabel3)
-                                                    .addGap(5, 5, 5))
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(jLabel4)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(pfPass, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel11))
@@ -219,28 +272,52 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(137, 137, 137)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(buttonMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pfPass, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbPilihan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(67, 67, 67)
+                            .addComponent(jLabel2))
+                        .addComponent(jLabel8)))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11)
-                .addGap(44, 44, 44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(pfPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(28, 28, 28)
-                        .addComponent(masuk))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pfPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cbPilihan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(buttonMasuk)
+                .addGap(46, 46, 46)
                 .addComponent(jLabel5))
         );
 
@@ -255,24 +332,89 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfEmailActionPerformed
 
-    private void masukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masukActionPerformed
+    private void buttonMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMasukActionPerformed
         // TODO add your handling code here:
+        /*try{
+           
+                    
+            String query= "select * from User where Username=? And password=?";
+            pst=con.prepareStatement(query);
+            
+            String uname = new String (tfEmail.getText());
+            String passwd = new String (pfPass.getPassword());
+            
+            
+            
+            pst.setString(1,tfEmail.getText());
+            pst.setString(2, md5(pfPass.getPassword()));
+            rt= pst.executeQuery();
+
+            if(rt.next()){
+                if(uname.equals("admin") && passwd.equals("admin")){
+                    Beranda ad = new Beranda();
+                    Login.this.setVisible(false);
+                    ad.setVisible(true);
+                }
+                else{
+                    BerandaUser h = new BerandaUser();
+                    Login.this.setVisible(false);
+                    h.setVisible(true);
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Anda belum tergabung dengan MovieManager");
+            }
+            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }*/
+        
         login();
-    }//GEN-LAST:event_masukActionPerformed
+    }//GEN-LAST:event_buttonMasukActionPerformed
 
-    private void menuDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDaftarActionPerformed
+      /*private String md5(char[] c){
+        try{
+           MessageDigest digs = MessageDigest.getInstance("MD5");
+           digs.update((new String(c)).getBytes("UTF8"));
+           String str = new String(digs.digest());
+           
+           return str;
+        }
+        catch(Exception e){
+            
+        }
+            
+        return "";
+    }*/
+    
+    private void menuDaftar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDaftar1ActionPerformed
         // TODO add your handling code here:
-        Register formRegister = new Register();
-        formRegister.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        formRegister.setVisible(true);
-    }//GEN-LAST:event_menuDaftarActionPerformed
+        new Register().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_menuDaftar1ActionPerformed
 
-    private void menuMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMasukActionPerformed
+    private void menuRomanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRomanceActionPerformed
         // TODO add your handling code here:
-        Login formLogin = new Login();
-        formLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        formLogin.setVisible(true);
-    }//GEN-LAST:event_menuMasukActionPerformed
+        new GenreRomance().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_menuRomanceActionPerformed
+
+    private void menuHororActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHororActionPerformed
+        // TODO add your handling code here:
+        new GenreHoror().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_menuHororActionPerformed
+
+    private void menuActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionActionPerformed
+        // TODO add your handling code here:
+        new GenreAction().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_menuActionActionPerformed
+
+    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowStateChanged
 
     /**
      * @param args the command line arguments
@@ -283,7 +425,7 @@ public class Login extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+        /*try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -310,6 +452,9 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonMasuk;
+    private javax.swing.JComboBox<String> cbPilihan;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -318,19 +463,21 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JButton masuk;
-    private javax.swing.JMenu menuBeranda;
-    private javax.swing.JCheckBoxMenuItem menuDaftar;
-    private javax.swing.JCheckBoxMenuItem menuMasuk;
+    private javax.swing.JMenuItem menuAction;
+    private javax.swing.JMenuItem menuDaftar1;
+    private javax.swing.JMenu menuGenre;
+    private javax.swing.JMenuItem menuHoror;
+    private javax.swing.JMenuItem menuRomance;
+    private javax.swing.JMenu menuUser;
     private javax.swing.JPasswordField pfPass;
     private javax.swing.JTextField tfEmail;
     // End of variables declaration//GEN-END:variables
+
+
 }
