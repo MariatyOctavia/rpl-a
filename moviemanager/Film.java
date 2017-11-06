@@ -34,7 +34,7 @@ public class Film extends javax.swing.JFrame {
     /**
      * Creates new form Film
      */
-    public Film( String judulFilm, String sinopsisFilm,String gambar, String aktorFilm,String genre,String tahun) {
+    public Film( String judulFilm, String sinopsisFilm,String gambar, String aktorFilm,int genre,String tahun) {
         initComponents();
 //        this.judulFilm= judulFilm;
 //        this.aktorFilm = aktorFilm;
@@ -43,8 +43,7 @@ public class Film extends javax.swing.JFrame {
         tfJudul.setText(judulFilm);
         tfSinopsis.setText(sinopsisFilm);
         tfAktor.setText(aktorFilm);
-        tfGambar.setText(gambar);
-        tfGenre.setText(genre);
+        tfGenre.setSelectedIndex(genre);
         tftahun.setText(tahun);
         this.judul =judulFilm;
         this.aktor =aktorFilm;
@@ -69,17 +68,17 @@ public class Film extends javax.swing.JFrame {
         tfJudul = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
+        FilmBiasa = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        tfGambar = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        tfGenre = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         tftahun = new javax.swing.JTextField();
+        tfGenre = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
@@ -131,8 +130,8 @@ public class Film extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel9.setText("Film");
+        FilmBiasa.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        FilmBiasa.setText("Film");
 
         jLabel8.setText("________________________________________________");
 
@@ -148,14 +147,21 @@ public class Film extends javax.swing.JFrame {
             }
         });
 
-        tfGambar.setText("jLabel9");
-        jLabel9.setVisible(false);
+        jLabel9.setText("jLabel9");
+        FilmBiasa.setVisible(false);
 
         jLabel12.setText("Gambar");
 
         jLabel13.setText("Genre");
 
         jLabel15.setText("tahun");
+
+        tfGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--pilih genre--", "Romance", "Action", "Comedy", "Horror" }));
+        tfGenre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfGenreActionPerformed(evt);
+            }
+        });
 
         jMenu3.setText("User");
 
@@ -194,7 +200,7 @@ public class Film extends javax.swing.JFrame {
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
+                            .addComponent(FilmBiasa)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(96, 96, 96)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,17 +221,18 @@ public class Film extends javax.swing.JFrame {
                                                 .addGroup(layout.createSequentialGroup()
                                                     .addComponent(jButton4)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(tfGambar))
+                                                    .addComponent(jLabel9))
                                                 .addComponent(tfSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jButton2)
-                                                .addComponent(tfAktor, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(tfGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(tftahun, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(151, 151, 151)
+                                                .addComponent(jButton2))
+                                            .addComponent(tfAktor, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tfGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tftahun, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(jLabel3)
                                     .addComponent(jButton1))))
-                        .addGap(0, 38, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -238,7 +245,7 @@ public class Film extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jLabel9))
+                        .addComponent(FilmBiasa))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel11)))
@@ -255,9 +262,9 @@ public class Film extends javax.swing.JFrame {
                         .addComponent(tfSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfGambar)
-                            .addComponent(jButton4)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfAktor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,11 +328,12 @@ public class Film extends javax.swing.JFrame {
             pathGambar = fileName;
         }
              boolean isSuccess = ModulDB.editFilm(tfJudul.getText(), tfSinopsis.getText(), 
-                pathGambar, tfAktor.getText(),tfGenre.getText(),tftahun.getText(),judul,aktor);
-        
+                pathGambar, tfAktor.getText(),tfGenre.getSelectedIndex(),tftahun.getText(),judul,aktor);
+        System.out.println(tfGenre.getSelectedIndex());
         if(isSuccess){
            JOptionPane.showMessageDialog(this,"Film berhasil diedit n dan tersimpan di database",
                                "Film Berhasil Diedit",JOptionPane.INFORMATION_MESSAGE);
+           new Beranda().setVisible(true);
            this.dispose();
        }
         else{
@@ -341,6 +349,7 @@ public class Film extends javax.swing.JFrame {
         if(isSuccess){
            JOptionPane.showMessageDialog(this,"Film berhasil di hapus database",
                                "Film Berhasil di hapus",JOptionPane.INFORMATION_MESSAGE);
+           new Beranda().setVisible(true);
            this.dispose();
        }
         else{
@@ -352,26 +361,31 @@ public class Film extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-//        JFileChooser fc = new JFileChooser();
-//        int returnVal = fc.showOpenDialog(this);
-//        if (returnVal == JFileChooser.APPROVE_OPTION) {
-//            File file = fc.getSelectedFile();
-//            //This is where a real application would openet the file.
-//            BufferedImage img = null;
-//            try {
-//                img = ImageIO.read(file);
-//                jLabel9.setVisible(true);
-//                jLabel9.setText(file.getName());
-//
-//                fileGambar = file;
-//            } catch (IOException ex) {
-//                System.out.println(ex.getMessage());
-//            }
-//
-//        } else {
-//
-//        }
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(this);
+         if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            //This is where a real application would openet the file.
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(file);
+                jLabel9.setVisible(true);
+                jLabel9.setText(file.getName());
+                
+                fileGambar = file;
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+            
+            } else {
+            
+        }
+     
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void tfGenreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfGenreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfGenreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -409,6 +423,7 @@ public class Film extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel FilmBiasa;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
@@ -430,8 +445,7 @@ public class Film extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem menuDaftar1;
     private javax.swing.JCheckBoxMenuItem menuMasuk1;
     private javax.swing.JTextField tfAktor;
-    private javax.swing.JLabel tfGambar;
-    private javax.swing.JTextField tfGenre;
+    private javax.swing.JComboBox<String> tfGenre;
     private javax.swing.JTextField tfJudul;
     private javax.swing.JTextField tfSinopsis;
     private javax.swing.JTextField tftahun;

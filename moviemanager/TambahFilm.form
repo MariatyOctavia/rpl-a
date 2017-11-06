@@ -159,9 +159,9 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tfGenre" min="-2" pref="140" max="-2" attributes="0"/>
                           <Component id="tfAktor1" min="-2" pref="140" max="-2" attributes="0"/>
                           <Component id="tftahun" min="-2" pref="140" max="-2" attributes="0"/>
+                          <Component id="tfGenre" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -222,7 +222,7 @@
                   <Component id="jLabel12" alignment="3" min="-2" pref="17" max="-2" attributes="0"/>
                   <Component id="tftahun" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="91" max="32767" attributes="0"/>
+              <EmptySpace pref="131" max="32767" attributes="0"/>
               <Component id="tambah" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
@@ -319,7 +319,24 @@
     </Component>
     <Component class="javax.swing.JTextField" name="tfAktor1">
     </Component>
-    <Component class="javax.swing.JTextField" name="tfGenre">
+    <Component class="javax.swing.JComboBox" name="tfGenre">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="5">
+            <StringItem index="0" value="--pilih genre--"/>
+            <StringItem index="1" value="Romance"/>
+            <StringItem index="2" value="Action"/>
+            <StringItem index="3" value="Comedy"/>
+            <StringItem index="4" value="Horror"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfGenreActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

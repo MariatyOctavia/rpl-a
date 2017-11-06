@@ -7,6 +7,8 @@ package moviemanager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -24,17 +26,21 @@ public class ModulDB {
     public static String password;
     public static String email;
     public static String level;
+    private static Connection con=null;
     
     public static Connection connectDB(){
         
+        
         String path="jdbc:sqlite:E://Projek rpl//moviemanager.db";
-        Connection con=null;
+        if(con==null){
+        //Connection con=null;
         try{
             con=DriverManager.getConnection(path);
             System.out.println("sukses");
         }
         catch(SQLException e){
             showMessageDialog(null,"Koneksi ke database gagal!","Error",JOptionPane.ERROR_MESSAGE);
+        }
         }
         return con;
     }
@@ -60,7 +66,7 @@ public class ModulDB {
     } 
     
     public static boolean createFilm(String judul, String sinopsis, String pathGambar
-                , String aktor,String genre, String  tahun){
+                , String aktor,int genre, String  tahun){
         try{ 
              Connection conn = ModulDB.connectDB();
              String sql = "insert into film(judul, sinopsis, gambar, aktor,genre,tahun)"+" values(?,?,?,?,?,?)";
@@ -72,7 +78,7 @@ public class ModulDB {
                  st.setString(2,sinopsis);
                  st.setString(3,pathGambar);
                  st.setString(4,aktor);
-                 st.setString(5,genre);
+                 st.setInt(5,genre);
                  st.setString(6,tahun);
                  
                  int count  = st.executeUpdate();
@@ -83,7 +89,7 @@ public class ModulDB {
              }catch(SQLException se){
                 System.out.println(se.getMessage());
              }
-             st.close();
+             //st.close();
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -99,7 +105,7 @@ public class ModulDB {
      * @return
      */
     public static boolean editFilm(String judul,String sinopsis,String pathGambar,
-            String aktor,String genre,String tahun,String judulLama, String aktorLama){
+            String aktor,int genre,String tahun,String judulLama, String aktorLama){
          try{ 
 
              Connection conn = ModulDB.connectDB();
@@ -113,7 +119,7 @@ public class ModulDB {
                  st.setString(2,sinopsis);
                  st.setString(3,pathGambar);
                  st.setString(4,aktor);
-                 st.setString(5,genre);
+                 st.setInt(5,genre);
                  st.setString(6,tahun);
                  st.setString(7, judulLama);
                  st.setString(8, aktorLama);
@@ -125,7 +131,7 @@ public class ModulDB {
              }catch(SQLException se){
                 System.out.println(se.getMessage());
              }
-             st.close();
+             //st.close();
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -146,5 +152,21 @@ public class ModulDB {
                 System.out.println(se.getMessage());
              }
        return false;
+    }
+    
+    public static int getGenre(String genre){
+        int idGenre = 0;
+        String sql = "select id_genre from genre where nama=?";
+        try{
+            Connection conn = ModulDB.connectDB();
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1,genre);
+            ResultSet rs = st.executeQuery();
+            idGenre=rs.getInt("id_genre");
+            
+        }catch(SQLException e) {
+            System.out.println(e.getMessage());
+                     }
+        return idGenre;
     }
 }

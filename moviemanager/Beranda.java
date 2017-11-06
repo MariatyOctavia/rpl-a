@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,8 +33,9 @@ public class Beranda extends javax.swing.JFrame {
      */
     public Beranda() {
         initComponents();
+        
         aturFrame(1.0,true);
-       
+        updateFilm();
         //Connection conn = ModulDB.connectDB();
     }
 
@@ -61,10 +63,9 @@ public class Beranda extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        pnlSemuaFilm = new javax.swing.JPanel();
+        tambahFilmButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         Tampilan1 = new javax.swing.JTable();
-        tambahFilmButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
@@ -152,6 +153,13 @@ public class Beranda extends javax.swing.JFrame {
 
         jLabel13.setText("gambar search");
 
+        tambahFilmButton.setText("Tambah Film");
+        tambahFilmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tambahFilmButtonActionPerformed(evt);
+            }
+        });
+
         Tampilan1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -162,28 +170,6 @@ public class Beranda extends javax.swing.JFrame {
         ));
         Tampilan1.setMinimumSize(new java.awt.Dimension(300, 64));
         jScrollPane2.setViewportView(Tampilan1);
-
-        javax.swing.GroupLayout pnlSemuaFilmLayout = new javax.swing.GroupLayout(pnlSemuaFilm);
-        pnlSemuaFilm.setLayout(pnlSemuaFilmLayout);
-        pnlSemuaFilmLayout.setHorizontalGroup(
-            pnlSemuaFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSemuaFilmLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 111, Short.MAX_VALUE))
-        );
-        pnlSemuaFilmLayout.setVerticalGroup(
-            pnlSemuaFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSemuaFilmLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        tambahFilmButton.setText("Tambah Film");
-        tambahFilmButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tambahFilmButtonActionPerformed(evt);
-            }
-        });
 
         jMenu3.setText("User");
 
@@ -221,22 +207,23 @@ public class Beranda extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel11)
-                .addGap(63, 63, 63)
-                .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tambahFilmButton)
-                .addGap(39, 39, 39))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(pnlSemuaFilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(131, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(63, 63, 63)
+                        .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tambahFilmButton)
+                        .addGap(39, 39, 39))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,9 +234,9 @@ public class Beranda extends javax.swing.JFrame {
                     .addComponent(jLabel13)
                     .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tambahFilmButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pnlSemuaFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                .addGap(391, 391, 391)
                 .addComponent(jLabel2))
         );
 
@@ -292,9 +279,9 @@ public class Beranda extends javax.swing.JFrame {
     }//GEN-LAST:event_menuDaftar1ActionPerformed
 
     private void tambahFilmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahFilmButtonActionPerformed
-        // TODO add your handling code here:
+
         new TambahFilm().setVisible(true);
-        updateFilm();
+        this.dispose();
     }//GEN-LAST:event_tambahFilmButtonActionPerformed
 
     private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
@@ -325,52 +312,60 @@ public class Beranda extends javax.swing.JFrame {
                 String pSinopsis = (String) model.getValueAt(rowIdx, 1);
                 String pGambar= (String) model.getValueAt(rowIdx, 2);
                 String pAktor = (String) model.getValueAt(rowIdx, 3);
-                String pGenre = (String) model.getValueAt(rowIdx, 4);
+                int pGenre = ModulDB.getGenre((String) model.getValueAt(rowIdx, 4));
                 String pTahun = (String) model.getValueAt(rowIdx, 5);
                 Film film = new Film(pJudul,pSinopsis,pGambar,pAktor,pGenre,pTahun);
                 film.setVisible(true);//To change body of generated methods, choose Tools | Templates.
-                updateFilm();
+                this.dispose();
+                //updateFilm();
             }
         });
         menupop.add(menuitem);
         Tampilan1.setComponentPopupMenu(menupop);
     }//GEN-LAST:event_formWindowOpened
 
+    
+    
     private void tfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfSearchActionPerformed
     
     public void updateFilm(){
-        DefaultTableModel model = new DefaultTableModel(new String[]{"Judul Fim", "Sinopsis", "gambar", "aktor","genre","tahun"},0);
-
-       String sql= "select * from film";
-        try(Connection conn = ModulDB.connectDB();
-             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(sql)){ 
-            
+        
+       
+       
+        try{
+            Connection conn = ModulDB.connectDB();
+            String sql= "select judul, sinopsis, gambar, aktor, nama, tahun FROM film , genre WHERE genre.id_genre = film.genre";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            DefaultTableModel model = (DefaultTableModel)Tampilan1.getModel();
+            model.setRowCount(0);
+         
             
              while(rs.next()){
-                 
-                String judul = rs.getString("judul");
-                String sinopsis= rs.getString("sinopsis");
-                String gambar= rs.getString("gambar");
-                String aktor = rs.getString("aktor");
-                String genre = rs.getString("genre");
-                String tahun = rs.getString("tahun");
+              
+                Object obj[] = new Object[6];
+                obj[0]  = rs.getString("judul");
+                obj[1]  = rs.getString("sinopsis");
+                obj[2]  = rs.getString("gambar");
+                obj[3]  = rs.getString("aktor");
+                obj[4]  = rs.getString("nama");
+                obj[5]  = rs.getString("tahun");
 //                JButton btn = new JButton(judul);
 //                 //btn.addActionListener(new Film(judul,sinopsis,aktor));
 //                 add(btn);
                  
-                model.addRow(new Object[]{judul,sinopsis,gambar,aktor,genre,tahun,});
+                model.addRow(obj);
 
-                
+               
             
             
         } 
         }catch(SQLException e) {
             System.out.println(e.getMessage());
                      }
-        Tampilan1.setModel(model);
+        
     }
     
     /**
@@ -432,7 +427,6 @@ public class Beranda extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem menuDaftar1;
     private javax.swing.JCheckBoxMenuItem menuMasuk;
     private javax.swing.JCheckBoxMenuItem menuMasuk1;
-    private javax.swing.JPanel pnlSemuaFilm;
     private javax.swing.JButton tambahFilmButton;
     private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables

@@ -22,6 +22,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import static java.nio.file.StandardCopyOption.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -69,7 +70,7 @@ public class TambahFilm extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         tfAktor1 = new javax.swing.JTextField();
-        tfGenre = new javax.swing.JTextField();
+        tfGenre = new javax.swing.JComboBox<>();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         menuDaftar1 = new javax.swing.JCheckBoxMenuItem();
@@ -147,6 +148,13 @@ public class TambahFilm extends javax.swing.JFrame {
 
         jLabel12.setText("Tahun       :");
 
+        tfGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--pilih genre--", "Romance", "Action", "Comedy", "Horror" }));
+        tfGenre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfGenreActionPerformed(evt);
+            }
+        });
+
         jMenu3.setText("User");
 
         menuDaftar1.setSelected(true);
@@ -217,9 +225,9 @@ public class TambahFilm extends javax.swing.JFrame {
                                 .addComponent(jLabel3)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfAktor1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tftahun, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(tftahun, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -265,7 +273,7 @@ public class TambahFilm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tftahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                 .addComponent(tambah)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6))
@@ -323,17 +331,20 @@ public class TambahFilm extends javax.swing.JFrame {
         }
         
         boolean isSuccess = ModulDB.createFilm(tfJudul.getText(), tfSinopsis.getText(), 
-                pathGambar, tfAktor1.getText(),tfGenre.getText(),tftahun.getText());
+                pathGambar, tfAktor1.getText(),tfGenre.getSelectedIndex(),tftahun.getText());
         
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Film berhasil ditambahkan dan tersimpan di database",
                                 "Film Berhasil Ditambahkan",JOptionPane.INFORMATION_MESSAGE);
+            new Beranda().setVisible(true);
             this.dispose();
+            
         }
         else{
             JOptionPane.showMessageDialog(this,"Film gagal ditambahkan",
                                 "Error: Terjadi Kesalahan",JOptionPane.ERROR_MESSAGE);
         }
+       
     }//GEN-LAST:event_tambahActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -358,6 +369,10 @@ public class TambahFilm extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tfGenreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfGenreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfGenreActionPerformed
 
   /*  public void hapus(){
         int ok=JOptionPane.showConfirmDialog(null, "Apakah anda yakin?","Konfirmasi",JOptionPane.YES_NO_OPTION);
@@ -437,7 +452,7 @@ public class TambahFilm extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem menuMasuk1;
     private javax.swing.JButton tambah;
     private javax.swing.JTextField tfAktor1;
-    private javax.swing.JTextField tfGenre;
+    private javax.swing.JComboBox<String> tfGenre;
     private javax.swing.JTextField tfJudul;
     private javax.swing.JTextField tfSinopsis;
     private javax.swing.JTextField tftahun;

@@ -95,7 +95,8 @@ public class Login extends javax.swing.JFrame {
             try{
                 String sql="SELECT * FROM Userr WHERE email='"+emailEnkrip+"' AND password='"+passEnkrip+"' AND level='"+level+"' ;";
                
-                try (Connection con = ModulDB.connectDB()) {
+                
+                    Connection con = ModulDB.connectDB();
                     Statement stmt=con.createStatement();
                     ResultSet result=stmt.executeQuery(sql);
                     //String a=result.getString("level");
@@ -122,7 +123,7 @@ public class Login extends javax.swing.JFrame {
                         this.dispose();//menyembunyikan halaman login
                     }
                 }           
-            }
+            
             catch(SQLException | HeadlessException e){
                 showMessageDialog(null,e.getMessage(),"Error!", JOptionPane.ERROR_MESSAGE);
             }
