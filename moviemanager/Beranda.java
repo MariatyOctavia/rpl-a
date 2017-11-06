@@ -62,10 +62,12 @@ public class Beranda extends javax.swing.JFrame {
         tfSearch = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         tambahFilmButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         Tampilan1 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelHasilCari = new javax.swing.JTable();
+        cariButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
@@ -139,7 +141,6 @@ public class Beranda extends javax.swing.JFrame {
 
         jLabel1.setText("jLabel1");
 
-        tfSearch.setText("Search");
         tfSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfSearchActionPerformed(evt);
@@ -147,11 +148,9 @@ public class Beranda extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        jLabel2.setText("CopyrightÂ© Movie Manager 2017");
+        jLabel2.setText("Copyright© Movie Manager 2017");
 
         jLabel11.setText("Logo");
-
-        jLabel13.setText("gambar search");
 
         tambahFilmButton.setText("Tambah Film");
         tambahFilmButton.addActionListener(new java.awt.event.ActionListener() {
@@ -170,6 +169,23 @@ public class Beranda extends javax.swing.JFrame {
         ));
         Tampilan1.setMinimumSize(new java.awt.Dimension(300, 64));
         jScrollPane2.setViewportView(Tampilan1);
+
+        tabelHasilCari.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Judul", "Sinopsis", "Gambar", "Aktor", "Genre", "Tahun"
+            }
+        ));
+        jScrollPane3.setViewportView(tabelHasilCari);
+
+        cariButton.setText("cari");
+        cariButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cariButtonActionPerformed(evt);
+            }
+        });
 
         jMenu3.setText("User");
 
@@ -213,14 +229,17 @@ public class Beranda extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(131, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addGap(63, 63, 63)
                         .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel13)
+                        .addGap(18, 18, 18)
+                        .addComponent(cariButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tambahFilmButton)
                         .addGap(39, 39, 39))))
@@ -231,12 +250,14 @@ public class Beranda extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel13)
                     .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tambahFilmButton))
+                    .addComponent(tambahFilmButton)
+                    .addComponent(cariButton))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                .addGap(391, 391, 391)
+                .addGap(128, 128, 128)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2))
         );
 
@@ -328,7 +349,45 @@ public class Beranda extends javax.swing.JFrame {
     
     private void tfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSearchActionPerformed
         // TODO add your handling code here:
+
+        
     }//GEN-LAST:event_tfSearchActionPerformed
+
+    private void cariButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariButtonActionPerformed
+        // TODO add your handling code here:
+        cariFilm();
+    }//GEN-LAST:event_cariButtonActionPerformed
+    
+    
+    public void cariFilm(){
+        Object [] baris ={"Judul","Sinopsis","Gambar","Aktor","Genre","Tahun"};
+        DefaultTableModel tabmode = (DefaultTableModel)Tampilan1.getModel();
+            tabmode.setRowCount(0);
+        Connection conn = ModulDB.connectDB();
+       
+        
+        String sql = "select * from film where judul like '%"+tfSearch.getText()+"'% or genre like '%"+tfSearch.getText()+
+                "'% or tahun like '%"+tfSearch.getText()+"'%";
+        try{
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+            rs=st.executeQuery(sql);
+            while(rs.next()){
+                Object obj[] = new Object[6];
+                obj[0]  = rs.getString("judul");
+                obj[1]  = rs.getString("sinopsis");
+                obj[2]  = rs.getString("gambar");
+                obj[3]  = rs.getString("aktor");
+                obj[4]  = rs.getString("nama");
+                obj[5]  = rs.getString("tahun");
+                
+                tabmode.addRow(obj);
+                
+            }
+        }catch(Exception e){
+        
+        }
+    }
     
     public void updateFilm(){
         
@@ -406,12 +465,12 @@ public class Beranda extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tampilan1;
+    private javax.swing.JButton cariButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -421,12 +480,14 @@ public class Beranda extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JCheckBoxMenuItem menuDaftar;
     private javax.swing.JCheckBoxMenuItem menuDaftar1;
     private javax.swing.JCheckBoxMenuItem menuMasuk;
     private javax.swing.JCheckBoxMenuItem menuMasuk1;
+    private javax.swing.JTable tabelHasilCari;
     private javax.swing.JButton tambahFilmButton;
     private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables
