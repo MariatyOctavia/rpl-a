@@ -13,7 +13,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -64,10 +67,9 @@ public class Beranda extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         tambahFilmButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Tampilan1 = new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tabelHasilCari = new javax.swing.JTable();
-        cariButton = new javax.swing.JButton();
+        jTabBeranda = new javax.swing.JTable();
+        jbCari = new javax.swing.JButton();
+        jbKeluar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
@@ -148,7 +150,7 @@ public class Beranda extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        jLabel2.setText("Copyright© Movie Manager 2017");
+        jLabel2.setText("CopyrightÂ© Movie Manager 2017");
 
         jLabel11.setText("Logo");
 
@@ -159,33 +161,25 @@ public class Beranda extends javax.swing.JFrame {
             }
         });
 
-        Tampilan1.setModel(new javax.swing.table.DefaultTableModel(
+        jTabBeranda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Judul Fim", "Sinopsis", "gambar", "aktor", "genre", "tahun"
+                "Judul Film", "Sinopsis", "Gambar", "Aktor", "Genre", "Tahun"
             }
         ));
-        Tampilan1.setMinimumSize(new java.awt.Dimension(300, 64));
-        jScrollPane2.setViewportView(Tampilan1);
+        jTabBeranda.setMinimumSize(new java.awt.Dimension(300, 64));
+        jScrollPane2.setViewportView(jTabBeranda);
 
-        tabelHasilCari.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Judul", "Sinopsis", "Gambar", "Aktor", "Genre", "Tahun"
-            }
-        ));
-        jScrollPane3.setViewportView(tabelHasilCari);
-
-        cariButton.setText("cari");
-        cariButton.addActionListener(new java.awt.event.ActionListener() {
+        jbCari.setText("Cari");
+        jbCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cariButtonActionPerformed(evt);
+                jbCariActionPerformed(evt);
             }
         });
+
+        jbKeluar.setText("Keluar");
 
         jMenu3.setText("User");
 
@@ -226,38 +220,35 @@ public class Beranda extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(131, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addGap(63, 63, 63)
-                        .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cariButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbCari)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbKeluar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(tambahFilmButton)
-                        .addGap(39, 39, 39))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(39, 64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
                     .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tambahFilmButton)
-                    .addComponent(cariButton))
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                .addGap(128, 128, 128)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jbCari)
+                    .addComponent(jLabel11)
+                    .addComponent(jbKeluar))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tambahFilmButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jLabel2))
         );
 
@@ -326,9 +317,9 @@ public class Beranda extends javax.swing.JFrame {
         JPopupMenu menupop = new JPopupMenu();
         JMenuItem menuitem = new JMenuItem("Edit/Hapus film"); 
         menuitem.addActionListener((ActionEvent e) -> {
-            if(Tampilan1.getSelectedRow() > -1){
-                int rowIdx = Tampilan1.getSelectedRow();
-                TableModel model = Tampilan1.getModel();
+            if(jTabBeranda.getSelectedRow() > -1){
+                int rowIdx = jTabBeranda.getSelectedRow();
+                TableModel model = jTabBeranda.getModel();
                 String pJudul = (String) model.getValueAt(rowIdx, 0);
                 String pSinopsis = (String) model.getValueAt(rowIdx, 1);
                 String pGambar= (String) model.getValueAt(rowIdx, 2);
@@ -342,68 +333,52 @@ public class Beranda extends javax.swing.JFrame {
             }
         });
         menupop.add(menuitem);
-        Tampilan1.setComponentPopupMenu(menupop);
+        jTabBeranda.setComponentPopupMenu(menupop);
     }//GEN-LAST:event_formWindowOpened
 
-    
-    
-    private void tfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSearchActionPerformed
-        // TODO add your handling code here:
-
-        
-    }//GEN-LAST:event_tfSearchActionPerformed
-
-    private void cariButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariButtonActionPerformed
-        // TODO add your handling code here:
-        cariFilm();
-    }//GEN-LAST:event_cariButtonActionPerformed
-    
-    
-    public void cariFilm(){
-        Object [] baris ={"Judul","Sinopsis","Gambar","Aktor","Genre","Tahun"};
-        DefaultTableModel tabmode = (DefaultTableModel)Tampilan1.getModel();
-            tabmode.setRowCount(0);
-        Connection conn = ModulDB.connectDB();
-       
-        
-        String sql = "select * from film where judul like '%"+tfSearch.getText()+"'% or genre like '%"+tfSearch.getText()+
-                "'% or tahun like '%"+tfSearch.getText()+"'%";
+    private void cariFilm(String keyword){
         try{
-        Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery(sql);
-            rs=st.executeQuery(sql);
-            while(rs.next()){
-                Object obj[] = new Object[6];
-                obj[0]  = rs.getString("judul");
-                obj[1]  = rs.getString("sinopsis");
-                obj[2]  = rs.getString("gambar");
-                obj[3]  = rs.getString("aktor");
-                obj[4]  = rs.getString("nama");
-                obj[5]  = rs.getString("tahun");
-                
-                tabmode.addRow(obj);
-                
+            String sql="SELECT judul, genre, sinopsis FROM film WHERE judul LIKE '%"+keyword+"%' OR genre LIKE '%"+keyword+"%'  OR sinopsis LIKE '%"+keyword+"%'";
+            Connection con=ModulDB.connectDB();
+            Statement stmt=con.createStatement();
+            ResultSet result=stmt.executeQuery(sql);
+            DefaultTableModel model=(DefaultTableModel)jTabBeranda.getModel();
+            model.setRowCount(0);
+            while(result.next()){
+                Vector row=new Vector();
+                row.add(result.getString("judul"));
+                row.add(result.getString("genre"));
+                row.add(result.getString("sinopsis"));
+                model.addRow(row);
             }
-        }catch(Exception e){
-        
+            con.close();
+            jTabBeranda.setModel(model);
+        }
+        catch(SQLException e){
+            showMessageDialog(null,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
     }
+        
+    private void tfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfSearchActionPerformed
+
+    private void jbCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCariActionPerformed
+        // TODO add your handling code here:
+        String keyword=tfSearch.getText();
+        cariFilm(keyword);
+    }//GEN-LAST:event_jbCariActionPerformed
     
     public void updateFilm(){
-        
-       
-       
         try{
             Connection conn = ModulDB.connectDB();
             String sql= "select judul, sinopsis, gambar, aktor, nama, tahun FROM film , genre WHERE genre.id_genre = film.genre";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            DefaultTableModel model = (DefaultTableModel)Tampilan1.getModel();
+            DefaultTableModel model = (DefaultTableModel)jTabBeranda.getModel();
             model.setRowCount(0);
          
-            
              while(rs.next()){
-              
                 Object obj[] = new Object[6];
                 obj[0]  = rs.getString("judul");
                 obj[1]  = rs.getString("sinopsis");
@@ -412,19 +387,14 @@ public class Beranda extends javax.swing.JFrame {
                 obj[4]  = rs.getString("nama");
                 obj[5]  = rs.getString("tahun");
 //                JButton btn = new JButton(judul);
-//                 //btn.addActionListener(new Film(judul,sinopsis,aktor));
-//                 add(btn);
+//                btn.addActionListener(new Film(judul,sinopsis,aktor));
+//                add(btn);
                  
-                model.addRow(obj);
-
-               
-            
-            
+                model.addRow(obj);         
         } 
         }catch(SQLException e) {
             System.out.println(e.getMessage());
                      }
-        
     }
     
     /**
@@ -464,8 +434,6 @@ public class Beranda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Tampilan1;
-    private javax.swing.JButton cariButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
@@ -480,14 +448,15 @@ public class Beranda extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JTable jTabBeranda;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton jbCari;
+    private javax.swing.JButton jbKeluar;
     private javax.swing.JCheckBoxMenuItem menuDaftar;
     private javax.swing.JCheckBoxMenuItem menuDaftar1;
     private javax.swing.JCheckBoxMenuItem menuMasuk;
     private javax.swing.JCheckBoxMenuItem menuMasuk1;
-    private javax.swing.JTable tabelHasilCari;
     private javax.swing.JButton tambahFilmButton;
     private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables
