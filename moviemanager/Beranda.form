@@ -319,7 +319,7 @@
           <StringArray count="4">
             <StringItem index="0" value="Pilih..."/>
             <StringItem index="1" value="Judul"/>
-            <StringItem index="2" value="Tahun"/>
+            <StringItem index="2" value="Sinopsis"/>
             <StringItem index="3" value="Genre"/>
           </StringArray>
         </Property>

@@ -173,7 +173,7 @@ public class Beranda extends javax.swing.JFrame {
         jTabBeranda.setMinimumSize(new java.awt.Dimension(300, 64));
         jScrollPane2.setViewportView(jTabBeranda);
 
-        pilihGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih...", "Judul", "Tahun", "Genre" }));
+        pilihGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih...", "Judul", "Sinopsis", "Genre" }));
         pilihGenre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pilihGenreActionPerformed(evt);
@@ -363,13 +363,13 @@ public class Beranda extends javax.swing.JFrame {
             
         }
         else if(pilihGenre.getSelectedIndex()== 2){
-            sql= "select judul, sinopsis, gambar, aktor, nama, tahun FROM film , genre WHERE genre.id_genre = film.genre and tahun like '%"+keyword+"%'";
+            sql= "select judul, sinopsis, gambar, aktor, nama, tahun FROM film , genre WHERE genre.id_genre = film.genre and sinopsis like '%"+keyword+"%'";
         }
         else if(pilihGenre.getSelectedIndex() == 3){
             sql= "select judul, sinopsis, gambar, aktor, nama, tahun FROM film , genre WHERE genre.nama like '%"+keyword+"%'and genre.id_genre = film.genre";
         }
         else{
-            sql= "select judul, sinopsis, gambar, aktor, nama, tahun FROM film , genre WHERE genre.nama like '%"+keyword+"%'  and genre.id_genre = film.genre or judul like '%"+keyword+"%'"; 
+            sql="select judul, sinopsis, gambar, aktor, nama, tahun FROM film inner join genre on film.genre = genre.id_genre where judul like"+"'%"+keyword+"%'"+"or sinopsis like "+"'%"+keyword+"%'"+"or aktor like"+"'%"+keyword+"%'"+"or nama like"+"'%"+keyword+"%'"+"or tahun like"+"'%"+keyword+"%'";
         }
             try{
             Connection conn = ModulDB.connectDB();
@@ -442,7 +442,7 @@ public class Beranda extends javax.swing.JFrame {
     }
 //        private void cariFilm(String keyword){
 //        try{
-//            String sql="SELECT judul, genre, sinopsis FROM film WHERE judul LIKE '%"+keyword+"%' OR genre LIKE '%"+keyword+"%'  OR sinopsis LIKE '%"+keyword+"%'";
+        //String sql="SELECT judul, genre, sinopsis FROM film WHERE judul LIKE '%"+keyword+"%' OR genre LIKE '%"+keyword+"%'  OR sinopsis LIKE '%"+keyword+"%'";
 //            Connection con=ModulDB.connectDB();
 //            Statement stmt=con.createStatement();
 //            ResultSet result=stmt.executeQuery(sql);
