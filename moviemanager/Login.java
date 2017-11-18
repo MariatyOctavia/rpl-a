@@ -17,7 +17,6 @@ import static javax.swing.JOptionPane.showMessageDialog;
 //import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import moviemanager.Beranda;
-import moviemanager.BerandaUser;
 import moviemanager.GenreAction;
 import moviemanager.GenreHoror;
 import moviemanager.GenreRomance;
@@ -104,22 +103,14 @@ public class Login extends javax.swing.JFrame {
                     if(!result.next()){
                         showMessageDialog(null, "Email atau Password salah");
                     }
-                    else if (level=="admin"){
-//                        ModulDB.id_user=result.getInt("id_user");
-                        ModulDB.level=result.getString("level");
-                        
-                        new Beranda().setVisible(true);
-                        this.dispose();//menyembunyikan halaman login
-                    }
                     else{
-                        //buat menyimpan
-                        //ModulDB.id_user=result.getInt("id_user");
+                        ModulDB.id_akun=result.getInt("id_akun");
                         ModulDB.nama=result.getString("nama");
                         ModulDB.email=result.getString("email");
                         ModulDB.password=result.getString("password");
                         ModulDB.level=result.getString("level");
                         
-                        new BerandaUser().setVisible(true);
+                        new Beranda().setVisible(true);
                         this.dispose();//menyembunyikan halaman login
                     }
                 }           
@@ -159,6 +150,7 @@ public class Login extends javax.swing.JFrame {
         menuRomance = new javax.swing.JMenuItem();
         menuHoror = new javax.swing.JMenuItem();
         menuAction = new javax.swing.JMenuItem();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
 
         jLabel7.setText("____________________________");
 
@@ -255,6 +247,10 @@ public class Login extends javax.swing.JFrame {
             }
         });
         menuGenre.add(menuAction);
+
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("Comedy");
+        menuGenre.add(jCheckBoxMenuItem1);
 
         jMenuBar1.add(menuGenre);
 
@@ -395,6 +391,10 @@ public class Login extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_menuDaftar1ActionPerformed
 
+    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowStateChanged
+
     private void menuRomanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRomanceActionPerformed
         // TODO add your handling code here:
         new GenreRomance().setVisible(true);
@@ -412,10 +412,6 @@ public class Login extends javax.swing.JFrame {
         new GenreAction().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_menuActionActionPerformed
-
-    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowStateChanged
 
     /**
      * @param args the command line arguments
@@ -455,6 +451,7 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonMasuk;
     private javax.swing.JComboBox<String> cbPilihan;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;

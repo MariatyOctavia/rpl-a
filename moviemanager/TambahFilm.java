@@ -75,7 +75,11 @@ public class TambahFilm extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         menuDaftar1 = new javax.swing.JCheckBoxMenuItem();
         menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        menuGenre = new javax.swing.JMenu();
+        menuRomance = new javax.swing.JMenuItem();
+        menuHoror = new javax.swing.JMenuItem();
+        menuAction = new javax.swing.JMenuItem();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
 
         menuBeranda.setText("Beranda");
         jMenuBar1.add(menuBeranda);
@@ -148,7 +152,7 @@ public class TambahFilm extends javax.swing.JFrame {
 
         jLabel12.setText("Tahun       :");
 
-        tfGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--pilih genre--", "Romance", "Action", "Comedy", "Horror" }));
+        tfGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih...", "Romance", "Action", "Comedy", "Horror" }));
         tfGenre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfGenreActionPerformed(evt);
@@ -177,8 +181,37 @@ public class TambahFilm extends javax.swing.JFrame {
 
         jMenuBar2.add(jMenu3);
 
-        jMenu4.setText("Genre");
-        jMenuBar2.add(jMenu4);
+        menuGenre.setText("Genre");
+
+        menuRomance.setText("Romance");
+        menuRomance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRomanceActionPerformed(evt);
+            }
+        });
+        menuGenre.add(menuRomance);
+
+        menuHoror.setText("Horor");
+        menuHoror.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuHororActionPerformed(evt);
+            }
+        });
+        menuGenre.add(menuHoror);
+
+        menuAction.setText("Action");
+        menuAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuActionActionPerformed(evt);
+            }
+        });
+        menuGenre.add(menuAction);
+
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("Comedy");
+        menuGenre.add(jCheckBoxMenuItem1);
+
+        jMenuBar2.add(menuGenre);
 
         setJMenuBar(jMenuBar2);
 
@@ -374,6 +407,24 @@ public class TambahFilm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfGenreActionPerformed
 
+    private void menuRomanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRomanceActionPerformed
+        // TODO add your handling code here:
+        new GenreRomance().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_menuRomanceActionPerformed
+
+    private void menuHororActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHororActionPerformed
+        // TODO add your handling code here:
+        new GenreHoror().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_menuHororActionPerformed
+
+    private void menuActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionActionPerformed
+        // TODO add your handling code here:
+        new GenreAction().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_menuActionActionPerformed
+
   /*  public void hapus(){
         int ok=JOptionPane.showConfirmDialog(null, "Apakah anda yakin?","Konfirmasi",JOptionPane.YES_NO_OPTION);
     if(ok==0){
@@ -427,6 +478,7 @@ public class TambahFilm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -442,14 +494,17 @@ public class TambahFilm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem menuAction;
     private javax.swing.JMenu menuBeranda;
     private javax.swing.JCheckBoxMenuItem menuDaftar;
     private javax.swing.JCheckBoxMenuItem menuDaftar1;
+    private javax.swing.JMenu menuGenre;
+    private javax.swing.JMenuItem menuHoror;
     private javax.swing.JCheckBoxMenuItem menuMasuk;
     private javax.swing.JCheckBoxMenuItem menuMasuk1;
+    private javax.swing.JMenuItem menuRomance;
     private javax.swing.JButton tambah;
     private javax.swing.JTextField tfAktor1;
     private javax.swing.JComboBox<String> tfGenre;

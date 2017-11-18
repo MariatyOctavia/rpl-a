@@ -21,7 +21,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * @author hp
  */
 public class ModulDB {
-    public static int id_user;
+    public static int id_akun;
     public static String nama;
     public static String password;
     public static String email;
@@ -31,7 +31,7 @@ public class ModulDB {
     public static Connection connectDB(){
         
         
-        String path="jdbc:sqlite:E://Projek rpl//moviemanager.db";
+        String path="jdbc:sqlite:E://moviemanager.db";
         if(con==null){
         //Connection con=null;
         try{
