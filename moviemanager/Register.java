@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 //import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import moviemanager.Beranda;
+import moviemanager.BerandaUser;
 import moviemanager.ModulDB;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -62,7 +62,6 @@ public class Register extends javax.swing.JFrame {
         menuRomance = new javax.swing.JMenuItem();
         menuHoror = new javax.swing.JMenuItem();
         menuAction = new javax.swing.JMenuItem();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -130,32 +129,13 @@ public class Register extends javax.swing.JFrame {
         menuGenre.setText("Genre");
 
         menuRomance.setText("Romance");
-        menuRomance.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuRomanceActionPerformed(evt);
-            }
-        });
         menuGenre.add(menuRomance);
 
         menuHoror.setText("Horor");
-        menuHoror.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuHororActionPerformed(evt);
-            }
-        });
         menuGenre.add(menuHoror);
 
         menuAction.setText("Action");
-        menuAction.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuActionActionPerformed(evt);
-            }
-        });
         menuGenre.add(menuAction);
-
-        jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("Comedy");
-        menuGenre.add(jCheckBoxMenuItem1);
 
         jMenuBar1.add(menuGenre);
 
@@ -311,24 +291,6 @@ public class Register extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_menuMasuk1ActionPerformed
 
-    private void menuRomanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRomanceActionPerformed
-        // TODO add your handling code here:
-        new GenreRomance().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_menuRomanceActionPerformed
-
-    private void menuHororActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHororActionPerformed
-        // TODO add your handling code here:
-        new GenreHoror().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_menuHororActionPerformed
-
-    private void menuActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionActionPerformed
-        // TODO add your handling code here:
-        new GenreAction().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_menuActionActionPerformed
-
     private void register(){
         String nama=tfNama.getText();
         String email=tfEmail.getText();
@@ -372,19 +334,17 @@ public class Register extends javax.swing.JFrame {
         }
         
         if(password.length()>=8 && password.equals(RePass)){
-         try{
-             Connection con = ModulDB.connectDB();
+         try(Connection con = ModulDB.connectDB()) {
                 String sql="INSERT  INTO userr (nama,email,password,level) VALUES('"+nama+"','"+emailEnkrip+"','"+passEnkrip+"','"+guest+"');";
                 Statement stmt=con.createStatement();
                 stmt.executeUpdate(sql);
                 showMessageDialog(null,"User berhasil dibuat!");
-                new Beranda().setVisible(true);
-                 this.dispose();
-
             }
             catch(SQLException e){
                 showMessageDialog(null,e.getMessage(),"Error!",JOptionPane.ERROR_MESSAGE);
             }
+         new BerandaUser().setVisible(true);
+         this.dispose();
         }
         else if(password.length()<8)
             showMessageDialog(null,"Password minimal 8 karakter");
@@ -429,7 +389,6 @@ public class Register extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDaftar;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;

@@ -21,7 +21,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * @author hp
  */
 public class ModulDB {
-    public static int id_akun;
+    public static int id_user;
     public static String nama;
     public static String password;
     public static String email;
@@ -31,7 +31,7 @@ public class ModulDB {
     public static Connection connectDB(){
         
         
-        String path="jdbc:sqlite:E://moviemanager.db";
+        String path="jdbc:sqlite:E://Projek rpl//moviemanager.db";
         if(con==null){
         //Connection con=null;
         try{
@@ -160,8 +160,8 @@ public class ModulDB {
         try{
             Connection conn = ModulDB.connectDB();
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setString(1,genre);
-            ResultSet rs = st.executeQuery();
+           st.setString(1,genre);
+           ResultSet rs = st.executeQuery();
             idGenre=rs.getInt("id_genre");
             
         }catch(SQLException e) {
@@ -169,5 +169,77 @@ public class ModulDB {
                      }
         return idGenre;
     }
-    
+    public static boolean createGenre(String nama){
+                try{ 
+             Connection conn = ModulDB.connectDB();
+             String sql = "insert into genre(nama)"+" values(?)";
+             java.sql.PreparedStatement st = conn.prepareStatement(sql);
+
+             try{
+                 
+                 st.setString(1,nama);
+                
+                 int count  = st.executeUpdate();
+                 
+                 if(count > 0){
+                     return true;
+                 }
+             }catch(SQLException se){
+                System.out.println(se.getMessage());
+             }
+             //st.close();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+                return false;
+    }
+    public static boolean editGenre(String nama, String nama_lama){
+        try{ 
+             Connection conn = ModulDB.connectDB();
+             String sql = "update genre set nama=? where nama=?";
+             java.sql.PreparedStatement st = conn.prepareStatement(sql);
+
+             try{
+                 
+                 st.setString(1,nama);
+                 st.setString(2,nama_lama);
+                 int count  = st.executeUpdate();
+                 
+                 if(count > 0){
+                     return true;
+                 }
+             }catch(SQLException se){
+                System.out.println(se.getMessage());
+             }
+             //st.close();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+                return false;
+    }
+       public static boolean hapusGenre(String nama){
+                try{ 
+             Connection conn = ModulDB.connectDB();
+             String sql = "delete  from genre where nama=?";
+             java.sql.PreparedStatement st = conn.prepareStatement(sql);
+
+             try{
+                 
+                 st.setString(1,nama);
+              
+                
+                 int count  = st.executeUpdate();
+                 
+                 if(count > 0){
+                     return true;
+                 }
+             }catch(SQLException se){
+                System.out.println(se.getMessage());
+             }
+             //st.close();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+                return false;
+    } 
 }

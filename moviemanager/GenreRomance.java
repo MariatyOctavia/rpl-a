@@ -49,10 +49,8 @@ public class GenreRomance extends javax.swing.JFrame {
         menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
         menuDaftar1 = new javax.swing.JCheckBoxMenuItem();
         menuGenre = new javax.swing.JMenu();
-        menuRomance = new javax.swing.JMenuItem();
         menuHoror = new javax.swing.JMenuItem();
         menuAction = new javax.swing.JMenuItem();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
 
         jLabel7.setText("_______________________________");
 
@@ -207,14 +205,6 @@ public class GenreRomance extends javax.swing.JFrame {
 
         menuGenre.setText("Genre");
 
-        menuRomance.setText("Romance");
-        menuRomance.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuRomanceActionPerformed(evt);
-            }
-        });
-        menuGenre.add(menuRomance);
-
         menuHoror.setText("Horor");
         menuHoror.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,10 +220,6 @@ public class GenreRomance extends javax.swing.JFrame {
             }
         });
         menuGenre.add(menuAction);
-
-        jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("Comedy");
-        menuGenre.add(jCheckBoxMenuItem1);
 
         jMenuBar1.add(menuGenre);
 
@@ -300,7 +286,7 @@ public class GenreRomance extends javax.swing.JFrame {
 
     private void buttonKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKembaliActionPerformed
         // TODO add your handling code here:
-        new Beranda().setVisible(true);
+        new BerandaUser().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_buttonKembaliActionPerformed
 
@@ -315,12 +301,6 @@ public class GenreRomance extends javax.swing.JFrame {
         new Register().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_menuDaftar1ActionPerformed
-
-    private void menuRomanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRomanceActionPerformed
-        // TODO add your handling code here:
-        new GenreRomance().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_menuRomanceActionPerformed
 
     private void menuHororActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHororActionPerformed
         // TODO add your handling code here:
@@ -372,7 +352,6 @@ public class GenreRomance extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonKembali;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -395,7 +374,6 @@ public class GenreRomance extends javax.swing.JFrame {
     private javax.swing.JMenu menuGenre;
     private javax.swing.JMenuItem menuHoror;
     private javax.swing.JCheckBoxMenuItem menuMasuk1;
-    private javax.swing.JMenuItem menuRomance;
     private javax.swing.JMenu menuUser;
     // End of variables declaration//GEN-END:variables
 }

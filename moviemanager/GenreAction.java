@@ -48,8 +48,6 @@ public class GenreAction extends javax.swing.JFrame {
         menuGenre = new javax.swing.JMenu();
         menuRomance = new javax.swing.JMenuItem();
         menuHoror = new javax.swing.JMenuItem();
-        menuAction = new javax.swing.JMenuItem();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -197,18 +195,6 @@ public class GenreAction extends javax.swing.JFrame {
         });
         menuGenre.add(menuHoror);
 
-        menuAction.setText("Action");
-        menuAction.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuActionActionPerformed(evt);
-            }
-        });
-        menuGenre.add(menuAction);
-
-        jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("Comedy");
-        menuGenre.add(jCheckBoxMenuItem1);
-
         jMenuBar1.add(menuGenre);
 
         setJMenuBar(jMenuBar1);
@@ -269,7 +255,7 @@ public class GenreAction extends javax.swing.JFrame {
 
     private void buttonKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKembaliActionPerformed
         // TODO add your handling code here:
-        new Beranda().setVisible(true);
+        new BerandaUser().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_buttonKembaliActionPerformed
 
@@ -296,12 +282,6 @@ public class GenreAction extends javax.swing.JFrame {
         new GenreHoror().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_menuHororActionPerformed
-
-    private void menuActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionActionPerformed
-        // TODO add your handling code here:
-        new GenreAction().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_menuActionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -340,7 +320,6 @@ public class GenreAction extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonKembali;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -355,7 +334,6 @@ public class GenreAction extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
-    private javax.swing.JMenuItem menuAction;
     private javax.swing.JCheckBoxMenuItem menuDaftar1;
     private javax.swing.JMenu menuGenre;
     private javax.swing.JMenuItem menuHoror;
