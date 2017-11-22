@@ -16,6 +16,13 @@ import static javax.swing.JOptionPane.showMessageDialog;
 //import java.security.NoSuchAlgorithmException;
 //import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import moviemanager.Beranda;
+import moviemanager.BerandaUser;
+import moviemanager.GenreAction;
+import moviemanager.GenreHoror;
+import moviemanager.GenreRomance;
+import moviemanager.ModulDB;
+import moviemanager.Register;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
 
@@ -88,7 +95,8 @@ public class Login extends javax.swing.JFrame {
             try{
                 String sql="SELECT * FROM Userr WHERE email='"+emailEnkrip+"' AND password='"+passEnkrip+"' AND level='"+level+"' ;";
                
-                try (Connection con = ModulDB.connectDB()) {
+                
+                    Connection con = ModulDB.connectDB();
                     Statement stmt=con.createStatement();
                     ResultSet result=stmt.executeQuery(sql);
                     //String a=result.getString("level");
@@ -97,7 +105,7 @@ public class Login extends javax.swing.JFrame {
                         showMessageDialog(null, "Email atau Password salah");
                     }
                     else if (level=="admin"){
-                        ModulDB.id_user=result.getInt("id_user");
+//                        ModulDB.id_user=result.getInt("id_user");
                         ModulDB.level=result.getString("level");
                         
                         new Beranda().setVisible(true);
@@ -105,7 +113,7 @@ public class Login extends javax.swing.JFrame {
                     }
                     else{
                         //buat menyimpan
-                        ModulDB.id_user=result.getInt("id_user");
+                        //ModulDB.id_user=result.getInt("id_user");
                         ModulDB.nama=result.getString("nama");
                         ModulDB.email=result.getString("email");
                         ModulDB.password=result.getString("password");
@@ -115,7 +123,7 @@ public class Login extends javax.swing.JFrame {
                         this.dispose();//menyembunyikan halaman login
                     }
                 }           
-            }
+            
             catch(SQLException | HeadlessException e){
                 showMessageDialog(null,e.getMessage(),"Error!", JOptionPane.ERROR_MESSAGE);
             }

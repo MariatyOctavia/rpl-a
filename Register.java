@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 //import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import moviemanager.BerandaUser;
+import moviemanager.ModulDB;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
