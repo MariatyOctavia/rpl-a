@@ -50,6 +50,7 @@ public class Login extends javax.swing.JFrame {
     
     
     private void login(){
+        
         String email = tfEmail.getText();
         String password = pfPass.getText();
         String level= cbPilihan.getSelectedItem().toString();
@@ -178,6 +179,11 @@ public class Login extends javax.swing.JFrame {
         addWindowStateListener(new java.awt.event.WindowStateListener() {
             public void windowStateChanged(java.awt.event.WindowEvent evt) {
                 formWindowStateChanged(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -416,6 +422,11 @@ public class Login extends javax.swing.JFrame {
     private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowStateChanged
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        this.getRootPane().setDefaultButton(buttonMasuk);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
