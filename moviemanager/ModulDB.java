@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,23 +21,26 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * @author hp
  */
 public class ModulDB {
-    public static int id_user;
+    public static int id_akun;
     public static String nama;
     public static String password;
     public static String email;
     public static String level;
+    private static Connection con=null;
     
     public static Connection connectDB(){
         
         
-        String path="jdbc:sqlite:database/moviemanager.db";
-        Connection con=null;
+        String path="jdbc:sqlite:E://moviemanager.db";
+        if(con==null){
+        //Connection con=null;
         try{
             con=DriverManager.getConnection(path);
             System.out.println("sukses");
         }
         catch(SQLException e){
             showMessageDialog(null,"Koneksi ke database gagal!","Error",JOptionPane.ERROR_MESSAGE);
+        }
         }
         return con;
     }
@@ -102,54 +104,6 @@ public class ModulDB {
      * @param path
      * @return
      */
-        public static ArrayList<Film> readFilm(){
-        ArrayList<Film> listFilm = new ArrayList<>();
-        String sql = "SELECT * FROM film";
-        try (Connection conn = ModulDB.connectDB();
-            Statement stmt  = conn.createStatement();
-            ResultSet rs    = stmt.executeQuery(sql)){
-                while(rs.next())
-                {   
-                    String judul = rs.getString("judul");
-                    String sinopsis = rs.getString("sinopsis");
-                    String gambar = rs.getString("gambar");
-                    String aktor = rs.getString("aktor");
-                    int genre = rs.getInt("genre");
-                    int tahun = rs.getInt("tahun");
-                    int rating =rs.getInt("rating");
-                    Film newFilm = new Film (judul,sinopsis,gambar,aktor,genre,tahun,rating);
-                    listFilm.add(newFilm);
-                }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally{
-            return listFilm;
-        }
-    }
-    public static ArrayList<Film> searchFilm(String sql){
-     ArrayList<Film> listFilm = new ArrayList<>();
-        try (Connection conn = ModulDB.connectDB();
-            Statement stmt  = conn.createStatement();
-            ResultSet rs    = stmt.executeQuery(sql)){
-                while(rs.next())
-                {   
-                    String judul = rs.getString("judul");
-                    String sinopsis = rs.getString("sinopsis");
-                    String gambar = rs.getString("gambar");
-                    String aktor = rs.getString("aktor");
-                    int genre = rs.getInt("genre");
-                    int tahun = rs.getInt("tahun");
-                    int rating =rs.getInt("rating");
-                    Film newFilm = new Film (judul,sinopsis,gambar,aktor,genre,tahun,rating);
-                    listFilm.add(newFilm);
-                }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally{
-            return listFilm;
-        }
-    
-}
     public static boolean editFilm(String judul,String sinopsis,String pathGambar,
             String aktor,int genre,String tahun,String judulLama, String aktorLama){
          try{ 
@@ -214,20 +168,6 @@ public class ModulDB {
             System.out.println(e.getMessage());
                      }
         return idGenre;
-    }
-    public static String ambilNamaGenre(int id){
-        String namaGenre=null;
-        String sql = "select nama from genre where id_genre = "+id;
-        try{
-            Connection conn = ModulDB.connectDB();
-            PreparedStatement st = conn.prepareStatement(sql);
-           ResultSet rs = st.executeQuery();
-            namaGenre =rs.getString("nama");
-            
-        }catch(SQLException e) {
-            System.out.println(e.getMessage());
-                     }
-        return namaGenre;
     }
     public static boolean createGenre(String nama){
                 try{ 
@@ -301,5 +241,6 @@ public class ModulDB {
             System.out.println(e.getMessage());
         }
                 return false;
-    } 
+    }
+    
 }

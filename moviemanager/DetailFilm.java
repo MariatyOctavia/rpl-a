@@ -46,22 +46,17 @@ public class DetailFilm extends javax.swing.JFrame {
         buttonRating = new javax.swing.JButton();
         buttonKembali = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         tampilJudul = new javax.swing.JLabel();
         tampilAktor = new javax.swing.JLabel();
         tampilSinopsis = new javax.swing.JLabel();
+        tampilGenre = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuUser = new javax.swing.JMenu();
         menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
         menuDaftar1 = new javax.swing.JCheckBoxMenuItem();
-        menuGenre = new javax.swing.JMenu();
-        menuRomance = new javax.swing.JMenuItem();
-        menuHoror = new javax.swing.JMenuItem();
-        menuAction = new javax.swing.JMenuItem();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -84,6 +79,11 @@ public class DetailFilm extends javax.swing.JFrame {
         jLabel5.setText("Sinopsis :");
 
         buttonRating.setText("Beri Rating");
+        buttonRating.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRatingActionPerformed(evt);
+            }
+        });
 
         buttonKembali.setText("Kembali");
         buttonKembali.addActionListener(new java.awt.event.ActionListener() {
@@ -94,8 +94,6 @@ public class DetailFilm extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel10.setText("Copyright© Movie Manager 2017");
-
-        jLabel2.setText("Rating");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -126,6 +124,8 @@ public class DetailFilm extends javax.swing.JFrame {
 
         tampilSinopsis.setText("jLabel13");
 
+        tampilGenre.setText("jLabel6");
+
         menuUser.setText("User");
 
         menuMasuk1.setSelected(true);
@@ -148,38 +148,6 @@ public class DetailFilm extends javax.swing.JFrame {
 
         jMenuBar1.add(menuUser);
 
-        menuGenre.setText("Genre");
-
-        menuRomance.setText("Romance");
-        menuRomance.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuRomanceActionPerformed(evt);
-            }
-        });
-        menuGenre.add(menuRomance);
-
-        menuHoror.setText("Horor");
-        menuHoror.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuHororActionPerformed(evt);
-            }
-        });
-        menuGenre.add(menuHoror);
-
-        menuAction.setText("Action");
-        menuAction.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuActionActionPerformed(evt);
-            }
-        });
-        menuGenre.add(menuAction);
-
-        jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("Comedy");
-        menuGenre.add(jCheckBoxMenuItem1);
-
-        jMenuBar1.add(menuGenre);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,29 +164,32 @@ public class DetailFilm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(163, 163, 163)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(45, 45, 45)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel12))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(94, 94, 94)
                                         .addComponent(buttonRating)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(buttonKembali))
-                                    .addComponent(tampilJudul)
-                                    .addComponent(tampilAktor)
-                                    .addComponent(tampilSinopsis)))
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel12))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tampilSinopsis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(tampilJudul)
+                                                    .addComponent(tampilAktor)
+                                                    .addComponent(tampilGenre))
+                                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(8, 8, 8))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(260, 260, 260)
                         .addComponent(jLabel9)))
@@ -243,23 +214,24 @@ public class DetailFilm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(tampilAktor))
-                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(jLabel5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tampilSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(tampilSinopsis))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel12)
-                        .addGap(80, 80, 80)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonRating)
-                            .addComponent(buttonKembali))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                        .addComponent(jLabel10))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jLabel12)
+                            .addComponent(tampilGenre)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(80, 80, 80)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonRating)
+                    .addComponent(buttonKembali))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addComponent(jLabel10))
         );
 
         pack();
@@ -291,23 +263,11 @@ public class DetailFilm extends javax.swing.JFrame {
         tampilDetail();
     }//GEN-LAST:event_formWindowOpened
 
-    private void menuRomanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRomanceActionPerformed
+    private void buttonRatingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRatingActionPerformed
         // TODO add your handling code here:
-        new GenreRomance().setVisible(true);
+        new Rating().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_menuRomanceActionPerformed
-
-    private void menuHororActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHororActionPerformed
-        // TODO add your handling code here:
-        new GenreHoror().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_menuHororActionPerformed
-
-    private void menuActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionActionPerformed
-        // TODO add your handling code here:
-        new GenreAction().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_menuActionActionPerformed
+    }//GEN-LAST:event_buttonRatingActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,12 +308,10 @@ public class DetailFilm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonKembali;
     private javax.swing.JButton buttonRating;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -361,14 +319,11 @@ public class DetailFilm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JMenuItem menuAction;
     private javax.swing.JCheckBoxMenuItem menuDaftar1;
-    private javax.swing.JMenu menuGenre;
-    private javax.swing.JMenuItem menuHoror;
     private javax.swing.JCheckBoxMenuItem menuMasuk1;
-    private javax.swing.JMenuItem menuRomance;
     private javax.swing.JMenu menuUser;
     private javax.swing.JLabel tampilAktor;
+    private javax.swing.JLabel tampilGenre;
     private javax.swing.JLabel tampilJudul;
     private javax.swing.JLabel tampilSinopsis;
     // End of variables declaration//GEN-END:variables
