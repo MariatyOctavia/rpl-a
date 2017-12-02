@@ -5,24 +5,8 @@
  */
 package moviemanager;
 
-import java.awt.HeadlessException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
+
 import static javax.swing.JOptionPane.showMessageDialog;
-//import java.io.UnsupportedEncodingException;
-//import java.security.MessageDigest;
-//import java.security.NoSuchAlgorithmException;
-//import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import moviemanager.Beranda;
-import moviemanager.BerandaUser;
-import moviemanager.GenreAction;
-import moviemanager.GenreHoror;
-import moviemanager.GenreRomance;
-import moviemanager.ModulDB;
-import moviemanager.Register;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
 
@@ -50,10 +34,11 @@ public class Login extends javax.swing.JFrame {
     
     
     private void login(){
+        
         String email = tfEmail.getText();
         String password = pfPass.getText();
         String level= cbPilihan.getSelectedItem().toString();
-        String status=cbPilihan.getSelectedItem().toString();
+//        String status=cbPilihan.getSelectedItem().toString();
         
         //enkripsi 
         char[] kr ={'0','1','2','3','4','5','6','7','8','9',' ','.','□',+
@@ -92,41 +77,30 @@ public class Login extends javax.swing.JFrame {
         }
         
         if (!email.isEmpty()&& !password.isEmpty()){
-            try{
-                String sql="SELECT * FROM Userr WHERE email='"+emailEnkrip+"' AND password='"+passEnkrip+"' AND level='"+level+"' ;";
-               
-                
-                    Connection con = ModulDB.connectDB();
-                    Statement stmt=con.createStatement();
-                    ResultSet result=stmt.executeQuery(sql);
-                    //String a=result.getString("level");
-                    
-                    if(!result.next()){
-                        showMessageDialog(null, "Email atau Password salah");
-                    }
-                    else if (level=="admin"){
-//                        ModulDB.id_user=result.getInt("id_user");
-                        ModulDB.level=result.getString("level");
-                        
-                        new Beranda().setVisible(true);
-                        this.dispose();//menyembunyikan halaman login
-                    }
-                    else{
-                        //buat menyimpan
-                        //ModulDB.id_user=result.getInt("id_user");
-                        ModulDB.nama=result.getString("nama");
-                        ModulDB.email=result.getString("email");
-                        ModulDB.password=result.getString("password");
-                        ModulDB.level=result.getString("level");
-                        
-                        new BerandaUser().setVisible(true);
-                        this.dispose();//menyembunyikan halaman login
-                    }
-                }           
-            
-            catch(SQLException | HeadlessException e){
-                showMessageDialog(null,e.getMessage(),"Error!", JOptionPane.ERROR_MESSAGE);
+
+            if(!ModulDB.checkLogin(emailEnkrip, passEnkrip, level)){
+                showMessageDialog(null, "Email atau Password salah");
             }
+            else if (level=="admin"){
+//                        ModulDB.id_user=result.getInt("id_user");
+//                ModulDB.level=result.getString("level");
+
+                new BerandaUser(true).setVisible(true);
+                
+                this.dispose();//menyembunyikan halaman login
+            }
+            else{
+                //buat menyimpan
+                //ModulDB.id_user=result.getInt("id_user");
+//                User.nama=result.getString("nama");
+//                User.email=result.getString("email");
+//                User.password=result.getString("password");
+//                User.level=result.getString("level");
+
+                new BerandaUser(false).setVisible(true);
+                this.dispose();//menyembunyikan halaman login
+            }      
+            
         }
         else
            showMessageDialog(null,"Email dan password harus terisi !");
@@ -178,6 +152,11 @@ public class Login extends javax.swing.JFrame {
         addWindowStateListener(new java.awt.event.WindowStateListener() {
             public void windowStateChanged(java.awt.event.WindowEvent evt) {
                 formWindowStateChanged(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -335,6 +314,7 @@ public class Login extends javax.swing.JFrame {
 
     private void buttonMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMasukActionPerformed
         // TODO add your handling code here:
+        
         /*try{
            
                     
@@ -397,25 +377,27 @@ public class Login extends javax.swing.JFrame {
 
     private void menuRomanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRomanceActionPerformed
         // TODO add your handling code here:
-        new GenreRomance().setVisible(true);
-        this.dispose();
+
     }//GEN-LAST:event_menuRomanceActionPerformed
 
     private void menuHororActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHororActionPerformed
         // TODO add your handling code here:
-        new GenreHoror().setVisible(true);
-        this.dispose();
+
     }//GEN-LAST:event_menuHororActionPerformed
 
     private void menuActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionActionPerformed
         // TODO add your handling code here:
-        new GenreAction().setVisible(true);
-        this.dispose();
+
     }//GEN-LAST:event_menuActionActionPerformed
 
     private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowStateChanged
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        this.getRootPane().setDefaultButton(buttonMasuk);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

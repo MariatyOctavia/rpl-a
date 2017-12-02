@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package moviemanager;
-
+import java.awt.Frame;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,33 +12,37 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-
 /**
  *
- * @author hp
+ * @author user
  */
-public class EditHapusGenre extends javax.swing.JFrame {
+public class EditHapusGenre extends javax.swing.JDialog {
       private String nama;
       private String nama_lama;
-//    private String judulFilm;
-//    private String aktorFilm;
-//    private String sinopsisFilm;
-//    private File fileGambar = null;
+      private Frame parent;
     /**
-     * Creates new form Film
+     * Creates new form EditHapusGenre2
+     * 
      */
-    public EditHapusGenre( String namaGenre, String nama_lama) {
+    public EditHapusGenre(java.awt.Frame parent, boolean modal){
+        super(parent, modal);
+        this.parent = parent;
         initComponents();
-//        this.judulFilm= judulFilm;
-//        this.aktorFilm = aktorFilm;
-//        this.sinopsisFilm = sinopsisFilm;
-        
+    }
+    public EditHapusGenre(java.awt.Frame parent, boolean modal,String namaGenre, String nama_lama) {
+        this(parent,modal);
         tfNama.setText(namaGenre);
         this.nama = namaGenre;
         this.nama_lama=nama_lama;
@@ -53,37 +57,37 @@ public class EditHapusGenre extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        FilmBiasa = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         tfNama = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        FilmBiasa = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
         menuDaftar1 = new javax.swing.JCheckBoxMenuItem();
         jMenu4 = new javax.swing.JMenu();
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        jLabel6.setText("Copy right Movie Manager 2017");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel7.setText("_______________________________");
+        FilmBiasa.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        FilmBiasa.setText("Edit /Hapus Genre 2");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel11.setText("Logo");
 
-        jLabel3.setText("Nama      :");
+        jLabel8.setText("________________________________________________");
 
         tfNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNamaActionPerformed(evt);
             }
         });
+
+        jLabel3.setText("Nama      :");
 
         jButton1.setText("Ubah");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -99,22 +103,15 @@ public class EditHapusGenre extends javax.swing.JFrame {
             }
         });
 
-        FilmBiasa.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        FilmBiasa.setText("Edit /Hapus Genre");
-
-        jLabel8.setText("________________________________________________");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        jLabel10.setText("Copyright© Movie Manager 2017");
-
-        jLabel11.setText("Logo");
-
         jButton3.setText("Batal");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        jLabel10.setText("Copyright© Movie Manager 2017");
 
         jMenu3.setText("User");
 
@@ -151,7 +148,7 @@ public class EditHapusGenre extends javax.swing.JFrame {
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
                         .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +166,7 @@ public class EditHapusGenre extends javax.swing.JFrame {
                                         .addComponent(jButton2)
                                         .addGap(27, 27, 27)
                                         .addComponent(jButton3)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)))
                 .addComponent(jLabel11)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -197,7 +194,7 @@ public class EditHapusGenre extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jLabel10))
         );
 
@@ -212,47 +209,48 @@ public class EditHapusGenre extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuDaftar1ActionPerformed
 
+    private void tfNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNamaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNamaActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-             boolean isSuccess = ModulDB.editGenre(tfNama.getText(), nama_lama);
+        boolean isSuccess = ModulDB.editGenre(tfNama.getText(), nama_lama);
         if(isSuccess){
-           JOptionPane.showMessageDialog(this,"Genre berhasil diedit n dan tersimpan di database",
-                               "Genre Berhasil Diedit",JOptionPane.INFORMATION_MESSAGE);
-           new Beranda().setVisible(true);
-           this.dispose();
-       }
+            JOptionPane.showMessageDialog(this,"Genre berhasil diedit n dan tersimpan di database",
+                "Genre Berhasil Diedit",JOptionPane.INFORMATION_MESSAGE);
+        TambahGenre t = new TambahGenre(parent, true);
+        t.setVisible(true);
+            this.dispose();
+        }
         else{
             JOptionPane.showMessageDialog(this,"Genre gagal diedit",
-                               "Error: Terjadi Kesalahan",JOptionPane.ERROR_MESSAGE);
-       }
+                "Error: Terjadi Kesalahan",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         boolean isSuccess = ModulDB.hapusGenre(nama);
-        
+
         if(isSuccess){
-           JOptionPane.showMessageDialog(this,"Genre berhasil di hapus database",
-                               "Genre Berhasil di hapus",JOptionPane.INFORMATION_MESSAGE);
-           new Beranda().setVisible(true);
-           this.dispose();
-       }
+            JOptionPane.showMessageDialog(this,"Genre berhasil di hapus database",
+                "Genre Berhasil di hapus",JOptionPane.INFORMATION_MESSAGE);
+            new BerandaUser(true).setVisible(true);
+            this.dispose();
+        }
         else{
             JOptionPane.showMessageDialog(this,"Film gagal dihapus",
-                               "Error: Terjadi Kesalahan",JOptionPane.ERROR_MESSAGE);
-       }
-        
+                "Error: Terjadi Kesalahan",JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        new Beranda().setVisible(true);
+        new BerandaUser(true).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void tfNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNamaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfNamaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,13 +279,18 @@ public class EditHapusGenre extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-//                new Film().setVisible(true);
+                EditHapusGenre dialog = new EditHapusGenre(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -300,8 +303,6 @@ public class EditHapusGenre extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;

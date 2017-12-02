@@ -7,15 +7,6 @@ package moviemanager;
 
 //import java.awt.HeadlessException;
 //import java.security.MessageDigest;
-import java.sql.Connection;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-//import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import moviemanager.BerandaUser;
-import moviemanager.ModulDB;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
@@ -23,9 +14,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * @author hp
  */
 public class Register extends javax.swing.JFrame {
-    //Connection conn = null;
-    //PreparedStatement pst = null;
-    //ResultSet rt = null;
+
     /**
      * Creates new form Register
      */
@@ -334,17 +323,9 @@ public class Register extends javax.swing.JFrame {
         }
         
         if(password.length()>=8 && password.equals(RePass)){
-         try(Connection con = ModulDB.connectDB()) {
-                String sql="INSERT  INTO userr (nama,email,password,level) VALUES('"+nama+"','"+emailEnkrip+"','"+passEnkrip+"','"+guest+"');";
-                Statement stmt=con.createStatement();
-                stmt.executeUpdate(sql);
-                showMessageDialog(null,"User berhasil dibuat!");
-            }
-            catch(SQLException e){
-                showMessageDialog(null,e.getMessage(),"Error!",JOptionPane.ERROR_MESSAGE);
-            }
-         new BerandaUser().setVisible(true);
-         this.dispose();
+            ModulDB.registerUser(nama, emailEnkrip, passEnkrip, guest);
+            new BerandaUser(false).setVisible(true);
+            this.dispose();
         }
         else if(password.length()<8)
             showMessageDialog(null,"Password minimal 8 karakter");
