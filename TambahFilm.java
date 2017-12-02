@@ -298,7 +298,7 @@ private File fileGambar = null;
 
     private void jBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBatalActionPerformed
         // TODO add your handling code here:
-        new BerandaUser(true).setVisible(true);
+        new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBatalActionPerformed
 

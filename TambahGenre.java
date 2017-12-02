@@ -5,9 +5,14 @@
  */
 package moviemanager;
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -241,13 +246,27 @@ public class TambahGenre extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        new BerandaUser(true).setVisible(true);
+        new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+                        JPopupMenu menupop = new JPopupMenu();
+        JMenuItem menuitem = new JMenuItem("Edit/Hapus Genre"); 
         
+        menuitem.addActionListener((ActionEvent e) -> {
+            if(jTabGenre.getSelectedRow() > -1){
+                int rowIdx = jTabGenre.getSelectedRow();
+                TableModel model = jTabGenre.getModel();
+                String pNama = (String) model.getValueAt(rowIdx, 0);   
+                EditHapusGenre genre= new EditHapusGenre((JFrame)this.getParent(),true,pNama, pNama);
+                genre.setVisible(true);//To change body of generated methods, choose Tools | Templates.
+                updateGenre();
+            }
+        });
+        menupop.add(menuitem);
+        jTabGenre.setComponentPopupMenu(menupop);
         updateGenre();
     }//GEN-LAST:event_formWindowOpened
 

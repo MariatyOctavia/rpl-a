@@ -75,7 +75,7 @@ public class EditHapusGenre extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         FilmBiasa.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        FilmBiasa.setText("Edit /Hapus Genre 2");
+        FilmBiasa.setText("Edit /Hapus Genre ");
 
         jLabel11.setText("Logo");
 
@@ -219,8 +219,6 @@ public class EditHapusGenre extends javax.swing.JDialog {
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Genre berhasil diedit n dan tersimpan di database",
                 "Genre Berhasil Diedit",JOptionPane.INFORMATION_MESSAGE);
-        TambahGenre t = new TambahGenre(parent, true);
-        t.setVisible(true);
             this.dispose();
         }
         else{
@@ -236,7 +234,7 @@ public class EditHapusGenre extends javax.swing.JDialog {
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Genre berhasil di hapus database",
                 "Genre Berhasil di hapus",JOptionPane.INFORMATION_MESSAGE);
-            new BerandaUser(true).setVisible(true);
+            new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
             this.dispose();
         }
         else{
@@ -248,7 +246,7 @@ public class EditHapusGenre extends javax.swing.JDialog {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        new BerandaUser(true).setVisible(true);
+        new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 

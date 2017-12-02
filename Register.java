@@ -324,7 +324,7 @@ public class Register extends javax.swing.JFrame {
         
         if(password.length()>=8 && password.equals(RePass)){
             ModulDB.registerUser(nama, emailEnkrip, passEnkrip, guest);
-            new BerandaUser(false).setVisible(true);
+            new BerandaUser(BerandaUser.STATE_LOGIN.USER).setVisible(true);
             this.dispose();
         }
         else if(password.length()<8)

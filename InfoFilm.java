@@ -20,7 +20,7 @@ import javax.swing.ImageIcon;
  */
 public class InfoFilm extends javax.swing.JFrame {
     private Film film;
-    private boolean isAdmin;
+    private BerandaUser.STATE_LOGIN stateLogin;
     /**
      * Creates new form InfoFilm
      */
@@ -28,11 +28,11 @@ public class InfoFilm extends javax.swing.JFrame {
         initComponents();
     }
 
-    InfoFilm(Film newFilm,boolean isAdmin) {
+    InfoFilm(Film newFilm,BerandaUser.STATE_LOGIN stateLogin) {
         this();
         
         this.film = newFilm;
-        this.isAdmin= isAdmin;
+        this.stateLogin= stateLogin;
     }
     
     
@@ -181,7 +181,7 @@ public class InfoFilm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        new BerandaUser(isAdmin).setVisible(true);
+        new BerandaUser(stateLogin).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
     private void setData() {

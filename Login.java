@@ -84,8 +84,7 @@ public class Login extends javax.swing.JFrame {
             else if (level=="admin"){
 //                        ModulDB.id_user=result.getInt("id_user");
 //                ModulDB.level=result.getString("level");
-
-                new BerandaUser(true).setVisible(true);
+                new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
                 
                 this.dispose();//menyembunyikan halaman login
             }
@@ -97,7 +96,7 @@ public class Login extends javax.swing.JFrame {
 //                User.password=result.getString("password");
 //                User.level=result.getString("level");
 
-                new BerandaUser(false).setVisible(true);
+                new BerandaUser(BerandaUser.STATE_LOGIN.USER).setVisible(true);
                 this.dispose();//menyembunyikan halaman login
             }      
             

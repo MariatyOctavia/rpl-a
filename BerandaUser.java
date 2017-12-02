@@ -32,17 +32,30 @@ import javax.swing.SwingConstants;
  */
 public class BerandaUser extends javax.swing.JFrame {
        private ArrayList<Film> listFilm = new ArrayList<>();
-       private boolean isAdmin;
+
+       public static enum STATE_LOGIN {USER,ADMIN,NONE};
+       private STATE_LOGIN stateLogin = STATE_LOGIN.NONE;
     /**
      * Creates new form BerandaUser
      */
-    public BerandaUser(boolean isAdmin) {
+    public BerandaUser(STATE_LOGIN stateLogin) {
         initComponents();
-        this.isAdmin= isAdmin;
+        this.stateLogin= stateLogin;
         jBack.setVisible(false);
-        if(isAdmin == true){
-            TambahFilm.setVisible(true);
-            TambahGenre.setVisible(true);
+        
+        switch(stateLogin){
+            case ADMIN: TambahFilm.setVisible(true);
+                        TambahGenre.setVisible(true);
+                        btLogout.setVisible(true);
+                        menuUser.setVisible(false);
+                        break;
+            case USER:  TambahFilm.setVisible(false);
+                        TambahGenre.setVisible(false);
+                        btLogout.setVisible(true);
+                        menuUser.setVisible(false);
+                        break;
+            case NONE:  menuUser.setVisible(true);
+                        break;
         }
         pnlFilm.setLayout(new GridLayout(0,5));
         //this.getContentPane().setBackground(Color.WHITE);// untuk ser warna background
@@ -67,6 +80,7 @@ public class BerandaUser extends javax.swing.JFrame {
         pnlFilm = new javax.swing.JPanel();
         jBack = new javax.swing.JButton();
         welcome = new javax.swing.JLabel();
+        btLogout = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuUser = new javax.swing.JMenu();
         menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
@@ -142,6 +156,13 @@ public class BerandaUser extends javax.swing.JFrame {
 
         welcome.setText("Selamat datang, ");
 
+        btLogout.setText("Logout");
+        btLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLogoutActionPerformed(evt);
+            }
+        });
+
         menuUser.setText("User");
 
         menuMasuk1.setSelected(true);
@@ -202,29 +223,33 @@ public class BerandaUser extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlFilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(welcome))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(pilihGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jBack))
-                        .addGap(199, 199, 199))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(TambahFilm)
-                .addGap(57, 57, 57)
-                .addComponent(TambahGenre)
+                            .addComponent(pnlFilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(welcome))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                                .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(pilihGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jBack)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                                        .addComponent(btLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addGap(0, 0, Short.MAX_VALUE))))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TambahFilm)
+                        .addGap(57, 57, 57)
+                        .addComponent(TambahGenre)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -233,7 +258,9 @@ public class BerandaUser extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jBack)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBack)
+                            .addComponent(btLogout))
                         .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
@@ -246,7 +273,7 @@ public class BerandaUser extends javax.swing.JFrame {
                         .addComponent(welcome, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TambahFilm)
                     .addComponent(TambahGenre))
@@ -255,6 +282,7 @@ public class BerandaUser extends javax.swing.JFrame {
         );
 
         //pnlFilm.setBackground(Color.white);
+        btLogout.setVisible(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -289,13 +317,12 @@ public class BerandaUser extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         updateFilm();
-        if(isAdmin){
-            TambahFilm.setVisible(true);
-            TambahGenre.setVisible(true);
-        }
-        else{
-            TambahFilm.setVisible(false);
-            TambahGenre.setVisible(false);
+        switch(stateLogin){
+            case ADMIN: TambahFilm.setVisible(true);
+                        TambahGenre.setVisible(true);
+            case USER:  btLogout.setVisible(true);
+                        break;
+            default:    break;
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -352,7 +379,7 @@ public class BerandaUser extends javax.swing.JFrame {
                 newLabel.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        InfoFilm info = new InfoFilm(newFilm, isAdmin);
+                        InfoFilm info = new InfoFilm(newFilm, stateLogin);
                         info.setVisible(true);
                         BerandaUser.this.dispose();
                         updateFilm();}
@@ -421,7 +448,22 @@ public class BerandaUser extends javax.swing.JFrame {
         // TODO add your handling code here:
         TambahGenre tambahGenre = new TambahGenre(this, true);
         tambahGenre.setVisible(true);
+        updateFilm();
     }//GEN-LAST:event_TambahGenreActionPerformed
+
+    private void btLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogoutActionPerformed
+        // TODO add your handling code here:
+        switch(stateLogin){
+            case ADMIN:
+            case USER:  TambahFilm.setVisible(false);
+                        TambahGenre.setVisible(false);
+                        btLogout.setVisible(false);
+                        menuUser.setVisible(true);
+                        stateLogin = STATE_LOGIN.NONE;
+                        break;
+            default:    break;
+        }
+    }//GEN-LAST:event_btLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -471,7 +513,7 @@ public class BerandaUser extends javax.swing.JFrame {
                 newLabel.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        InfoFilm info = new InfoFilm(newFilm,isAdmin);
+                        InfoFilm info = new InfoFilm(newFilm,stateLogin);
                         info.setVisible(true);
                         BerandaUser.this.dispose();
                         updateFilm();}
@@ -553,7 +595,7 @@ public class BerandaUser extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-              BerandaUser b = new BerandaUser(false);
+              BerandaUser b = new BerandaUser(STATE_LOGIN.NONE);
               b.setVisible(true);
             }
         });
@@ -562,6 +604,7 @@ public class BerandaUser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton TambahFilm;
     private javax.swing.JButton TambahGenre;
+    private javax.swing.JButton btLogout;
     private javax.swing.JButton jBack;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;

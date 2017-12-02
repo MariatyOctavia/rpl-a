@@ -459,7 +459,7 @@ public void tambahGenre(){
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Film berhasil diedit n dan tersimpan di database",
                 "Film Berhasil Diedit",JOptionPane.INFORMATION_MESSAGE);
-            new BerandaUser(true).setVisible(true);
+            new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
             this.dispose();
         }
         else{
@@ -475,7 +475,7 @@ public void tambahGenre(){
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Film berhasil di hapus database",
                 "Film Berhasil di hapus",JOptionPane.INFORMATION_MESSAGE);
-            new BerandaUser(true).setVisible(true);
+            new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
             this.dispose();
         }
         else{
@@ -487,7 +487,7 @@ public void tambahGenre(){
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        new BerandaUser(true).setVisible(true);
+        new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -522,7 +522,7 @@ public void tambahGenre(){
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Film berhasil diedit n dan tersimpan di database",
                 "Film Berhasil Diedit",JOptionPane.INFORMATION_MESSAGE);
-            new BerandaUser(true).setVisible(true);
+            new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
             this.dispose();
         }
         else{
@@ -538,7 +538,7 @@ public void tambahGenre(){
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Film berhasil di hapus database",
                 "Film Berhasil di hapus",JOptionPane.INFORMATION_MESSAGE);
-            new BerandaUser(true).setVisible(true);
+            new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
             this.dispose();
         }
         else{
@@ -550,7 +550,7 @@ public void tambahGenre(){
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        new BerandaUser(true).setVisible(true);
+        new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
 
