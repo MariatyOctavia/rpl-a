@@ -10,20 +10,24 @@ package moviemanager;
  * @author user
  */
 public class Film {
+    private int id_film;
     private String judul;
     private String sinopsis;
     private String gambar;
     private String aktor;
     private int genre;
+    private int genre2;
     private int tahun;
     private int rating;
     
-    public Film(String judul, String sinopsis,String gambar,String aktor,int genre,int tahun,int rating){
+    public Film(int id_film, String judul, String sinopsis,String gambar,String aktor,int genre,int genre2,int tahun,int rating){
+    this.id_film = id_film;
     this.judul = judul;
     this.sinopsis= sinopsis;
     this.gambar = gambar;
     this.aktor = aktor;
     this.genre = genre;
+    this.genre2 = genre2;
     this.tahun =tahun;
     this.rating = rating;
     }
@@ -123,5 +127,33 @@ public class Film {
      */
     public void setAktor(String aktor) {
         this.aktor = aktor;
+    }
+
+    /**
+     * @return the id_film
+     */
+    public int getId_film() {
+        return id_film;
+    }
+
+    /**
+     * @param id_film the id_film to set
+     */
+    public void setId_film(int id_film) {
+        this.id_film = id_film;
+    }
+
+    /**
+     * @return the genre2
+     */
+    public int getGenre2() {
+        return genre2;
+    }
+
+    /**
+     * @param genre2 the genre2 to set
+     */
+    public void setGenre2(int genre2) {
+        this.genre2 = genre2;
     }
 }

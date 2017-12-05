@@ -61,6 +61,7 @@ private File fileGambar = null;
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        tfGenre2 = new javax.swing.JComboBox<>();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         menuDaftar1 = new javax.swing.JCheckBoxMenuItem();
@@ -126,6 +127,12 @@ private File fileGambar = null;
 
         jLabel11.setText("Logo");
 
+        tfGenre2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfGenre2ActionPerformed(evt);
+            }
+        });
+
         jMenu3.setText("User");
 
         menuDaftar1.setSelected(true);
@@ -161,7 +168,9 @@ private File fileGambar = null;
                 .addContainerGap(257, Short.MAX_VALUE)
                 .addComponent(jBatal)
                 .addGap(18, 18, 18)
-                .addComponent(tambah)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfGenre2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tambah))
                 .addGap(29, 29, 29))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -216,7 +225,9 @@ private File fileGambar = null;
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(389, Short.MAX_VALUE)
+                .addContainerGap(219, Short.MAX_VALUE)
+                .addComponent(tfGenre2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(150, 150, 150)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tambah)
                     .addComponent(jBatal))
@@ -281,7 +292,8 @@ private File fileGambar = null;
         }
 
         boolean isSuccess = ModulDB.createFilm(tfJudul.getText(), tfSinopsis.getText(),
-            pathGambar, tfAktor1.getText(),ModulDB.getIndexGenre((String)tfGenre.getSelectedItem()),tftahun.getText());
+            pathGambar, tfAktor1.getText(),ModulDB.getIndexGenre((String)tfGenre.getSelectedItem()),
+            ModulDB.getIndexGenre((String)tfGenre2.getSelectedItem()),tftahun.getText());
 
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Film berhasil ditambahkan dan tersimpan di database",
@@ -298,7 +310,7 @@ private File fileGambar = null;
 
     private void jBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBatalActionPerformed
         // TODO add your handling code here:
-        new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
+        new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBatalActionPerformed
 
@@ -348,12 +360,17 @@ private File fileGambar = null;
         tambahGenre();
     }//GEN-LAST:event_formWindowOpened
 
+    private void tfGenre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfGenre2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfGenre2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
     
     public void tambahGenre(){
         tfGenre.setModel(new DefaultComboBoxModel(ModulDB.selectSemuaGenre().toArray()));
+        tfGenre2.setModel(new DefaultComboBoxModel(ModulDB.selectSemuaGenre().toArray()));
     }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -417,6 +434,7 @@ private File fileGambar = null;
     private javax.swing.JButton tambah;
     private javax.swing.JTextField tfAktor1;
     private javax.swing.JComboBox<String> tfGenre;
+    private javax.swing.JComboBox<String> tfGenre2;
     private javax.swing.JTextField tfJudul;
     private javax.swing.JTextField tfSinopsis;
     private javax.swing.JTextField tftahun;

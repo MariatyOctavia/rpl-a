@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,19 +21,43 @@ import javax.swing.ImageIcon;
  */
 public class InfoFilm extends javax.swing.JFrame {
     private Film film;
-    private BerandaUser.STATE_LOGIN stateLogin;
+    
+    private Beranda.STATE_LOGIN stateLogin;
     /**
      * Creates new form InfoFilm
      */
     public InfoFilm() {
         initComponents();
+
     }
 
-    InfoFilm(Film newFilm,BerandaUser.STATE_LOGIN stateLogin) {
+    InfoFilm(Film newFilm,Beranda.STATE_LOGIN stateLogin) {
         this();
-        
         this.film = newFilm;
+        double rat = ModulDB.readRating(film.getId_film());
+        this.lblRating.setText(""+rat);
         this.stateLogin= stateLogin;
+            switch(stateLogin){
+            case ADMIN: bntng1.setVisible(false);
+                        bntng2.setVisible(false);
+                        bntng3.setVisible(false);
+                        bntng4.setVisible(false);
+                        bntng5.setVisible(false);
+                        break;
+            case USER:  bntng1.setVisible(true);
+                        bntng2.setVisible(true);
+                        bntng3.setVisible(true);
+                        bntng4.setVisible(true);
+                        bntng5.setVisible(true);
+                        break;
+            case NONE:  bntng1.setVisible(false);
+                        bntng2.setVisible(false);
+                        bntng3.setVisible(false);
+                        bntng4.setVisible(false);
+                        bntng5.setVisible(false);
+                        break;
+        }
+        
     }
     
     
@@ -56,10 +81,17 @@ public class InfoFilm extends javax.swing.JFrame {
         Tahun = new javax.swing.JLabel();
         tfTahun = new javax.swing.JLabel();
         Rating = new javax.swing.JLabel();
-        tfRating = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tfSinopsis = new javax.swing.JTextArea();
+        bntng1 = new javax.swing.JButton();
+        bntng2 = new javax.swing.JButton();
+        bntng3 = new javax.swing.JButton();
+        bntng4 = new javax.swing.JButton();
+        bntng5 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        lblRating = new javax.swing.JLabel();
+        tfGenre2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -88,8 +120,6 @@ public class InfoFilm extends javax.swing.JFrame {
 
         Rating.setText("Rating :");
 
-        tfRating.setText("0");
-
         jButton1.setText("Kembali");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +134,45 @@ public class InfoFilm extends javax.swing.JFrame {
         tfSinopsis.setWrapStyleWord(true);
         jScrollPane1.setViewportView(tfSinopsis);
 
+        bntng1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintanggelep.png"))); // NOI18N
+        bntng1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntng1ActionPerformed(evt);
+            }
+        });
+
+        bntng2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintanggelep.png"))); // NOI18N
+        bntng2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntng2ActionPerformed(evt);
+            }
+        });
+
+        bntng3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintanggelep.png"))); // NOI18N
+        bntng3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntng3ActionPerformed(evt);
+            }
+        });
+
+        bntng4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintanggelep.png"))); // NOI18N
+        bntng4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntng4ActionPerformed(evt);
+            }
+        });
+
+        bntng5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintanggelep.png"))); // NOI18N
+        bntng5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntng5ActionPerformed(evt);
+            }
+        });
+
+        lblRating.setText("dssdjsdj");
+
+        tfGenre2.setText("Romance ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,35 +182,53 @@ public class InfoFilm extends javax.swing.JFrame {
                 .addComponent(txtGambar, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jButton1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Judul, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfJudul, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Tahun)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfTahun, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Rating)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfRating))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(Judul1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Judul2, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfAktor, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButton1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Judul, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfJudul, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(Judul1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(Judul2, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfAktor, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Tahun)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfTahun, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Rating)
+                                .addGap(10, 10, 10)
+                                .addComponent(lblRating, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfGenre2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(bntng1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bntng2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bntng3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bntng4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(bntng5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtGambar, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                .addComponent(txtGambar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(114, 114, 114))
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
@@ -155,20 +242,28 @@ public class InfoFilm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfGenre)
-                    .addComponent(Judul2))
+                    .addComponent(Judul2)
+                    .addComponent(tfGenre2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Tahun)
                     .addComponent(tfTahun))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Rating)
+                        .addComponent(jLabel1))
+                    .addComponent(bntng5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bntng4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bntng3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bntng2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bntng1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRating, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Rating)
-                    .addComponent(tfRating))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(56, 56, 56))
         );
 
         pack();
@@ -181,16 +276,88 @@ public class InfoFilm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        new BerandaUser(stateLogin).setVisible(true);
+        new Beranda(stateLogin).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void bntng1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntng1ActionPerformed
+        // TODO add your handling code here:
+        boolean isSuccess = ModulDB.createRating(1,film.getId_film(),User.getId_akun());
+        if(isSuccess){
+                bntng1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png")));
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"rating gagal ditambahkan",
+                "Error: Terjadi Kesalahan",JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_bntng1ActionPerformed
+
+    private void bntng2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntng2ActionPerformed
+        // TODO add your handling code here:
+        boolean isSuccess = ModulDB.createRating(2,film.getId_film(),User.getId_akun());
+            if(isSuccess){
+                bntng1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png"))); 
+                bntng2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png")));
+            }
+            else{
+            JOptionPane.showMessageDialog(this,"rating gagal ditambahkan",
+                "Error: Terjadi Kesalahan",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_bntng2ActionPerformed
+
+    private void bntng3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntng3ActionPerformed
+        // TODO add your handling code here:
+        boolean isSuccess = ModulDB.createRating(3,film.getId_film(),User.getId_akun());
+            if(isSuccess){
+                bntng1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png"))); 
+                bntng2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png")));
+                bntng3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png"))); 
+            }
+            else{
+            JOptionPane.showMessageDialog(this,"rating gagal ditambahkan",
+                "Error: Terjadi Kesalahan",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_bntng3ActionPerformed
+
+    private void bntng4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntng4ActionPerformed
+        // TODO add your handling code here:
+         boolean isSuccess = ModulDB.createRating(4,film.getId_film(),User.getId_akun());
+            if(isSuccess){
+                bntng1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png"))); 
+                bntng2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png"))); 
+                bntng3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png")));
+                bntng4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png"))); 
+            }
+            else{
+            JOptionPane.showMessageDialog(this,"rating gagal ditambahkan",
+                "Error: Terjadi Kesalahan",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_bntng4ActionPerformed
+
+    private void bntng5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntng5ActionPerformed
+        // TODO add your handling code here:
+         boolean isSuccess = ModulDB.createRating(5,film.getId_film(),User.getId_akun());
+            if(isSuccess){
+                bntng1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png"))); 
+                bntng2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png"))); 
+                bntng3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png")));
+                bntng4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png"))); 
+                bntng5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/moviemanager/bintang.png"))); 
+
+            }
+            else{
+            JOptionPane.showMessageDialog(this,"rating gagal ditambahkan",
+                "Error: Terjadi Kesalahan",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_bntng5ActionPerformed
     private void setData() {
         String url = "images/" + film.getGambar();
         BufferedImage img = null;
                 try {
                     img = ImageIO.read(new File(url));
                 } catch (IOException ex) {
-                    Logger.getLogger(BerandaUser.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Beranda.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
         
@@ -199,9 +366,9 @@ public class InfoFilm extends javax.swing.JFrame {
         tfJudul.setText(film.getJudul());
         tfAktor.setText(film.getAktor());
         tfGenre.setText(ModulDB.ambilNamaGenre(film.getGenre()));
+        tfGenre2.setText(ModulDB.ambilNamaGenre(film.getGenre2()));
         tfTahun.setText(Integer.toString(film.getTahun()));
         txtGambar.setIcon(icon);
-        tfRating.setText(Integer.toString(film.getRating()));
         tfSinopsis.setText(film.getSinopsis());
     }
     
@@ -247,12 +414,19 @@ public class InfoFilm extends javax.swing.JFrame {
     private javax.swing.JLabel Judul2;
     private javax.swing.JLabel Rating;
     private javax.swing.JLabel Tahun;
+    private javax.swing.JButton bntng1;
+    private javax.swing.JButton bntng2;
+    private javax.swing.JButton bntng3;
+    private javax.swing.JButton bntng4;
+    private javax.swing.JButton bntng5;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblRating;
     private javax.swing.JLabel tfAktor;
     private javax.swing.JLabel tfGenre;
+    private javax.swing.JLabel tfGenre2;
     private javax.swing.JLabel tfJudul;
-    private javax.swing.JLabel tfRating;
     private javax.swing.JTextArea tfSinopsis;
     private javax.swing.JLabel tfTahun;
     private javax.swing.JLabel txtGambar;

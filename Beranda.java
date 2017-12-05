@@ -5,42 +5,60 @@
  */
 package moviemanager;
 
+
 import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Vector;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.showMessageDialog;
-import javax.swing.JPopupMenu;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import static javax.swing.JOptionPane.showMessageDialog;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  *
  * @author hp
  */
 public class Beranda extends javax.swing.JFrame {
-    public static Login masuk = new Login ();
-    public static Register daftar = new Register ();
-    public static TambahFilm tambahkanFilm = new TambahFilm();
-    public static Genre kategoriFilm = new Genre();
-    
+       private ArrayList<Film> listFilm = new ArrayList<>();
+
+       public static enum STATE_LOGIN {USER,ADMIN,NONE};
+       private STATE_LOGIN stateLogin = STATE_LOGIN.NONE;
     /**
-     * Creates new form Home
+     * Creates new form BerandaUser
      */
-    public Beranda() {
+    public Beranda(STATE_LOGIN stateLogin) {
         initComponents();
-        cariByGenre.setVisible(false);
-        aturFrame(1.0,true);
-        updateFilm();
-        //Connection conn = ModulDB.connectDB();
+        this.stateLogin= stateLogin;
+        jBack.setVisible(false);
+        
+        switch(stateLogin){
+            case ADMIN: btTambahFilm.setVisible(true);
+                        btTambahGenre.setVisible(true);
+                        btLogout.setVisible(true);
+                        menuUser.setVisible(false);
+                        break;
+            case USER:  btTambahFilm.setVisible(false);
+                        btTambahGenre.setVisible(false);
+                        btLogout.setVisible(true);
+                        menuUser.setVisible(false);
+                        break;
+            case NONE:  menuUser.setVisible(true);
+                        break;
+        }
+        pnlFilm.setLayout(new GridLayout(0,5));
+        //this.getContentPane().setBackground(Color.WHITE);// untuk ser warna background
     }
 
     /**
@@ -52,186 +70,148 @@ public class Beranda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu2 = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
-        menuMasuk = new javax.swing.JCheckBoxMenuItem();
-        menuDaftar = new javax.swing.JCheckBoxMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jInternalFrame1 = new javax.swing.JInternalFrame();
-        jButton1 = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         tfSearch = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        tambahFilmButton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTabBeranda = new javax.swing.JTable();
-        pilihPencarian = new javax.swing.JComboBox<>();
-        jbCari = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        cariByGenre = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        btTambahFilm = new javax.swing.JButton();
+        pilihGenre = new javax.swing.JComboBox<>();
+        btTambahGenre = new javax.swing.JButton();
+        pnlFilm = new javax.swing.JPanel();
+        jBack = new javax.swing.JButton();
+        welcome = new javax.swing.JLabel();
+        btLogout = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
+        menuUser = new javax.swing.JMenu();
         menuMasuk1 = new javax.swing.JCheckBoxMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menuDaftar1 = new javax.swing.JCheckBoxMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-
-        jMenu2.setText("Genre");
-
-        jMenu1.setText("User");
-
-        menuMasuk.setSelected(true);
-        menuMasuk.setText("Masuk");
-        menuMasuk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuMasukActionPerformed(evt);
-            }
-        });
-        jMenu1.add(menuMasuk);
-
-        menuDaftar.setSelected(true);
-        menuDaftar.setText("Daftar");
-        menuDaftar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuDaftarActionPerformed(evt);
-            }
-        });
-        jMenu1.add(menuDaftar);
-
-        jMenu5.setText("Beranda");
-
-        jInternalFrame1.setVisible(true);
-
-        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
-        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
-        jInternalFrame1Layout.setHorizontalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame1Layout.setVerticalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jButton1.setText("jButton1");
-
-        jLabel12.setText("Logo");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        menuGenre = new javax.swing.JMenu();
+        menuRomance = new javax.swing.JMenuItem();
+        menuHoror = new javax.swing.JMenuItem();
+        menuAction = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(789, 248));
-        setMinimumSize(new java.awt.Dimension(789, 248));
-        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
 
-        jLabel1.setText("jLabel1");
-
-        tfSearch.setText("Search");
         tfSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfSearchActionPerformed(evt);
             }
         });
 
+        jLabel11.setText("Logo");
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel2.setText("Copyright© Movie Manager 2017");
 
-        jLabel11.setText("Logo");
-
-        tambahFilmButton.setText("Tambah Film");
-        tambahFilmButton.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Cari");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tambahFilmButtonActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        jTabBeranda.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Judul Fim", "Sinopsis", "gambar", "aktor", "genre", "tahun"
-            }
-        ));
-        jTabBeranda.setMinimumSize(new java.awt.Dimension(300, 64));
-        jScrollPane2.setViewportView(jTabBeranda);
-
-        pilihPencarian.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih...", "Judul", "Sinopsis", "Genre" }));
-        pilihPencarian.addActionListener(new java.awt.event.ActionListener() {
+        btTambahFilm.setText("Tambah Film");
+        btTambahFilm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pilihPencarianActionPerformed(evt);
+                btTambahFilmActionPerformed(evt);
             }
         });
 
-        jbCari.setText("Cari");
-        jbCari.addActionListener(new java.awt.event.ActionListener() {
+        pilihGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih...", "Judul", "Sinopsis", "Genre" }));
+        pilihGenre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbCariActionPerformed(evt);
+                pilihGenreActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Tambah Genre");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btTambahGenre.setText("Tambah Genre");
+        btTambahGenre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btTambahGenreActionPerformed(evt);
             }
         });
 
-        cariByGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Genre", "Romance", "Horor", "Action" }));
-        cariByGenre.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout pnlFilmLayout = new javax.swing.GroupLayout(pnlFilm);
+        pnlFilm.setLayout(pnlFilmLayout);
+        pnlFilmLayout.setHorizontalGroup(
+            pnlFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlFilmLayout.setVerticalGroup(
+            pnlFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 197, Short.MAX_VALUE)
+        );
+
+        jBack.setText("Back");
+        jBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cariByGenreActionPerformed(evt);
+                jBackActionPerformed(evt);
             }
         });
 
-        jMenu3.setText("User");
+        welcome.setText("Selamat datang, ");
 
+        btLogout.setText("Logout");
+        btLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLogoutActionPerformed(evt);
+            }
+        });
+
+        menuUser.setText("User");
+
+        menuMasuk1.setSelected(true);
         menuMasuk1.setText("Masuk");
         menuMasuk1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuMasuk1ActionPerformed(evt);
             }
         });
-        jMenu3.add(menuMasuk1);
-        jMenu3.add(jSeparator1);
+        menuUser.add(menuMasuk1);
 
+        menuDaftar1.setSelected(true);
         menuDaftar1.setText("Daftar");
         menuDaftar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuDaftar1ActionPerformed(evt);
             }
         });
-        jMenu3.add(menuDaftar1);
+        menuUser.add(menuDaftar1);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(menuUser);
 
-        jMenu4.setText("Genre");
-        jMenu4.addActionListener(new java.awt.event.ActionListener() {
+        menuGenre.setText("Genre");
+
+        menuRomance.setText("Romance");
+        menuRomance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu4ActionPerformed(evt);
+                menuRomanceActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenu4);
+        menuGenre.add(menuRomance);
+
+        menuHoror.setText("Horor");
+        menuHoror.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuHororActionPerformed(evt);
+            }
+        });
+        menuGenre.add(menuHoror);
+
+        menuAction.setText("Action");
+        menuAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuActionActionPerformed(evt);
+            }
+        });
+        menuGenre.add(menuAction);
+
+        jMenuBar1.add(menuGenre);
 
         setJMenuBar(jMenuBar1);
 
@@ -240,277 +220,350 @@ public class Beranda extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel2)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(131, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(63, 63, 63)
+                        .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlFilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(welcome))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                                 .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cariByGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
-                                .addComponent(jbCari))
-                            .addComponent(pilihPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tambahFilmButton)
-                            .addComponent(jButton2))
-                        .addGap(27, 27, 27))))
+                                .addGap(26, 26, 26)
+                                .addComponent(pilihGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jBack)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                                        .addComponent(btLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addGap(0, 0, Short.MAX_VALUE))))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btTambahFilm)
+                        .addGap(57, 57, 57)
+                        .addComponent(btTambahGenre)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tambahFilmButton)
-                    .addComponent(jbCari)
-                    .addComponent(cariByGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(pilihPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                .addGap(357, 357, 357)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBack)
+                            .addComponent(btLogout))
+                        .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(pilihGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(welcome, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 40, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btTambahFilm)
+                    .addComponent(btTambahGenre))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2))
         );
+
+        btTambahFilm.setVisible(false);
+        btTambahGenre.setVisible(false);
+        //pnlFilm.setBackground(Color.white);
+        btLogout.setVisible(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-      private void aturFrame(double skala, boolean tengah){
-          Dimension dimensi= Toolkit.getDefaultToolkit().getScreenSize();
-          setSize((int)(skala*dimensi.getWidth()),(int)(skala*dimensi.getHeight()));
-          if(tengah){
-              setLocation((int)((dimensi.getWidth()-getWidth())/2),(int)((dimensi.getHeight()-getHeight())/2)); 
-          }
-      }
-    
-    private void menuMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMasukActionPerformed
-        // TODO add your handling code here:
-        /*Login formLogin = new Login();
-        formLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        formLogin.setVisible(true);*/
-    }//GEN-LAST:event_menuMasukActionPerformed
-
-    private void menuDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDaftarActionPerformed
-        // TODO add your handling code here:
-      /*  Register formRegister = new Register();
-        formRegister.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        formRegister.setVisible(true);*/
-    }//GEN-LAST:event_menuDaftarActionPerformed
-
     private void menuMasuk1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMasuk1ActionPerformed
-  // TODO add your handling code here:
+        // TODO add your handling code here:
         new Login().setVisible(true);
         this.dispose();
-      
     }//GEN-LAST:event_menuMasuk1ActionPerformed
 
     private void menuDaftar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDaftar1ActionPerformed
         // TODO add your handling code here:
-        
-      daftar.setVisible(true);
+        new Register().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_menuDaftar1ActionPerformed
 
-    private void tambahFilmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahFilmButtonActionPerformed
-
-        new TambahFilm().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_tambahFilmButtonActionPerformed
-
-    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+    private void menuRomanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRomanceActionPerformed
         // TODO add your handling code here:
-        //kategoriFilm.setVisible(true);
-        if(kategoriFilm.isVisible()){
-            try{
-                kategoriFilm.setSelected(true);
-            }catch(Exception ex){
-                kategoriFilm = new Genre();
-                add(kategoriFilm);
-                kategoriFilm.setVisible(true);
-            }
-        }
-    }//GEN-LAST:event_jMenu4ActionPerformed
+
+    }//GEN-LAST:event_menuRomanceActionPerformed
+
+    private void menuHororActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHororActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_menuHororActionPerformed
+
+    private void menuActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_menuActionActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         updateFilm();
-        
-        JPopupMenu menupop = new JPopupMenu();
-        JMenuItem menuitem = new JMenuItem("Edit/Hapus film"); 
-        menuitem.addActionListener((ActionEvent e) -> {
-            if(jTabBeranda.getSelectedRow() > -1){
-                int rowIdx = jTabBeranda.getSelectedRow();
-                TableModel model = jTabBeranda.getModel();
-                String pJudul = (String) model.getValueAt(rowIdx, 0);
-                String pSinopsis = (String) model.getValueAt(rowIdx, 1);
-                String pGambar= (String) model.getValueAt(rowIdx, 2);
-                String pAktor = (String) model.getValueAt(rowIdx, 3);
-                int pGenre = ModulDB.getGenre((String) model.getValueAt(rowIdx, 4));
-                String pTahun = (String) model.getValueAt(rowIdx, 5);
-                EditHapusFilm film = new EditHapusFilm(pJudul,pSinopsis,pGambar,pAktor,pGenre,pTahun);
-                film.setVisible(true);//To change body of generated methods, choose Tools | Templates.
-                this.dispose();
-                //updateFilm();
-            }
-        });
-        menupop.add(menuitem);
-        jTabBeranda.setComponentPopupMenu(menupop);
+        switch(stateLogin){
+            case ADMIN: btTambahFilm.setVisible(true);
+                        btTambahGenre.setVisible(true);
+            case USER:  btLogout.setVisible(true);
+                        break;
+            default:    break;
+        }
     }//GEN-LAST:event_formWindowOpened
 
-    
-    
+    private void pilihGenreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pilihGenreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pilihGenreActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        jBack.setVisible(true);
+        String sql = null;
+        String keyword=tfSearch.getText();
+        if(pilihGenre.getSelectedIndex()== 1){
+            sql= "select * FROM film , genre WHERE genre.id_genre = film.genre and judul like '%"+keyword+"%'";
+            
+        }
+        else if(pilihGenre.getSelectedIndex()== 2){
+            sql= "select * FROM film , genre WHERE genre.id_genre = film.genre and sinopsis like '%"+keyword+"%'";
+        }
+        else if(pilihGenre.getSelectedIndex() == 3){
+            sql= "select * FROM film , genre WHERE genre.nama like '%"+keyword+"%'and genre.id_genre = film.genre";
+        }
+        else{
+            sql="select * FROM film inner join genre on film.genre = genre.id_genre where judul like"+"'%"+keyword+"%'"+"or sinopsis like "+"'%"+keyword+"%'"+"or aktor like"+"'%"+keyword+"%'"+"or nama like"+"'%"+keyword+"%'"+"or tahun like"+"'%"+keyword+"%'";
+        }
+        System.out.println(sql);
+        listFilm.clear();
+        pnlFilm.removeAll();
+        listFilm = ModulDB.searchFilm(sql);
+        
+        GridBagConstraints gbcPnlFilm = new GridBagConstraints();
+        gbcPnlFilm.insets = new Insets(5,2,5,2);
+        
+        if(listFilm != null){
+            for(Film f : listFilm){
+                String url = "images/" + f.getGambar();
+                final Film newFilm = f;
+                BufferedImage img = null;
+                System.out.println(url);
+                try {
+                    img = ImageIO.read(new File(url));
+                } catch (IOException ex) {
+                    Logger.getLogger(Beranda.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Image scaled = img.getScaledInstance(100, 150, Image.SCALE_SMOOTH);
+                JLabel newLabel = new JLabel();
+                newLabel.setPreferredSize(new Dimension(100,200));
+                newLabel.setText(f.getJudul() + " (" + Integer.toString(f.getTahun()) + ")");
+                newLabel.setIcon(new ImageIcon(scaled));
+                newLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
+                newLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+                newLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+                
+                newLabel.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        InfoFilm info = new InfoFilm(newFilm, stateLogin);
+                        info.setVisible(true);
+                        Beranda.this.dispose();
+                        updateFilm();}
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                    }
+                });
+                JLabel newLabel2 = new JLabel();
+                newLabel2.setText(ModulDB.ambilNamaGenre(f.getGenre()));
+                gbcPnlFilm.fill = GridBagConstraints.HORIZONTAL;
+                gbcPnlFilm.gridx = 0;
+                gbcPnlFilm.gridy = 0;
+                gbcPnlFilm.gridheight = 1;
+                gbcPnlFilm.gridwidth = 1;
+                gbcPnlFilm.weightx = 1;
+                gbcPnlFilm.weighty = 1;
+                
+                pnlFilm.add(newLabel,gbcPnlFilm);
+                gbcPnlFilm.gridx = 0;
+                gbcPnlFilm.gridy = 1;
+                gbcPnlFilm.gridheight = 1;
+                gbcPnlFilm.gridwidth = 1;
+                gbcPnlFilm.weightx = 1;
+                gbcPnlFilm.weighty = 1;
+                
+                pnlFilm.add(newLabel2,gbcPnlFilm);
+            }
+        
+                pnlFilm.revalidate();
+                pnlFilm.repaint();
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackActionPerformed
+        // TODO add your handling code here:
+        updateFilm();
+        jBack.setVisible(false);
+    }//GEN-LAST:event_jBackActionPerformed
+
     private void tfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfSearchActionPerformed
 
-    private void pilihPencarianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pilihPencarianActionPerformed
+    private void btTambahGenreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTambahGenreActionPerformed
         // TODO add your handling code here:
-        if (pilihPencarian.getSelectedItem().toString()=="Genre"){
-        tfSearch.setVisible(false);
-        pilihPencarian.setVisible(false);
-        jButton2.setVisible(false);
-        tambahFilmButton.setVisible(false);
-        cariByGenre.setVisible(true);
-        
-        }
-    }//GEN-LAST:event_pilihPencarianActionPerformed
+        TambahGenre tambahGenre = new TambahGenre(this, true);
+        tambahGenre.setVisible(true);
+        updateFilm();
+    }//GEN-LAST:event_btTambahGenreActionPerformed
 
-    private void jbCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCariActionPerformed
+    private void btLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogoutActionPerformed
         // TODO add your handling code here:
-        
-        String sql = null;
-        String keyword=tfSearch.getText();
-        if(pilihPencarian.getSelectedIndex()== 1){
-            sql= "select judul, sinopsis, gambar, aktor, nama, tahun FROM film , genre WHERE genre.id_genre = film.genre and judul like '%"+keyword+"%'";
-            
+        switch(stateLogin){
+            case ADMIN:
+            case USER:  btTambahFilm.setVisible(false);
+                        btTambahGenre.setVisible(false);
+                        btLogout.setVisible(false);
+                        menuUser.setVisible(true);
+                        stateLogin = STATE_LOGIN.NONE;
+                        break;
+            default:    break;
         }
-        else if(pilihPencarian.getSelectedIndex()== 2){
-            sql= "select judul, sinopsis, gambar, aktor, nama, tahun FROM film , genre WHERE genre.id_genre = film.genre and sinopsis like '%"+keyword+"%'";
-        }
-        else if(pilihPencarian.getSelectedIndex() == 3){
-            sql= "select judul, sinopsis, gambar, aktor, nama, tahun FROM film , genre WHERE genre.nama like '%"+keyword+"%'and genre.id_genre = film.genre";
-        }
-        else{
-            sql="select judul, sinopsis, gambar, aktor, nama, tahun FROM film inner join genre on film.genre = genre.id_genre where judul like"+"'%"+keyword+"%'"+"or sinopsis like "+"'%"+keyword+"%'"+"or aktor like"+"'%"+keyword+"%'"+"or nama like"+"'%"+keyword+"%'"+"or tahun like"+"'%"+keyword+"%'";
-        }
-            try{
-            Connection conn = ModulDB.connectDB();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            DefaultTableModel model = (DefaultTableModel)jTabBeranda.getModel();
-            model.setRowCount(0);
-         
-            
-             while(rs.next()){
-              
-                Object obj[] = new Object[6];
-                obj[0]  = rs.getString("judul");
-                obj[1]  = rs.getString("sinopsis");
-                obj[2]  = rs.getString("gambar");
-                obj[3]  = rs.getString("aktor");
-                obj[4]  = rs.getString("nama");
-                obj[5]  = rs.getString("tahun");
-                
-                 //btn.addActionListener(new Film(judul,sinopsis,aktor));
-                 
-                 
-                model.addRow(obj);
+    }//GEN-LAST:event_btLogoutActionPerformed
 
-               
-            
-            
-        } 
-        }catch(SQLException e) {
-            System.out.println(e.getMessage());
-                     }
-      
-        //}
-    }//GEN-LAST:event_jbCariActionPerformed
+    private void btTambahFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTambahFilmActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        new Genre().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+        TambahFilm tambah = new TambahFilm(this, true);
+        tambah.setVisible(true);
+        updateFilm();
+    }//GEN-LAST:event_btTambahFilmActionPerformed
 
-    private void cariByGenreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariByGenreActionPerformed
-        // TODO add your handling code here:
-        cariByGenre.setVisible(false);
-       
-    }//GEN-LAST:event_cariByGenreActionPerformed
-
-    public void updateFilm(){
-        
-        try{
-            Connection conn = ModulDB.connectDB();
-            String sql= "select judul, sinopsis, gambar, aktor, nama, tahun FROM film , genre WHERE genre.id_genre = film.genre";
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            DefaultTableModel model = (DefaultTableModel)jTabBeranda.getModel();
-            model.setRowCount(0);
-         
-            
-             while(rs.next()){
-              
-                Object obj[] = new Object[6];
-                obj[0]  = rs.getString("judul");
-                obj[1]  = rs.getString("sinopsis");
-                obj[2]  = rs.getString("gambar");
-                obj[3]  = rs.getString("aktor");
-                obj[4]  = rs.getString("nama");
-                obj[5]  = rs.getString("tahun");
-//                JButton btn = new JButton(judul);
-//                 //btn.addActionListener(new Film(judul,sinopsis,aktor));
-//                 add(btn);
-                 
-                model.addRow(obj);
-
-               
-            
-            
-        } 
-        }catch(SQLException e) {
-            System.out.println(e.getMessage());
-                     }
-        
-    }
-//        private void cariFilm(String keyword){
-//        try{
-        //String sql="SELECT judul, genre, sinopsis FROM film WHERE judul LIKE '%"+keyword+"%' OR genre LIKE '%"+keyword+"%'  OR sinopsis LIKE '%"+keyword+"%'";
-//            Connection con=ModulDB.connectDB();
-//            Statement stmt=con.createStatement();
-//            ResultSet result=stmt.executeQuery(sql);
-//            DefaultTableModel model=(DefaultTableModel)jTabBeranda.getModel();
-//            model.setRowCount(0);
-//            while(result.next()){
-//                Vector row=new Vector();
-//                row.add(result.getString("judul"));
-//                row.add(result.getString("genre"));
-//                row.add(result.getString("sinopsis"));
-//                model.addRow(row);
-//            }
-//            //con.close();
-//            jTabBeranda.setModel(model);
-//        }
-//        catch(SQLException e){
-//            showMessageDialog(null,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-//        }
-//    }
     /**
      * @param args the command line arguments
      */
+    
+        public void updateFilm(){
+        listFilm.clear();
+        pnlFilm.removeAll();
+        listFilm = ModulDB.readFilm();
+        GridBagConstraints gbcPnlFilm = new GridBagConstraints();
+        gbcPnlFilm.insets = new Insets(0,0,0,0);
+        if(listFilm != null){
+            int x = 0;
+            int y = 0;
+            for(Film f : listFilm){
+                JPanel panel = new JPanel();
+                panel.setMinimumSize(new Dimension(100,170));
+                panel.setPreferredSize(new Dimension(100,180));
+                
+                GridBagLayout gblPnlFilm = new GridBagLayout();
+                panel.setLayout(gblPnlFilm);
+                
+                String url = "images/" + f.getGambar();
+                final Film newFilm = f;
+                BufferedImage img = null;
+                System.out.println(url);
+                try {
+                    img = ImageIO.read(new File(url));
+                } catch (IOException ex) {
+                    Logger.getLogger(Beranda.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Image scaled = img.getScaledInstance(100, 150, Image.SCALE_SMOOTH);
+                JLabel newLabel = new JLabel();
+                newLabel.setPreferredSize(new Dimension(100,200));
+                newLabel.setText(f.getJudul() + " (" + Integer.toString(f.getTahun()) + ")");
+                newLabel.setIcon(new ImageIcon(scaled));
+                newLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
+                newLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+                newLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+                
+                newLabel.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        InfoFilm info = new InfoFilm(newFilm,stateLogin);
+                        info.setVisible(true);
+                        Beranda.this.dispose();
+                        updateFilm();}
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                    }
+                });
+                pnlFilm.add(newLabel,gbcPnlFilm);
+                
+                JLabel newLabel2 = new JLabel();
+                newLabel2.setText(ModulDB.ambilNamaGenre(f.getGenre()));
+                newLabel2.setHorizontalTextPosition(SwingConstants.RIGHT);
+                
+                gbcPnlFilm.fill = GridBagConstraints.BOTH;
+                gbcPnlFilm.gridx = 0;
+                gbcPnlFilm.gridy = 0;
+                gbcPnlFilm.gridheight = 1;
+                gbcPnlFilm.gridwidth = 1;
+                gbcPnlFilm.weightx = 1;
+                gbcPnlFilm.weighty = 1;
+                panel.add(newLabel,gbcPnlFilm);
+
+                gbcPnlFilm.fill = GridBagConstraints.BOTH;
+                gbcPnlFilm.gridx = 0;
+                gbcPnlFilm.gridy = 1;
+                gbcPnlFilm.gridheight = 1;
+                gbcPnlFilm.gridwidth = 1;
+                gbcPnlFilm.weightx = 1;
+                gbcPnlFilm.weighty = 1;
+                
+                panel.add(newLabel2,gbcPnlFilm);
+                
+                pnlFilm.add(panel);
+            }
+        
+                pnlFilm.revalidate();
+                pnlFilm.repaint();
+        }
+    }
+
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -519,7 +572,7 @@ public class Beranda extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -539,39 +592,31 @@ public class Beranda extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Beranda().setVisible(true);
-                //cariByGenre.setVisible(false);
+              Beranda b = new Beranda(STATE_LOGIN.NONE);
+              b.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cariByGenre;
+    private javax.swing.JButton btLogout;
+    private javax.swing.JButton btTambahFilm;
+    private javax.swing.JButton btTambahGenre;
+    private javax.swing.JButton jBack;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JTable jTabBeranda;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JButton jbCari;
-    private javax.swing.JCheckBoxMenuItem menuDaftar;
+    private javax.swing.JMenuItem menuAction;
     private javax.swing.JCheckBoxMenuItem menuDaftar1;
-    private javax.swing.JCheckBoxMenuItem menuMasuk;
+    private javax.swing.JMenu menuGenre;
+    private javax.swing.JMenuItem menuHoror;
     private javax.swing.JCheckBoxMenuItem menuMasuk1;
-    private javax.swing.JComboBox<String> pilihPencarian;
-    private javax.swing.JButton tambahFilmButton;
+    private javax.swing.JMenuItem menuRomance;
+    private javax.swing.JMenu menuUser;
+    private javax.swing.JComboBox<String> pilihGenre;
+    private javax.swing.JPanel pnlFilm;
     private javax.swing.JTextField tfSearch;
+    private javax.swing.JLabel welcome;
     // End of variables declaration//GEN-END:variables
 }

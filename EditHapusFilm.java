@@ -81,6 +81,7 @@ public void tambahGenre(){
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        tfGenre2 = new javax.swing.JComboBox<>();
         FilmBiasa1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         tfJudul = new javax.swing.JTextField();
@@ -171,6 +172,12 @@ public void tambahGenre(){
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
+            }
+        });
+
+        tfGenre2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfGenre2ActionPerformed(evt);
             }
         });
 
@@ -291,8 +298,12 @@ public void tambahGenre(){
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(tfAktor1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfGenre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tftahun1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(tfGenre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(tfGenre2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(tftahun1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jButton6)
                             .addGap(26, 26, 26)
@@ -342,7 +353,8 @@ public void tambahGenre(){
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfGenre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfGenre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfGenre2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -454,12 +466,13 @@ public void tambahGenre(){
             pathGambar = fileName;
         }
         boolean isSuccess = ModulDB.editFilm(tfJudul.getText(), tfSinopsis.getText(),
-            pathGambar, tfAktor.getText(),ModulDB.getIndexGenre((String)tfGenre.getSelectedItem()),tftahun.getText(),judul,aktor);
+            pathGambar, tfAktor.getText(),ModulDB.getIndexGenre((String)tfGenre.getSelectedItem()),
+            ModulDB.getIndexGenre((String)tfGenre2.getSelectedItem()),tftahun.getText(),judul,aktor);
         System.out.println(tfGenre.getSelectedIndex());
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Film berhasil diedit n dan tersimpan di database",
                 "Film Berhasil Diedit",JOptionPane.INFORMATION_MESSAGE);
-            new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
+            new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
             this.dispose();
         }
         else{
@@ -475,7 +488,7 @@ public void tambahGenre(){
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Film berhasil di hapus database",
                 "Film Berhasil di hapus",JOptionPane.INFORMATION_MESSAGE);
-            new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
+            new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
             this.dispose();
         }
         else{
@@ -487,7 +500,7 @@ public void tambahGenre(){
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
+        new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -517,12 +530,13 @@ public void tambahGenre(){
             pathGambar = fileName;
         }
         boolean isSuccess = ModulDB.editFilm(tfJudul.getText(), tfSinopsis.getText(),
-            pathGambar, tfAktor.getText(),ModulDB.getIndexGenre((String)tfGenre.getSelectedItem()),tftahun.getText(),judul,aktor);
+            pathGambar, tfAktor.getText(),ModulDB.getIndexGenre((String)tfGenre.getSelectedItem()),
+            ModulDB.getIndexGenre((String)tfGenre.getSelectedItem()),tftahun.getText(),judul,aktor);
         System.out.println(tfGenre.getSelectedIndex());
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Film berhasil diedit n dan tersimpan di database",
                 "Film Berhasil Diedit",JOptionPane.INFORMATION_MESSAGE);
-            new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
+            new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
             this.dispose();
         }
         else{
@@ -538,7 +552,7 @@ public void tambahGenre(){
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Film berhasil di hapus database",
                 "Film Berhasil di hapus",JOptionPane.INFORMATION_MESSAGE);
-            new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
+            new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
             this.dispose();
         }
         else{
@@ -550,13 +564,17 @@ public void tambahGenre(){
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
+        new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
+
+    private void tfGenre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfGenre2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfGenre2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -634,6 +652,7 @@ public void tambahGenre(){
     private javax.swing.JTextField tfAktor1;
     private javax.swing.JComboBox<String> tfGenre;
     private javax.swing.JComboBox<String> tfGenre1;
+    private javax.swing.JComboBox<String> tfGenre2;
     private javax.swing.JTextField tfJudul;
     private javax.swing.JTextField tfSinopsis;
     private javax.swing.JTextField tfSinopsis1;

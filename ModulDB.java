@@ -13,12 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
-import javax.swing.table.DefaultTableModel;
+import static moviemanager.ModulDB.connectDB;
 
 /**
  *
@@ -67,20 +64,22 @@ public class ModulDB {
         ArrayList<Film> films = new ArrayList<>();
         try{
             Connection conn = connectDB();
-            String sql= "select judul, sinopsis, gambar, aktor, genre, tahun, rating FROM film , genre WHERE genre.id_genre = film.genre";
+            String sql= "select id_film,judul, sinopsis, gambar, aktor, genre, tahun, rating FROM film , genre WHERE genre.id_genre = film.genre";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
             while(rs.next()){
+                int id_film = rs.getInt("id_film");
                 String judul = rs.getString("judul");
                 String sinopsis = rs.getString("sinopsis");
                 String gambar = rs.getString("gambar");
                 String aktor = rs.getString("aktor");
                 int genre = rs.getInt("genre");
+                int genre2 = rs.getInt("genre2");
                 int tahun = rs.getInt("tahun");
                 int rating = rs.getInt("rating");
 
-                Film f = new Film(judul,sinopsis,gambar,aktor,genre,tahun,rating);
+                Film f = new Film(id_film,judul,sinopsis,gambar,aktor,genre,genre2,tahun,rating);
                 
                 films.add(f);
             }
@@ -91,10 +90,10 @@ public class ModulDB {
     }
     
     public static boolean createFilm(String judul, String sinopsis, String pathGambar
-                , String aktor,int genre, String  tahun){
+                , String aktor,int genre,int genre2, String  tahun){
         try{ 
             Connection conn = connectDB();
-            String sql = "insert into film(judul, sinopsis, gambar, aktor,genre,tahun)"+" values(?,?,?,?,?,?)";
+            String sql = "insert into film(judul, sinopsis, gambar, aktor,genre,genre2,tahun)"+" values(?,?,?,?,?,?,?)";
             java.sql.PreparedStatement st = conn.prepareStatement(sql);
 
             try{
@@ -104,7 +103,8 @@ public class ModulDB {
                 st.setString(3,pathGambar);
                 st.setString(4,aktor);
                 st.setInt(5,genre);
-                st.setString(6,tahun);
+                st.setInt(6,genre2);
+                st.setString(7,tahun);
 
                 int count  = st.executeUpdate();
 
@@ -138,14 +138,16 @@ public class ModulDB {
             ResultSet rs    = stmt.executeQuery(sql);
                 while(rs.next())
                 {   
+                    int id_film = rs.getInt("id_film");
                     String judul = rs.getString("judul");
                     String sinopsis = rs.getString("sinopsis");
                     String gambar = rs.getString("gambar");
                     String aktor = rs.getString("aktor");
                     int genre = rs.getInt("genre");
+                    int genre2 = rs.getInt("genre2");
                     int tahun = rs.getInt("tahun");
                     int rating =rs.getInt("rating");
-                    Film newFilm = new Film (judul,sinopsis,gambar,aktor,genre,tahun,rating);
+                    Film newFilm = new Film (id_film,judul,sinopsis,gambar,aktor,genre,genre2,tahun,rating);
                     listFilm.add(newFilm);
                 }
         } catch (SQLException e) {
@@ -162,14 +164,16 @@ public class ModulDB {
             ResultSet rs    = stmt.executeQuery(sql);
                 while(rs.next())
                 {   
+                    int id_film = rs.getInt("id_film");
                     String judul = rs.getString("judul");
                     String sinopsis = rs.getString("sinopsis");
                     String gambar = rs.getString("gambar");
                     String aktor = rs.getString("aktor");
                     int genre = rs.getInt("genre");
+                    int genre2 = rs.getInt("genre2");
                     int tahun = rs.getInt("tahun");
                     int rating =rs.getInt("rating");
-                    Film newFilm = new Film (judul,sinopsis,gambar,aktor,genre,tahun,rating);
+                    Film newFilm = new Film (id_film,judul,sinopsis,gambar,aktor,genre,genre2,tahun,rating);
                     listFilm.add(newFilm);
                 }
         } catch (SQLException e) {
@@ -180,24 +184,24 @@ public class ModulDB {
     
 }
     public static boolean editFilm(String judul,String sinopsis,String pathGambar,
-            String aktor,int genre,String tahun,String judulLama, String aktorLama){
+            String aktor,int genre,int genre2,String tahun,String judulLama, String aktorLama){
         try{
             Connection conn = connectDB();
         
-            String sql = "update film set judul=?,sinopsis=?,gambar=?,aktor=?,genre=?,tahun=?"
+            String sql = "update film set judul=?,sinopsis=?,gambar=?,aktor=?,genre=?,genre2=?,tahun=?"
                     + "where judul=? and aktor=?";
             java.sql.PreparedStatement st = conn.prepareStatement(sql);
 
             try{
-
                 st.setString(1,judul);
                 st.setString(2,sinopsis);
                 st.setString(3,pathGambar);
                 st.setString(4,aktor);
                 st.setInt(5,genre);
-                st.setString(6,tahun);
-                st.setString(7, judulLama);
-                st.setString(8, aktorLama);
+                st.setInt(6, genre2);
+                st.setString(7,tahun);
+                st.setString(8, judulLama);
+                st.setString(9, aktorLama);
                 int count  = st.executeUpdate();
 
                 if(count > 0){
@@ -215,7 +219,7 @@ public class ModulDB {
     public static boolean hapusFilm(String judulLama, String aktorLama){
         try{ 
             Connection conn = connectDB();
-             String sql = "delete from film where judul=? and aktor=?";
+            String sql = "delete from film where judul=? and aktor=?";
             java.sql.PreparedStatement st = conn.prepareStatement(sql);
             st.setString(1, judulLama);
             st.setString(2, aktorLama);
@@ -235,8 +239,8 @@ public class ModulDB {
         try{
             Connection conn = connectDB();
             PreparedStatement st = conn.prepareStatement(sql);
-           st.setString(1,genre);
-           ResultSet rs = st.executeQuery();
+            st.setString(1,genre);
+            ResultSet rs = st.executeQuery();
             idGenre=rs.getInt("id_genre");
             
         }catch(SQLException e) {
@@ -349,7 +353,8 @@ public class ModulDB {
     }
     
     public static ArrayList<String> selectSemuaGenre(){
-        ArrayList<String> genres = new ArrayList<>();       
+        ArrayList<String> genres = new ArrayList<>();
+        ArrayList<String> genres2 = new ArrayList<>();       
         String sql = "select *from genre";
         try{
             Connection conn = connectDB();
@@ -357,6 +362,7 @@ public class ModulDB {
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
                 genres.add(rs.getString("nama"));
+                genres2.add(rs.getString("nama"));
             }
         }catch(SQLException se){
             System.out.println(se.getMessage());    
@@ -394,4 +400,54 @@ public class ModulDB {
                 showMessageDialog(null,e.getMessage(),"Error!",JOptionPane.ERROR_MESSAGE);
             }
     }
+        public static boolean createRating(int nilai_rating,int id_film,int id_akun){
+        try{ 
+             Connection conn = connectDB();
+             String sql = "insert into rating(nilai_rating,id_film,id_akun )"+" values(?,?,?)";
+             java.sql.PreparedStatement st = conn.prepareStatement(sql);
+
+            try{
+                st.setInt(1,nilai_rating);
+                st.setInt(2,id_film);
+                st.setInt(3,id_akun);
+
+                int count  = st.executeUpdate();
+
+                if(count > 0){
+                    return true;
+                }
+            }catch(SQLException se){
+               System.out.println(se.getMessage());
+            }
+             //st.close();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+        
+    public static double readRating(int id_film){
+        double rating = 0 ;
+        try{ 
+             Connection conn = connectDB();
+             String sql = "SELECT round(AVG(nilai_rating),2) as avg from rating WHERE id_film =?";
+             java.sql.PreparedStatement st = conn.prepareStatement(sql);
+
+           
+            st.setInt(1,id_film);
+            
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                rating =  rs.getDouble("avg");
+            }
+                
+            
+             //st.close();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return rating;
+    }
 }
+
+    

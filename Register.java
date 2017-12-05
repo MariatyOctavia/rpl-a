@@ -8,6 +8,11 @@ package moviemanager;
 //import java.awt.HeadlessException;
 //import java.security.MessageDigest;
 import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -217,40 +222,12 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_tfNamaActionPerformed
 
     private void buttonDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDaftarActionPerformed
-        // TODO add your handling code here:
-        /*String password=String.valueOf(pfPass.getPassword());
-        String RePass=String.valueOf(pfRetype.getPassword());
-        if(password.length()>=8 && password.equals(RePass)){
-               try{
-            String query= "Insert into Userr (nama,email,password,level) values(?,?,?,?)";
-            pst = conn.prepareStatement(query);
-            pst.setString(1, tfNama.getText());
-            pst.setString(2, tfEmail.getText());
-            pst.setString(3, md5(pfPass.getPassword()));
-            pst.execute();
-            
-            JOptionPane.showMessageDialog(null, "Selamat Anda berhasil bergabung");
+ 
+        try {
+            registeru();
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch( SQLException | HeadlessException e){
-            JOptionPane.showMessageDialog(null, e);
-        }
-        }
-        else if(password.length()<8)
-            showMessageDialog(null,"Password minimal 8 karakter");
-        else if(!password.equals(RePass))
-            showMessageDialog(null,"Password tidak cocok");
-        
-        tfEmail.setText(" ");
-        pfPass.setText(" ");
-        tfNama.setText(" ");
-        
-        Login l = new Login();
-        Register.this.setVisible(false);
-        l.setVisible(true);
-        
-        
-        */
-              register();
     }//GEN-LAST:event_buttonDaftarActionPerformed
 
       /*  private String md5(char[] c){
@@ -280,51 +257,18 @@ public class Register extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_menuMasuk1ActionPerformed
 
-    private void register(){
+    private void registeru() throws NoSuchAlgorithmException{
         String nama=tfNama.getText();
         String email=tfEmail.getText();
         String password=String.valueOf(pfPass.getPassword());
         String RePass=String.valueOf(pfRetype.getPassword());
         String guest="guest";
-        //pasww & email admin knwsx
-        char[] kr ={'0','1','2','3','4','5','6','7','8','9',' ','.','□',+
-                 'a','b','c','d','e','f','g','h','i','j','k','l','m',+
-                'n','o','p','q','r','s','t','u','v','w','x','y','z'};
-        String emailEnkrip = "";
-        String passEnkrip = "";
-     
-        char[] cArray1 =(email).toCharArray();
-        char[] cArray2 =(password).toCharArray();
+        String passEnkrip ="" ;
 
-        for (char c1 : cArray1){
-            for(int i=0; i<=38; i++){
-                if(c1 == kr[i]){
-                   i = i+(Integer.parseInt("10"));
-                   if(i>=39){
-                       i = i-39;
-                    }
-                    c1 = kr[i];
-                    emailEnkrip = emailEnkrip + c1;
-                 }
-            }
-        }
-        
-        for (char c2 : cArray2){
-            for(int i=0; i<=38; i++){
-                if(c2 == kr[i]){
-                   i = i+(Integer.parseInt("10"));
-                   if(i>=39){
-                       i = i-39;
-                    }
-                    c2 = kr[i];
-                    passEnkrip = passEnkrip + c2;
-                 }
-            }
-        }
-        
+        passEnkrip=md5.md5s(password);
         if(password.length()>=8 && password.equals(RePass)){
-            ModulDB.registerUser(nama, emailEnkrip, passEnkrip, guest);
-            new BerandaUser(BerandaUser.STATE_LOGIN.USER).setVisible(true);
+            ModulDB.registerUser(nama, email, passEnkrip, guest);
+            new Beranda(Beranda.STATE_LOGIN.USER).setVisible(true);
             this.dispose();
         }
         else if(password.length()<8)

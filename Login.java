@@ -6,6 +6,11 @@
 package moviemanager;
 
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javax.swing.JOptionPane.showMessageDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
@@ -33,70 +38,34 @@ public class Login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     
     
-    private void login(){
+    private void runLogin() throws NoSuchAlgorithmException{
         
         String email = tfEmail.getText();
-        String password = pfPass.getText();
+        String password = pfPass.getPassword().toString();
+        String password1 = pfPass.getText();
         String level= cbPilihan.getSelectedItem().toString();
-//        String status=cbPilihan.getSelectedItem().toString();
-        
-        //enkripsi 
-        char[] kr ={'0','1','2','3','4','5','6','7','8','9',' ','.','□',+
-                 'a','b','c','d','e','f','g','h','i','j','k','l','m',+
-                'n','o','p','q','r','s','t','u','v','w','x','y','z'};
-        String emailEnkrip = "";
         String passEnkrip = "";
-     
-        char[] cArray1 =(email).toCharArray();
-        char[] cArray2 =(password).toCharArray();
-
-        for (char c1 : cArray1){
-            for(int i=0; i<=38; i++){
-                if(c1 == kr[i]){
-                   i = i+(Integer.parseInt("10"));
-                   if(i>=39){
-                       i = i-39;
-                    }
-                    c1 = kr[i];
-                    emailEnkrip = emailEnkrip + c1;
-                 }
-            }
+        passEnkrip=md5.md5s(password1);
+        boolean admin = true;
+        boolean login =true;
+        if(!email.equalsIgnoreCase("admin") && !password.equalsIgnoreCase("admin"))
+        {
+            admin = false;
+            login = ModulDB.checkLogin(email, passEnkrip, level);
+            System.out.println(login);
+            System.out.println(email);
+            System.out.println(passEnkrip);
         }
-        
-        for (char c2 : cArray2){
-            for(int i=0; i<=38; i++){
-                if(c2 == kr[i]){
-                   i = i+(Integer.parseInt("10"));
-                   if(i>=39){
-                       i = i-39;
-                    }
-                    c2 = kr[i];
-                    passEnkrip = passEnkrip + c2;
-                 }
-            }
-        }
-        
         if (!email.isEmpty()&& !password.isEmpty()){
-
-            if(!ModulDB.checkLogin(emailEnkrip, passEnkrip, level)){
+            if(!login){
                 showMessageDialog(null, "Email atau Password salah");
             }
-            else if (level=="admin"){
-//                        ModulDB.id_user=result.getInt("id_user");
-//                ModulDB.level=result.getString("level");
-                new BerandaUser(BerandaUser.STATE_LOGIN.ADMIN).setVisible(true);
-                
+            else if (level=="admin" && admin){
+                new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
                 this.dispose();//menyembunyikan halaman login
             }
-            else{
-                //buat menyimpan
-                //ModulDB.id_user=result.getInt("id_user");
-//                User.nama=result.getString("nama");
-//                User.email=result.getString("email");
-//                User.password=result.getString("password");
-//                User.level=result.getString("level");
-
-                new BerandaUser(BerandaUser.STATE_LOGIN.USER).setVisible(true);
+            else if(level== "guest" && !admin ){
+                new Beranda(Beranda.STATE_LOGIN.USER).setVisible(true);
                 this.dispose();//menyembunyikan halaman login
             }      
             
@@ -312,61 +281,13 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_tfEmailActionPerformed
 
     private void buttonMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMasukActionPerformed
-        // TODO add your handling code here:
-        
-        /*try{
-           
-                    
-            String query= "select * from User where Username=? And password=?";
-            pst=con.prepareStatement(query);
-            
-            String uname = new String (tfEmail.getText());
-            String passwd = new String (pfPass.getPassword());
-            
-            
-            
-            pst.setString(1,tfEmail.getText());
-            pst.setString(2, md5(pfPass.getPassword()));
-            rt= pst.executeQuery();
-
-            if(rt.next()){
-                if(uname.equals("admin") && passwd.equals("admin")){
-                    Beranda ad = new Beranda();
-                    Login.this.setVisible(false);
-                    ad.setVisible(true);
-                }
-                else{
-                    BerandaUser h = new BerandaUser();
-                    Login.this.setVisible(false);
-                    h.setVisible(true);
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Anda belum tergabung dengan MovieManager");
-            }
-            
+        try {            
+            runLogin();
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-        
-        login();
     }//GEN-LAST:event_buttonMasukActionPerformed
 
-      /*private String md5(char[] c){
-        try{
-           MessageDigest digs = MessageDigest.getInstance("MD5");
-           digs.update((new String(c)).getBytes("UTF8"));
-           String str = new String(digs.digest());
-           
-           return str;
-        }
-        catch(Exception e){
-            
-        }
-            
-        return "";
-    }*/
     
     private void menuDaftar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDaftar1ActionPerformed
         // TODO add your handling code here:
