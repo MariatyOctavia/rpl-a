@@ -64,7 +64,7 @@ public class ModulDB {
         ArrayList<Film> films = new ArrayList<>();
         try{
             Connection conn = connectDB();
-            String sql= "select id_film,judul, sinopsis, gambar, aktor, genre, tahun, rating FROM film , genre WHERE genre.id_genre = film.genre";
+            String sql= "select id_film,judul, sinopsis, gambar, aktor, genre, tahun, rating,trailer FROM film , genre WHERE genre.id_genre = film.genre";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
@@ -78,9 +78,8 @@ public class ModulDB {
                 int genre2 = rs.getInt("genre2");
                 int tahun = rs.getInt("tahun");
                 int rating = rs.getInt("rating");
-
-                Film f = new Film(id_film,judul,sinopsis,gambar,aktor,genre,genre2,tahun,rating);
-                
+                String trailer = rs.getString("trailer");
+                Film f = new Film(id_film,judul,sinopsis,gambar,aktor,genre,genre2,tahun,rating,trailer);
                 films.add(f);
             }
         }catch(SQLException e) {
@@ -90,10 +89,10 @@ public class ModulDB {
     }
     
     public static boolean createFilm(String judul, String sinopsis, String pathGambar
-                , String aktor,int genre,int genre2, String  tahun){
+                , String aktor,int genre,int genre2,String  tahun,String trailer){
         try{ 
             Connection conn = connectDB();
-            String sql = "insert into film(judul, sinopsis, gambar, aktor,genre,genre2,tahun)"+" values(?,?,?,?,?,?,?)";
+            String sql = "insert into film(judul, sinopsis, gambar, aktor,genre,genre2,tahun,trailer)"+" values(?,?,?,?,?,?,?,?)";
             java.sql.PreparedStatement st = conn.prepareStatement(sql);
 
             try{
@@ -105,7 +104,7 @@ public class ModulDB {
                 st.setInt(5,genre);
                 st.setInt(6,genre2);
                 st.setString(7,tahun);
-
+                st.setString(8,trailer);
                 int count  = st.executeUpdate();
 
                 if(count > 0){
@@ -147,7 +146,8 @@ public class ModulDB {
                     int genre2 = rs.getInt("genre2");
                     int tahun = rs.getInt("tahun");
                     int rating =rs.getInt("rating");
-                    Film newFilm = new Film (id_film,judul,sinopsis,gambar,aktor,genre,genre2,tahun,rating);
+                    String trailer = rs.getString("trailer");
+                    Film newFilm = new Film (id_film,judul,sinopsis,gambar,aktor,genre,genre2,tahun,rating,trailer);
                     listFilm.add(newFilm);
                 }
         } catch (SQLException e) {
@@ -173,7 +173,8 @@ public class ModulDB {
                     int genre2 = rs.getInt("genre2");
                     int tahun = rs.getInt("tahun");
                     int rating =rs.getInt("rating");
-                    Film newFilm = new Film (id_film,judul,sinopsis,gambar,aktor,genre,genre2,tahun,rating);
+                    String trailer = rs.getString("trailer");
+                    Film newFilm = new Film (id_film,judul,sinopsis,gambar,aktor,genre,genre2,tahun,rating,trailer);
                     listFilm.add(newFilm);
                 }
         } catch (SQLException e) {
@@ -184,11 +185,11 @@ public class ModulDB {
     
 }
     public static boolean editFilm(String judul,String sinopsis,String pathGambar,
-            String aktor,int genre,int genre2,String tahun,String judulLama, String aktorLama){
+            String aktor,int genre,int genre2,String tahun,String trailer,String judulLama, String aktorLama){
         try{
             Connection conn = connectDB();
         
-            String sql = "update film set judul=?,sinopsis=?,gambar=?,aktor=?,genre=?,genre2=?,tahun=?"
+            String sql = "update film set judul=?,sinopsis=?,gambar=?,aktor=?,genre=?,genre2=?,tahun=?,trailer=?"
                     + "where judul=? and aktor=?";
             java.sql.PreparedStatement st = conn.prepareStatement(sql);
 
@@ -199,9 +200,10 @@ public class ModulDB {
                 st.setString(4,aktor);
                 st.setInt(5,genre);
                 st.setInt(6, genre2);
-                st.setString(7,tahun);
-                st.setString(8, judulLama);
-                st.setString(9, aktorLama);
+                st.setString(7,trailer);
+                st.setString(8,tahun);
+                st.setString(9, judulLama);
+                st.setString(10, aktorLama);
                 int count  = st.executeUpdate();
 
                 if(count > 0){

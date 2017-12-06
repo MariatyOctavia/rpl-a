@@ -11,6 +11,7 @@ package moviemanager;
  */
 public class User {
     private static int id_akun;
+    private static String nama;
     private static String email;
     private static String password;
     private static String level;
@@ -27,6 +28,20 @@ public class User {
      */
     public static void setId_akun(int aId_akun) {
         id_akun = aId_akun;
+    }
+
+    /**
+     * @return the nama
+     */
+    public static String getNama() {
+        return nama;
+    }
+
+    /**
+     * @param aNama the nama to set
+     */
+    public static void setNama(String aNama) {
+        nama = aNama;
     }
 
     /**

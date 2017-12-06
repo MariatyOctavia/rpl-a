@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  */
 public class Register extends javax.swing.JFrame {
 
+    String nama;
     /**
      * Creates new form Register
      */
@@ -224,7 +225,7 @@ public class Register extends javax.swing.JFrame {
     private void buttonDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDaftarActionPerformed
  
         try {
-            registeru();
+            runRegister();
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -257,7 +258,7 @@ public class Register extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_menuMasuk1ActionPerformed
 
-    private void registeru() throws NoSuchAlgorithmException{
+    private void runRegister() throws NoSuchAlgorithmException{
         String nama=tfNama.getText();
         String email=tfEmail.getText();
         String password=String.valueOf(pfPass.getPassword());

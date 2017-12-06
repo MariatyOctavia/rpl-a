@@ -252,7 +252,7 @@ public class TambahGenre extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-                        JPopupMenu menupop = new JPopupMenu();
+        JPopupMenu menupop = new JPopupMenu();
         JMenuItem menuitem = new JMenuItem("Edit/Hapus Genre"); 
         
         menuitem.addActionListener((ActionEvent e) -> {

@@ -78,6 +78,7 @@
                                   </Group>
                               </Group>
                           </Group>
+                          <Component id="btnTrailer" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -105,10 +106,12 @@
                   <Component id="Judul1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="tfGenre" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Judul2" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="tfGenre2" alignment="1" min="-2" pref="14" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="tfGenre" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Judul2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -130,9 +133,11 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="146" max="32767" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnTrailer" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -275,6 +280,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Romance "/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnTrailer">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Open Trailer"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTrailerActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

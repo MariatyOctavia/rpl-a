@@ -19,8 +19,9 @@ public class Film {
     private int genre2;
     private int tahun;
     private int rating;
+    private String trailer;
     
-    public Film(int id_film, String judul, String sinopsis,String gambar,String aktor,int genre,int genre2,int tahun,int rating){
+    public Film(int id_film, String judul, String sinopsis,String gambar,String aktor,int genre,int genre2,int tahun,int rating,String trailer){
     this.id_film = id_film;
     this.judul = judul;
     this.sinopsis= sinopsis;
@@ -30,6 +31,7 @@ public class Film {
     this.genre2 = genre2;
     this.tahun =tahun;
     this.rating = rating;
+    this.trailer =trailer;
     }
     /**
      * @return the judul
@@ -155,5 +157,19 @@ public class Film {
      */
     public void setGenre2(int genre2) {
         this.genre2 = genre2;
+    }
+
+    /**
+     * @return the trailer
+     */
+    public String getTrailer() {
+        return trailer;
+    }
+
+    /**
+     * @param trailer the trailer to set
+     */
+    public void setTrailer(String trailer) {
+        this.trailer = trailer;
     }
 }

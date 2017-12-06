@@ -12,6 +12,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -23,7 +24,9 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 
 /**
@@ -48,14 +51,18 @@ public class Beranda extends javax.swing.JFrame {
                         btTambahGenre.setVisible(true);
                         btLogout.setVisible(true);
                         menuUser.setVisible(false);
+                        welcome.setText("Selamat datang admin");
                         break;
             case USER:  btTambahFilm.setVisible(false);
                         btTambahGenre.setVisible(false);
                         btLogout.setVisible(true);
                         menuUser.setVisible(false);
+                        welcome.setText("Selamat datang ");
                         break;
             case NONE:  menuUser.setVisible(true);
+                        welcome.setText("Selamat datang Guest");
                         break;
+                        
         }
         pnlFilm.setLayout(new GridLayout(0,5));
         //this.getContentPane().setBackground(Color.WHITE);// untuk ser warna background
@@ -144,7 +151,7 @@ public class Beranda extends javax.swing.JFrame {
         );
         pnlFilmLayout.setVerticalGroup(
             pnlFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 197, Short.MAX_VALUE)
+            .addGap(0, 154, Short.MAX_VALUE)
         );
 
         jBack.setText("Back");
@@ -154,6 +161,7 @@ public class Beranda extends javax.swing.JFrame {
             }
         });
 
+        welcome.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         welcome.setText("Selamat datang, ");
 
         btLogout.setText("Logout");
@@ -227,53 +235,54 @@ public class Beranda extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlFilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(welcome))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                                .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(pilihGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(8, 8, 8)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jBack)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
-                                        .addComponent(btLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton1)
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btTambahFilm)
-                        .addGap(57, 57, 57)
-                        .addComponent(btTambahGenre)))
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                                .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(welcome)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pilihGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBack)
+                        .addGap(27, 27, 27)
+                        .addComponent(btLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btTambahFilm)
+                                .addGap(57, 57, 57)
+                                .addComponent(btTambahGenre))
+                            .addComponent(pnlFilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBack)
-                            .addComponent(btLogout))
-                        .addGap(7, 7, 7)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(pilihGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(welcome, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(25, 25, 25)
+                            .addComponent(jLabel11))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(pilihGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton1)
+                                .addComponent(jBack))
+                            .addGap(3, 3, 3)))
+                    .addComponent(btLogout))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(welcome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btTambahFilm)
                     .addComponent(btTambahGenre))
@@ -345,21 +354,29 @@ public class Beranda extends javax.swing.JFrame {
             sql= "select * FROM film , genre WHERE genre.id_genre = film.genre and sinopsis like '%"+keyword+"%'";
         }
         else if(pilihGenre.getSelectedIndex() == 3){
-            sql= "select * FROM film , genre WHERE genre.nama like '%"+keyword+"%'and genre.id_genre = film.genre";
+            sql= "select * FROM film , genre "
+                    + "WHERE genre.nama like '%"+keyword+"%' and genre.id_genre = film.genre "
+                    + "or genre.nama like '%"+keyword+"%' and genre.id_genre = film.genre2";
         }
         else{
             sql="select * FROM film inner join genre on film.genre = genre.id_genre where judul like"+"'%"+keyword+"%'"+"or sinopsis like "+"'%"+keyword+"%'"+"or aktor like"+"'%"+keyword+"%'"+"or nama like"+"'%"+keyword+"%'"+"or tahun like"+"'%"+keyword+"%'";
         }
-        System.out.println(sql);
         listFilm.clear();
         pnlFilm.removeAll();
         listFilm = ModulDB.searchFilm(sql);
         
         GridBagConstraints gbcPnlFilm = new GridBagConstraints();
-        gbcPnlFilm.insets = new Insets(5,2,5,2);
+        gbcPnlFilm.insets = new Insets(0,0,0,0);
         
         if(listFilm != null){
             for(Film f : listFilm){
+                JPanel panel = new JPanel();
+                panel.setMinimumSize(new Dimension(100,170));
+                panel.setPreferredSize(new Dimension(100,180));
+                
+                GridBagLayout gblPnlFilm = new GridBagLayout();
+                panel.setLayout(gblPnlFilm);
+                
                 String url = "images/" + f.getGambar();
                 final Film newFilm = f;
                 BufferedImage img = null;
@@ -381,10 +398,13 @@ public class Beranda extends javax.swing.JFrame {
                 newLabel.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        InfoFilm info = new InfoFilm(newFilm, stateLogin);
-                        info.setVisible(true);
-                        Beranda.this.dispose();
-                        updateFilm();}
+                        if(e.getButton() == MouseEvent.BUTTON1){
+                            InfoFilm info = new InfoFilm(newFilm,stateLogin);
+                            info.setVisible(true);
+                            Beranda.this.dispose();
+                            updateFilm();
+                        }
+                    }
 
                     @Override
                     public void mousePressed(MouseEvent e) {
@@ -402,17 +422,22 @@ public class Beranda extends javax.swing.JFrame {
                     public void mouseExited(MouseEvent e) {
                     }
                 });
+                pnlFilm.add(newLabel,gbcPnlFilm);
+                
                 JLabel newLabel2 = new JLabel();
-                newLabel2.setText(ModulDB.ambilNamaGenre(f.getGenre()));
-                gbcPnlFilm.fill = GridBagConstraints.HORIZONTAL;
+                newLabel2.setText(ModulDB.ambilNamaGenre(f.getGenre())+","+ModulDB.ambilNamaGenre(f.getGenre2()));
+                newLabel2.setHorizontalTextPosition(SwingConstants.RIGHT);
+                
+                gbcPnlFilm.fill = GridBagConstraints.BOTH;
                 gbcPnlFilm.gridx = 0;
                 gbcPnlFilm.gridy = 0;
                 gbcPnlFilm.gridheight = 1;
                 gbcPnlFilm.gridwidth = 1;
                 gbcPnlFilm.weightx = 1;
                 gbcPnlFilm.weighty = 1;
-                
-                pnlFilm.add(newLabel,gbcPnlFilm);
+                panel.add(newLabel,gbcPnlFilm);
+
+                gbcPnlFilm.fill = GridBagConstraints.BOTH;
                 gbcPnlFilm.gridx = 0;
                 gbcPnlFilm.gridy = 1;
                 gbcPnlFilm.gridheight = 1;
@@ -420,7 +445,20 @@ public class Beranda extends javax.swing.JFrame {
                 gbcPnlFilm.weightx = 1;
                 gbcPnlFilm.weighty = 1;
                 
-                pnlFilm.add(newLabel2,gbcPnlFilm);
+                panel.add(newLabel2,gbcPnlFilm);
+                
+                JPopupMenu menupop = new JPopupMenu();
+                JMenuItem menuitem = new JMenuItem("Edit/Hapus film"); 
+         
+                menuitem.addActionListener((ActionEvent e) -> {
+                        EditHapusFilm edits = new EditHapusFilm(this,true,f.getJudul(),f.getSinopsis(),
+                        f.getGambar(),f.getAktor(),f.getGenre(),f.getGenre2(),Integer.toString(f.getTahun()),f.getTrailer());
+                        edits.setVisible(true);//To change body of generated methods, choose Tools | Templates.
+                        updateFilm();
+                });
+                menupop.add(menuitem);
+                if(stateLogin == STATE_LOGIN.ADMIN)panel.setComponentPopupMenu(menupop);              
+                pnlFilm.add(panel);
             }
         
                 pnlFilm.revalidate();
@@ -449,7 +487,7 @@ public class Beranda extends javax.swing.JFrame {
     private void btLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogoutActionPerformed
         // TODO add your handling code here:
         switch(stateLogin){
-            case ADMIN:
+            case ADMIN: updateFilm();
             case USER:  btTambahFilm.setVisible(false);
                         btTambahGenre.setVisible(false);
                         btLogout.setVisible(false);
@@ -509,10 +547,13 @@ public class Beranda extends javax.swing.JFrame {
                 newLabel.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        InfoFilm info = new InfoFilm(newFilm,stateLogin);
-                        info.setVisible(true);
-                        Beranda.this.dispose();
-                        updateFilm();}
+                        if(e.getButton() == MouseEvent.BUTTON1){
+                            InfoFilm info = new InfoFilm(newFilm,stateLogin);
+                            info.setVisible(true);
+                            Beranda.this.dispose();
+                            updateFilm();
+                        }
+                    }
 
                     @Override
                     public void mousePressed(MouseEvent e) {
@@ -533,7 +574,7 @@ public class Beranda extends javax.swing.JFrame {
                 pnlFilm.add(newLabel,gbcPnlFilm);
                 
                 JLabel newLabel2 = new JLabel();
-                newLabel2.setText(ModulDB.ambilNamaGenre(f.getGenre()));
+                newLabel2.setText(ModulDB.ambilNamaGenre(f.getGenre())+","+ModulDB.ambilNamaGenre(f.getGenre2()));
                 newLabel2.setHorizontalTextPosition(SwingConstants.RIGHT);
                 
                 gbcPnlFilm.fill = GridBagConstraints.BOTH;
@@ -555,6 +596,17 @@ public class Beranda extends javax.swing.JFrame {
                 
                 panel.add(newLabel2,gbcPnlFilm);
                 
+                JPopupMenu menupop = new JPopupMenu();
+                JMenuItem menuitem = new JMenuItem("Edit/Hapus film"); 
+         
+                menuitem.addActionListener((ActionEvent e) -> {
+                        EditHapusFilm edits = new EditHapusFilm(this,true,f.getJudul(),f.getSinopsis(),
+                        f.getGambar(),f.getAktor(),f.getGenre(),f.getGenre2(),Integer.toString(f.getTahun()),f.getTrailer());
+                        edits.setVisible(true);//To change body of generated methods, choose Tools | Templates.
+                        updateFilm();
+                });
+                menupop.add(menuitem);
+                if(stateLogin == STATE_LOGIN.ADMIN)panel.setComponentPopupMenu(menupop);              
                 pnlFilm.add(panel);
             }
         

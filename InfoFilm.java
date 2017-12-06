@@ -5,6 +5,7 @@
  */
 package moviemanager;
 
+import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -21,6 +22,7 @@ import javax.swing.JOptionPane;
  */
 public class InfoFilm extends javax.swing.JFrame {
     private Film film;
+    private String fileVideo = "";
     
     private Beranda.STATE_LOGIN stateLogin;
     /**
@@ -92,6 +94,7 @@ public class InfoFilm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lblRating = new javax.swing.JLabel();
         tfGenre2 = new javax.swing.JLabel();
+        btnTrailer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -173,6 +176,13 @@ public class InfoFilm extends javax.swing.JFrame {
 
         tfGenre2.setText("Romance ");
 
+        btnTrailer.setText("Open Trailer");
+        btnTrailer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrailerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -220,7 +230,8 @@ public class InfoFilm extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(bntng4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(bntng5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(bntng5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnTrailer, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -240,10 +251,11 @@ public class InfoFilm extends javax.swing.JFrame {
                     .addComponent(tfAktor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Judul1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfGenre)
-                    .addComponent(Judul2)
-                    .addComponent(tfGenre2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfGenre2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfGenre)
+                        .addComponent(Judul2)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Tahun)
@@ -261,9 +273,11 @@ public class InfoFilm extends javax.swing.JFrame {
                     .addComponent(lblRating, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnTrailer)
+                .addGap(24, 24, 24)
                 .addComponent(jButton1)
-                .addGap(56, 56, 56))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -351,6 +365,15 @@ public class InfoFilm extends javax.swing.JFrame {
                 "Error: Terjadi Kesalahan",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_bntng5ActionPerformed
+
+    private void btnTrailerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrailerActionPerformed
+        // TODO add your handling code here:
+        try{
+            Desktop.getDesktop().open(new File(fileVideo));
+        }catch(IOException ex){
+           System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_btnTrailerActionPerformed
     private void setData() {
         String url = "images/" + film.getGambar();
         BufferedImage img = null;
@@ -359,8 +382,8 @@ public class InfoFilm extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(Beranda.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-        
+        fileVideo = "trailer/" +film.getTrailer();
+           
         Image scaled = img.getScaledInstance(200, 300, Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(scaled);
         tfJudul.setText(film.getJudul());
@@ -419,6 +442,7 @@ public class InfoFilm extends javax.swing.JFrame {
     private javax.swing.JButton bntng3;
     private javax.swing.JButton bntng4;
     private javax.swing.JButton bntng5;
+    private javax.swing.JButton btnTrailer;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
