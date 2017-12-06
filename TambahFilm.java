@@ -357,7 +357,7 @@ private File fileVideo = null;
 
     private void jBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBatalActionPerformed
         // TODO add your handling code here:
-        new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
+        new Beranda(Beranda.STATE_LOGIN.ADMIN,"Admin").setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBatalActionPerformed
 

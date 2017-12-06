@@ -234,7 +234,6 @@ public class EditHapusGenre extends javax.swing.JDialog {
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Genre berhasil di hapus database",
                 "Genre Berhasil di hapus",JOptionPane.INFORMATION_MESSAGE);
-            new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
             this.dispose();
         }
         else{
@@ -246,7 +245,6 @@ public class EditHapusGenre extends javax.swing.JDialog {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 

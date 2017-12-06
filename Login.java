@@ -48,10 +48,14 @@ public class Login extends javax.swing.JFrame {
         passEnkrip=md5.md5s(password1);
         boolean admin = true;
         boolean login =true;
+        String nama = "";
         if(!email.equalsIgnoreCase("admin") && !password.equalsIgnoreCase("admin"))
         {
             admin = false;
             login = ModulDB.checkLogin(email, passEnkrip, level);
+            nama = ModulDB.getNamaUser(email);
+            System.out.println("email: "+email);
+            System.out.println("nama: " +nama);
             System.out.println(login);
             System.out.println(email);
             System.out.println(passEnkrip);
@@ -61,11 +65,11 @@ public class Login extends javax.swing.JFrame {
                 showMessageDialog(null, "Email atau Password salah");
             }
             else if (level=="admin" && admin){
-                new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
+                new Beranda(Beranda.STATE_LOGIN.ADMIN, "Admin").setVisible(true);
                 this.dispose();//menyembunyikan halaman login
             }
             else if(level== "guest" && !admin ){
-                new Beranda(Beranda.STATE_LOGIN.USER).setVisible(true);
+                new Beranda(Beranda.STATE_LOGIN.USER, nama).setVisible(true);
                 this.dispose();//menyembunyikan halaman login
             }      
             

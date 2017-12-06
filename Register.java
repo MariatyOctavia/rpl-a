@@ -269,7 +269,7 @@ public class Register extends javax.swing.JFrame {
         passEnkrip=md5.md5s(password);
         if(password.length()>=8 && password.equals(RePass)){
             ModulDB.registerUser(nama, email, passEnkrip, guest);
-            new Beranda(Beranda.STATE_LOGIN.USER).setVisible(true);
+            new Beranda(Beranda.STATE_LOGIN.USER, nama).setVisible(true);
             this.dispose();
         }
         else if(password.length()<8)

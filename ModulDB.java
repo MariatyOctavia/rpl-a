@@ -200,8 +200,8 @@ public class ModulDB {
                 st.setString(4,aktor);
                 st.setInt(5,genre);
                 st.setInt(6, genre2);
-                st.setString(7,trailer);
-                st.setString(8,tahun);
+                st.setString(7,tahun);
+                 st.setString(8,trailer);
                 st.setString(9, judulLama);
                 st.setString(10, aktorLama);
                 int count  = st.executeUpdate();
@@ -449,6 +449,22 @@ public class ModulDB {
             System.out.println(e.getMessage());
         }
         return rating;
+    }
+
+    public static String getNamaUser(String email) {
+        String nama="";
+            String sql = "select nama from Userr where email = '"+email+"'";
+        System.out.println(sql);
+        try{
+            Connection conn = connectDB();
+            PreparedStatement st = conn.prepareStatement(sql);
+           ResultSet rs = st.executeQuery();
+            nama =rs.getString("nama");
+            
+        }catch(SQLException e) {
+            System.out.println(e.getMessage());
+                     }
+        return nama;
     }
 }
 

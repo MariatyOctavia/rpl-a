@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 public class InfoFilm extends javax.swing.JFrame {
     private Film film;
     private String fileVideo = "";
+    private String nama = "";
     
     private Beranda.STATE_LOGIN stateLogin;
     /**
@@ -33,12 +34,13 @@ public class InfoFilm extends javax.swing.JFrame {
 
     }
 
-    InfoFilm(Film newFilm,Beranda.STATE_LOGIN stateLogin) {
+    InfoFilm(Film newFilm,Beranda.STATE_LOGIN stateLogin, String nama) {
         this();
         this.film = newFilm;
         double rat = ModulDB.readRating(film.getId_film());
         this.lblRating.setText(""+rat);
         this.stateLogin= stateLogin;
+        this.nama = nama;
             switch(stateLogin){
             case ADMIN: bntng1.setVisible(false);
                         bntng2.setVisible(false);
@@ -290,7 +292,7 @@ public class InfoFilm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        new Beranda(stateLogin).setVisible(true);
+        new Beranda(stateLogin, nama).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

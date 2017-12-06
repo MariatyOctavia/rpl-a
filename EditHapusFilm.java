@@ -276,10 +276,11 @@ public class EditHapusFilm extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tfSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btGambar)
-                            .addComponent(namaGambar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(namaGambar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btGambar)))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfAktor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -378,7 +379,7 @@ public class EditHapusFilm extends javax.swing.JDialog {
         if(fileVideo != null){
             String fileName = tfJudul.getText() + "." +
             ExtensionUtils.getExtension(fileVideo);
-            String target = "videos" + fileName;
+            String target = "trailer/" + fileName;
             try {
                 Files.copy(fileVideo.toPath(), Paths.get(target) ,
                     REPLACE_EXISTING);
@@ -395,7 +396,7 @@ public class EditHapusFilm extends javax.swing.JDialog {
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Film berhasil diedit n dan tersimpan di database",
                 "Film Berhasil Diedit",JOptionPane.INFORMATION_MESSAGE);
-            new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
+            new Beranda(Beranda.STATE_LOGIN.ADMIN,"Admin").setVisible(true);
             this.dispose();
         }
         else{
@@ -411,7 +412,7 @@ public class EditHapusFilm extends javax.swing.JDialog {
         if(isSuccess){
             JOptionPane.showMessageDialog(this,"Film berhasil di hapus database",
                 "Film Berhasil di hapus",JOptionPane.INFORMATION_MESSAGE);
-            new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
+            new Beranda(Beranda.STATE_LOGIN.ADMIN,"Admin").setVisible(true);
             this.dispose();
         }
         else{
@@ -423,7 +424,7 @@ public class EditHapusFilm extends javax.swing.JDialog {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
+        new Beranda(Beranda.STATE_LOGIN.ADMIN,"Admin").setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -441,6 +442,7 @@ public class EditHapusFilm extends javax.swing.JDialog {
         int returnVal = fc.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
+            fileVideo = file;
         }
 
     }//GEN-LAST:event_btTrailerActionPerformed

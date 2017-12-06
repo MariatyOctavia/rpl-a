@@ -246,7 +246,7 @@ public class TambahGenre extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        new Beranda(Beranda.STATE_LOGIN.ADMIN).setVisible(true);
+        new Beranda(Beranda.STATE_LOGIN.ADMIN,"Admin").setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

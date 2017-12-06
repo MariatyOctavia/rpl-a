@@ -38,29 +38,31 @@ public class Beranda extends javax.swing.JFrame {
 
        public static enum STATE_LOGIN {USER,ADMIN,NONE};
        private STATE_LOGIN stateLogin = STATE_LOGIN.NONE;
+       private String nama;
     /**
      * Creates new form BerandaUser
      */
-    public Beranda(STATE_LOGIN stateLogin) {
+    public Beranda(STATE_LOGIN stateLogin, String nama) {
         initComponents();
         this.stateLogin= stateLogin;
         jBack.setVisible(false);
+        this.nama = nama;
         
         switch(stateLogin){
             case ADMIN: btTambahFilm.setVisible(true);
                         btTambahGenre.setVisible(true);
                         btLogout.setVisible(true);
                         menuUser.setVisible(false);
-                        welcome.setText("Selamat datang admin");
+                        welcome.setText("Selamat datang " +nama +" :)");
                         break;
             case USER:  btTambahFilm.setVisible(false);
                         btTambahGenre.setVisible(false);
                         btLogout.setVisible(true);
                         menuUser.setVisible(false);
-                        welcome.setText("Selamat datang ");
+                        welcome.setText("Selamat datang " +nama);
                         break;
             case NONE:  menuUser.setVisible(true);
-                        welcome.setText("Selamat datang Guest");
+                        welcome.setText("Selamat datang " +nama);
                         break;
                         
         }
@@ -399,7 +401,7 @@ public class Beranda extends javax.swing.JFrame {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         if(e.getButton() == MouseEvent.BUTTON1){
-                            InfoFilm info = new InfoFilm(newFilm,stateLogin);
+                            InfoFilm info = new InfoFilm(newFilm,stateLogin, nama);
                             info.setVisible(true);
                             Beranda.this.dispose();
                             updateFilm();
@@ -493,6 +495,7 @@ public class Beranda extends javax.swing.JFrame {
                         btLogout.setVisible(false);
                         menuUser.setVisible(true);
                         stateLogin = STATE_LOGIN.NONE;
+                        welcome.setText("Selamat datang Guest");
                         break;
             default:    break;
         }
@@ -548,7 +551,7 @@ public class Beranda extends javax.swing.JFrame {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         if(e.getButton() == MouseEvent.BUTTON1){
-                            InfoFilm info = new InfoFilm(newFilm,stateLogin);
+                            InfoFilm info = new InfoFilm(newFilm,stateLogin, nama);
                             info.setVisible(true);
                             Beranda.this.dispose();
                             updateFilm();
@@ -644,7 +647,7 @@ public class Beranda extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-              Beranda b = new Beranda(STATE_LOGIN.NONE);
+              Beranda b = new Beranda(STATE_LOGIN.NONE, "Guest");
               b.setVisible(true);
             }
         });
